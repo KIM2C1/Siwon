@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        var site = prompt("네이버, 구글, Github 중 택1");
+        var url;
+
+        switch(stie) {
+            case "네이버": url = "www.naver.com";
+            break;
+            case "구글": url = "www.google.com";
+            break;
+            case "Github": url = "github.com";
+            break;
+            default: alert("잘못입력!");
+        }
+
+        window.location.href = "https://" + url;
+    </script>
+</body>
+</html>
