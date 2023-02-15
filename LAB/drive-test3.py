@@ -89,7 +89,7 @@ while buff:
     OUT_FR_2 = OUT_FL_1 = OUT_RR_1 = OUT_RL_2 = 0
     """
     
-    pwm_FR.ChangeDutyCycle(43)
+    pwm_FR.ChangeDutyCycle(0)
     pwm_FL.ChangeDutyCycle(speed)
     pwm_RR.ChangeDutyCycle(43)
     pwm_RL.ChangeDutyCycle(speed)
