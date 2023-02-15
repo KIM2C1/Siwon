@@ -9,7 +9,6 @@ FL-----FR
 
 import RPi.GPIO as GPIO
 import time
-import keyboard
 
 GPIO.setmode(GPIO.BCM)
 GPIO.setwarnings(False)
@@ -64,7 +63,6 @@ OUT_RL_1 = 0
 OUT_RL_2 = 0
 
 buff = 1
-buff2 = 1
 
 speed = int(input("속도(70~100)"))
 
@@ -74,23 +72,19 @@ pwm_RR.ChangeDutyCycle(speed)
 pwm_RL.ChangeDutyCycle(speed)
 
 while buff:
-    if keyboard.is_pressed("up") and buff2 == 1:
-        print("go")
+    x = input()
+
+    if x == "w":
         OUT_FR_1 = OUT_FL_2 = OUT_RR_2 = OUT_RL_1 = 1
         OUT_FR_2 = OUT_FL_1 = OUT_RR_1 = OUT_RL_2 = 0
-        time.sleep(0.5)
-        buff2 = 0
-    if keyboard.is_pressed("down") and buff2 == 1:
-        print("back")
+        time.sleep(3)
+    if x == "s":
         OUT_FR_1 = OUT_FL_2 = OUT_RR_2 = OUT_RL_1 = 0
         OUT_FR_2 = OUT_FL_1 = OUT_RR_1 = OUT_RL_2 = 1
-        time.sleep(0.5)
-        buff2 = 0
-    if keyboard.is_pressed("esc"):
-        print("종료")
-        buff = 0
+        time.sleep(3)
+    if x == "q":
         break
-    buff2 = 1
+print("종료")
 
 """
 #operation
