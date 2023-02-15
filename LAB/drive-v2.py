@@ -65,7 +65,7 @@ OUT_RL_2 = 0
 
 buff = 1
 
-speed = input("속도(70~100)")
+speed = int(input("속도(70~100)"))
 
 pwm_FR.ChangeDutyCycle(speed)
 pwm_FL.ChangeDutyCycle(speed)
