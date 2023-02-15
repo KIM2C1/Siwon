@@ -78,8 +78,8 @@ while buff:
     x =int(input("입력: "))
 
     if x == 1:
-        OUT_FR_1 = OUT_FL_2 = OUT_RR_2 = OUT_RL_1 = 1
-        OUT_FR_2 = OUT_FL_1 = OUT_RR_1 = OUT_RL_2 = 0
+        OUT_FR_1 = OUT_FL_1 = OUT_RR_2 = OUT_RL_1 = 1
+        OUT_FR_2 = OUT_FL_2 = OUT_RR_1 = OUT_RL_2 = 0
 
     if x == 3:
         break
@@ -89,7 +89,7 @@ while buff:
     OUT_FR_2 = OUT_FL_1 = OUT_RR_1 = OUT_RL_2 = 0
     """
     
-    pwm_FR.ChangeDutyCycle(10)
+    pwm_FR.ChangeDutyCycle(50)
     pwm_FL.ChangeDutyCycle(speed)
     pwm_RR.ChangeDutyCycle(speed)
     pwm_RL.ChangeDutyCycle(speed)
