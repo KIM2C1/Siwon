@@ -89,9 +89,9 @@ while buff:
     OUT_FR_2 = OUT_FL_1 = OUT_RR_1 = OUT_RL_2 = 0
     """
     
-    pwm_FR.ChangeDutyCycle(50)
+    pwm_FR.ChangeDutyCycle(40)
     pwm_FL.ChangeDutyCycle(speed)
-    pwm_RR.ChangeDutyCycle(50)
+    pwm_RR.ChangeDutyCycle(40)
     pwm_RL.ChangeDutyCycle(speed)
 
     GPIO.output(IN_FR_1,OUT_FR_1)
