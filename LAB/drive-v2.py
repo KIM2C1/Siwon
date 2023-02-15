@@ -96,7 +96,11 @@ while buff:
     GPIO.output(IN_RL_1,OUT_RL_1)
     GPIO.output(IN_RL_2,OUT_RL_2)
     time.sleep(5)
-    
+
+    pwm_FR.ChangeDutyCycle(0)
+    pwm_FL.ChangeDutyCycle(0)
+    pwm_RR.ChangeDutyCycle(0)
+    pwm_RL.ChangeDutyCycle(0)
 print("종료")
 
 """
