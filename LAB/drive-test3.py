@@ -77,7 +77,7 @@ while buff:
 
     x =int(input("입력: "))
 
-    if x == 1:
+    if x == 1: #왼쪽
         OUT_FR_1 = OUT_FL_2 = OUT_RR_2 = OUT_RL_1 = 1
         OUT_FR_2 = OUT_FL_1 = OUT_RR_1 = OUT_RL_2 = 0
         a = 0
@@ -85,17 +85,34 @@ while buff:
         c = 43
         d = 100
     
-    if x == 2:
+    if x == 2: #오른쪽
         OUT_FR_1 = OUT_FL_2 = OUT_RR_2 = OUT_RL_1 = 1
         OUT_FR_2 = OUT_FL_1 = OUT_RR_1 = OUT_RL_2 = 0
         a = 100
-        b = 10
+        b = 0
         c = 100
         d = 43
 
-    if x == 3:
-        break
+    if x == 3: #앞
+        OUT_FR_1 = OUT_FL_2 = OUT_RR_2 = OUT_RL_1 = 1
+        OUT_FR_2 = OUT_FL_1 = OUT_RR_1 = OUT_RL_2 = 0
+        a = speed 
+        b = speed 
+        c = speed 
+        d = speed 
 
+    if x == 4: #뒤
+        OUT_FR_1 = OUT_FL_2 = OUT_RR_2 = OUT_RL_1 = 0
+        OUT_FR_2 = OUT_FL_1 = OUT_RR_1 = OUT_RL_2 = 1
+        a = speed 
+        b = speed 
+        c = speed 
+        d = speed 
+
+    if x == 5: #스탑
+        print("종료")
+        break
+    
     """
     OUT_FR_1 = OUT_FL_2 = OUT_RR_2 = OUT_RL_1 = 1
     OUT_FR_2 = OUT_FL_1 = OUT_RR_1 = OUT_RL_2 = 0
