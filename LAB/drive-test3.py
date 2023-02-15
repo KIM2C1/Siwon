@@ -84,8 +84,8 @@ while buff:
         b = 43
     
     if x == 2:
-        OUT_FR_2 = OUT_FL_1 = OUT_RR_2 = OUT_RL_1 = 1
-        OUT_FR_1 = OUT_FL_2 = OUT_RR_1 = OUT_RL_2 = 0
+        OUT_FR_1 = OUT_FL_2 = OUT_RR_2 = OUT_RL_1 = 1
+        OUT_FR_2 = OUT_FL_1 = OUT_RR_1 = OUT_RL_2 = 0
         a = 43
         b = 0
 
