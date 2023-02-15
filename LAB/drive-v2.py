@@ -70,12 +70,12 @@ speed = int(input("속도(70~100)"))
 
 while buff:
 
-    pwm_FR.ChangeDutyCycle(speed)
-    pwm_FL.ChangeDutyCycle(speed)
-    pwm_RR.ChangeDutyCycle(speed)
-    pwm_RL.ChangeDutyCycle(speed)
+    pwm_FR.ChangeDutyCycle(0)
+    pwm_FL.ChangeDutyCycle(0)
+    pwm_RR.ChangeDutyCycle(0)
+    pwm_RL.ChangeDutyCycle(0)
 
-    x =int(input())
+    x =int(input("입력: "))
 
     if x == 1:
         OUT_FR_1 = OUT_FL_2 = OUT_RR_2 = OUT_RL_1 = 1
@@ -87,6 +87,11 @@ while buff:
 
     if x == 3:
         break
+    
+    pwm_FR.ChangeDutyCycle(speed)
+    pwm_FL.ChangeDutyCycle(speed)
+    pwm_RR.ChangeDutyCycle(speed)
+    pwm_RL.ChangeDutyCycle(speed)
 
     GPIO.output(IN_FR_1,OUT_FR_1)
     GPIO.output(IN_FR_2,OUT_FR_2)
@@ -99,8 +104,8 @@ while buff:
 
     GPIO.output(IN_RL_1,OUT_RL_1)
     GPIO.output(IN_RL_2,OUT_RL_2)
-    
-    time.sleep(5)
+
+    time.sleep(3)
 
     pwm_FR.ChangeDutyCycle(0)
     pwm_FL.ChangeDutyCycle(0)
