@@ -72,17 +72,17 @@ pwm_RR.ChangeDutyCycle(speed)
 pwm_RL.ChangeDutyCycle(speed)
 
 while buff:
-    x = input()
+    x =int(input())
 
-    if x == "w":
+    if x == 1:
         OUT_FR_1 = OUT_FL_2 = OUT_RR_2 = OUT_RL_1 = 1
         OUT_FR_2 = OUT_FL_1 = OUT_RR_1 = OUT_RL_2 = 0
         time.sleep(3)
-    if x == "s":
+    if x == 2:
         OUT_FR_1 = OUT_FL_2 = OUT_RR_2 = OUT_RL_1 = 0
         OUT_FR_2 = OUT_FL_1 = OUT_RR_1 = OUT_RL_2 = 1
         time.sleep(3)
-    if x == "q":
+    if x == 3:
         break
 print("종료")
 
