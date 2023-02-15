@@ -75,15 +75,28 @@ while buff:
     x =int(input())
 
     if x == 1:
+        
         OUT_FR_1 = OUT_FL_2 = OUT_RR_2 = OUT_RL_1 = 1
         OUT_FR_2 = OUT_FL_1 = OUT_RR_1 = OUT_RL_2 = 0
-        time.sleep(3)
     if x == 2:
         OUT_FR_1 = OUT_FL_2 = OUT_RR_2 = OUT_RL_1 = 0
         OUT_FR_2 = OUT_FL_1 = OUT_RR_1 = OUT_RL_2 = 1
-        time.sleep(3)
     if x == 3:
         break
+
+    GPIO.output(IN_FR_1,OUT_FR_1)
+    GPIO.output(IN_FR_2,OUT_FR_2)
+
+    GPIO.output(IN_FL_1,OUT_FL_1)
+    GPIO.output(IN_FL_2,OUT_FL_2)
+
+    GPIO.output(IN_RR_1,OUT_RR_1)
+    GPIO.output(IN_RR_2,OUT_RR_2)
+
+    GPIO.output(IN_RL_1,OUT_RL_1)
+    GPIO.output(IN_RL_2,OUT_RL_2)
+    time.sleep(5)
+    
 print("종료")
 
 """
