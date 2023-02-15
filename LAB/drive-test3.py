@@ -81,13 +81,17 @@ while buff:
         OUT_FR_1 = OUT_FL_2 = OUT_RR_2 = OUT_RL_1 = 1
         OUT_FR_2 = OUT_FL_1 = OUT_RR_1 = OUT_RL_2 = 0
         a = 0
-        b = 43
+        b = 100
+        c = 43
+        d = 100
     
     if x == 2:
         OUT_FR_1 = OUT_FL_2 = OUT_RR_2 = OUT_RL_1 = 1
         OUT_FR_2 = OUT_FL_1 = OUT_RR_1 = OUT_RL_2 = 0
-        a = 43
+        a = 100
         b = 0
+        c = 100
+        d = 43
 
     if x == 3:
         break
@@ -98,9 +102,9 @@ while buff:
     """
     
     pwm_FR.ChangeDutyCycle(a)
-    pwm_FL.ChangeDutyCycle(speed)
-    pwm_RR.ChangeDutyCycle(b)
-    pwm_RL.ChangeDutyCycle(speed)
+    pwm_FL.ChangeDutyCycle(b)
+    pwm_RR.ChangeDutyCycle(c)
+    pwm_RL.ChangeDutyCycle(d)
 
     GPIO.output(IN_FR_1,OUT_FR_1)
     GPIO.output(IN_FR_2,OUT_FR_2)
