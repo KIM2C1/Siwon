@@ -76,7 +76,7 @@ while buff:
     pwm_RL.ChangeDutyCycle(0)
     
     print("1-왼쪽\n2-오른쪽\n3-앞\n4-뒤\n")
-    x =int(input("입력: )"))
+    x =int(input("입력: "))
 
     if x == 1: #왼쪽
         OUT_FR_1 = OUT_FL_2 = OUT_RR_2 = OUT_RL_1 = 1
