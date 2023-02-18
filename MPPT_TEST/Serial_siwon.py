@@ -26,7 +26,6 @@ buff_join_v2 = []
 find_end = 1
 try_data = int(input("시행 횟수: "))
 
-
 f = open("data_out.txt", 'w')
 f.write("\t---------------TEST START---------------\n")
 f.close()
@@ -34,6 +33,7 @@ f.close()
 f = open("data_out.txt", 'a')
 
 for i in range(try_data):
+
     for i in range(1): #data_sheet의 수 만큼 반복.
 
     #
@@ -67,7 +67,8 @@ for i in range(try_data):
         print(type(sample_2))
         f.write(sample_2)
 
-        line = "\t---------------" + " complete" + "---------------" + '\n'
-        f.write(line)
+    line = "\t---------------" + " complete" + "---------------" + '\n'
+    f.write(line)
+        
 
 f.close()

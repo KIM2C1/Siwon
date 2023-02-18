@@ -1,20 +1,15 @@
-f = open("sample", 'w')
-x = b'\r'
-y = []
-test = []
-y.append(str(x))
-z = ' '.join(i for i in y)
-new = "1: 'b  Q ' b ' I ' b ' D ' b ' \ x d 6 ' b ' \ x e a ' b ' \ r '"
+buff = [0] * 40  # 40개의 0으로 이루어진 리스트를 생성합니다.
+buff[38] = 123   # 39번째 인덱스에 123 값을 할당합니다.
 
+buff[0] = 1
 
-test.append(z)
+print(buff)
 
-print(new)
-print(type(new))
-f1 = new.replace("b ","")
-f2 = f1.replace("'","")
-print(f2)
-
-if (x == b'\r'):
-    print("ok")
-    print(test)
+while (find_end): #읽은 데이터 만큼 반복
+            term = 0
+            data = ser.read()
+            print("받은값:",data)
+            buff.append(data)
+            term += 1
+            if (buff[38]=='X'):
+                find_end = 0
