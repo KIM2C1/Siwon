@@ -1,7 +1,7 @@
 """
 <MOTER POSITION>            <MOTER DRIVE POSITION>
 RL-----RR                   ENB IN4 IN3 IN2 IN1 ENA | ENB IN4 IN3 IN2 IN1 ENA
-|       |                    11   9  10   1  7    8 |  12  20  16   5   6  13
+|       |                    22  27  17  25  24  23 |  21  20  16   5   6  13
 |       |                       <RL>    |   <RR>    |     <FL>        <FR>      
 |       |
 FL-----FR
@@ -27,7 +27,7 @@ OUT_FR_1 = 0
 OUT_FR_2 = 0
 
 #FL-MOTER
-EN_FL = 12
+EN_FL = 21
 IN_FL_1 = 20
 IN_FL_2 = 16
 GPIO.setup(EN_FL, GPIO.OUT)
@@ -39,9 +39,9 @@ OUT_FL_1 = 0
 OUT_FL_2 = 0
 
 #RR-MOTER
-EN_RR = 8
-IN_RR_1 = 7
-IN_RR_2 = 1
+EN_RR = 23
+IN_RR_1 = 24
+IN_RR_2 = 25
 GPIO.setup(EN_RR, GPIO.OUT)
 GPIO.setup(IN_RR_1, GPIO.OUT)
 GPIO.setup(IN_RR_2, GPIO.OUT)
@@ -51,9 +51,9 @@ OUT_RR_1 = 0
 OUT_RR_2 = 0
 
 #RL-MOTER
-EN_RL = 11
-IN_RL_1 = 9
-IN_RL_2 = 10
+EN_RL = 17
+IN_RL_1 = 27
+IN_RL_2 = 22
 GPIO.setup(EN_RL, GPIO.OUT)
 GPIO.setup(IN_RL_1, GPIO.OUT)
 GPIO.setup(IN_RL_2, GPIO.OUT)
