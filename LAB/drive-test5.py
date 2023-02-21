@@ -83,10 +83,10 @@ while buff:
     pwm_FR.ChangeDutyCycle(0)
     pwm_BR.ChangeDutyCycle(0)
 
-    pwm_FR.ChangeDutyCycle(100)
+    pwm_FR.ChangeDutyCycle(0)
     pwm_BL.ChangeDutyCycle(100)
     pwm_FL.ChangeDutyCycle(100)
-    pwm_BR.ChangeDutyCycle(100)
+    pwm_BR.ChangeDutyCycle(60)
 
     GPIO.output(IN_FL_1,OUT_FL_1)
     GPIO.output(IN_FL_2,OUT_FL_2)
@@ -100,7 +100,7 @@ while buff:
     GPIO.output(IN_BR_1,OUT_BR_1)
     GPIO.output(IN_BR_2,OUT_BR_2)
 
-    time.sleep(5)
+    time.sleep(3)
 
     pwm_FL.ChangeDutyCycle(0)
     pwm_BL.ChangeDutyCycle(0)
