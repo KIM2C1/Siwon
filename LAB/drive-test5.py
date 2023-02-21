@@ -51,9 +51,9 @@ OUT_FR_1 = 0
 OUT_FR_2 = 0
 
 #BR-MOTER
-EN_BR = 17
+EN_BR = 22
 IN_BR_1 = 27
-IN_BR_2 = 22
+IN_BR_2 = 17
 GPIO.setup(EN_BR, GPIO.OUT)
 GPIO.setup(IN_BR_1, GPIO.OUT)
 GPIO.setup(IN_BR_2, GPIO.OUT)
