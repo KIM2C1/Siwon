@@ -63,7 +63,7 @@ OUT_BR_1 = 0
 OUT_BR_2 = 0
 
 buff = 1
-
+"""
 OUT_FL_1 = 0
 OUT_FL_2 = 1
 
@@ -75,6 +75,19 @@ OUT_BR_2 = 0
 
 OUT_BL_1 = 0
 OUT_BL_2 = 1
+"""
+OUT_FL_1 = 0
+OUT_FL_2 = 1
+
+OUT_FR_1 = 0
+OUT_FR_2 = 1
+
+OUT_BR_1 = 1
+OUT_BR_2 = 0
+
+OUT_BL_1 = 1
+OUT_BL_2 = 0
+
 
 while buff:
     #초기 스탑 설정
@@ -83,10 +96,10 @@ while buff:
     pwm_FR.ChangeDutyCycle(0)
     pwm_BR.ChangeDutyCycle(0)
 
-    pwm_FR.ChangeDutyCycle(30)
-    pwm_BL.ChangeDutyCycle(100)
-    pwm_FL.ChangeDutyCycle(100)
-    pwm_BR.ChangeDutyCycle(30)
+    pwm_FR.ChangeDutyCycle(60)
+    pwm_BL.ChangeDutyCycle(60)
+    pwm_FL.ChangeDutyCycle(60)
+    pwm_BR.ChangeDutyCycle(60)
 
     GPIO.output(IN_FL_1,OUT_FL_1)
     GPIO.output(IN_FL_2,OUT_FL_2)
