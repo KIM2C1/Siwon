@@ -113,7 +113,7 @@ while buff:
     GPIO.output(IN_BR_1,OUT_BR_1)
     GPIO.output(IN_BR_2,OUT_BR_2)
 
-    time.sleep(0.5)
+    time.sleep(0.65)
 
     pwm_FL.ChangeDutyCycle(0)
     pwm_BL.ChangeDutyCycle(0)
