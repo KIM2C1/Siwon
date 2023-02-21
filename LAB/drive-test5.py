@@ -83,9 +83,9 @@ while buff:
     pwm_FR.ChangeDutyCycle(0)
     pwm_BR.ChangeDutyCycle(0)
 
-    pwm_FR.ChangeDutyCycle(0)
-    pwm_BL.ChangeDutyCycle(60)
-    pwm_FL.ChangeDutyCycle(60)
+    pwm_FR.ChangeDutyCycle(30)
+    pwm_BL.ChangeDutyCycle(100)
+    pwm_FL.ChangeDutyCycle(100)
     pwm_BR.ChangeDutyCycle(30)
 
     GPIO.output(IN_FL_1,OUT_FL_1)
