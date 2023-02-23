@@ -72,8 +72,6 @@ while buff:
     pwm_BR.ChangeDutyCycle(0)
 
     state = input("direction(F/B/R/L/stop): ")
-    speed = int(input("speed: "));
-    settime = int(input("time: "));
     
     if (state == 'F'):
        OUT_FL_1 = 0
@@ -125,7 +123,11 @@ while buff:
         OUT_BL_2 = 0
     elif (state == 'stop'):
         buff = 0
+        break
     
+    speed = float(input("speed: "));
+    settime = float(input("time: "));
+
     pwm_FR.ChangeDutyCycle(speed)
     pwm_BL.ChangeDutyCycle(speed)
     pwm_FL.ChangeDutyCycle(speed)
