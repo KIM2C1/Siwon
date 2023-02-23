@@ -224,19 +224,18 @@ int main(int argc, char *argv[]) {
           //double angle = point_size * 0.36;       //angle per data_size
           double angle = scan.points[i].angle * 0.612;
 
-          //divide per 0.5
+          printf("%d", angle);
           /*
-          file tset
-          */
           for (int x = 0; x < scan.points.size(); x++) {
             int index = x * 360 / scan.points.size();
-            avg_angle[index] += angle / scan.points.size().0;
-            avg_distance[index] += distance / scan.points.size().0;
+            avg_angle[index] += angle / scan.points.size();
+            avg_distance[index] += distance / scan.points.size();
           }
 
           for (int y = 0; y < 360; y++) {
             printf("angle: %f\tdistance: %f\n", avg_angle[y], avg_distance[y]);
           }
+          */
           //printf("[%d]\t", point_size);
           //printf("distance: %lf(M)\t", distance);
           //printf("angle: %lf\n", angle);
