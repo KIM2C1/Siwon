@@ -39,5 +39,5 @@ for test_number in range(trydata):
     result = "-------------"+"ok:"+str(13-fault)+"/faile:"+str(fault)+"-------------\n"
     
     f.write(result)
-    f.write("time:"+str(end_time - start_time)+"\n")
+    f.write("time:"+str('%.5f'%5(end_time - start_time))+"\n")
 f.close()

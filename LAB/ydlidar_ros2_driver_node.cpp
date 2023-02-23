@@ -73,7 +73,7 @@ int main(int argc, char *argv[]) {
   node->get_parameter("device_type", optval);
   laser.setlidaropt(LidarPropDeviceType, &optval, sizeof(int));
   /// sample rate
-  optval = 9;
+  optval = 5;
   node->declare_parameter("sample_rate");
   node->get_parameter("sample_rate", optval);
   laser.setlidaropt(LidarPropSampleRate, &optval, sizeof(int));
@@ -140,7 +140,7 @@ int main(int argc, char *argv[]) {
   node->get_parameter("range_min", f_optvalue);
   laser.setlidaropt(LidarPropMinRange, &f_optvalue, sizeof(float));
   /// unit: Hz
-  f_optvalue = 10.f;
+  f_optvalue = 5.f;
   node->declare_parameter("frequency");
   node->get_parameter("frequency", f_optvalue);
   laser.setlidaropt(LidarPropScanFrequency, &f_optvalue, sizeof(float));
@@ -182,7 +182,7 @@ int main(int argc, char *argv[]) {
   rclcpp::WallRate loop_rate(20);
 
   while (ret && rclcpp::ok()) {
-
+    
     LaserScan scan;//
 
     if (laser.doProcessSimple(scan)) {
@@ -208,6 +208,16 @@ int main(int argc, char *argv[]) {
         if(index >=0 && index < size) {
           scan_msg->ranges[index] = scan.points[i].range;
           scan_msg->intensities[index] = scan.points[i].intensity;
+          
+          //code start
+          int point_size = scan.points.size();
+          double distance = scan.points[i].ragne;
+          double angle = scan.points[i].angle * 0.00612;
+
+          printf("[%d]\t", point_size);
+          printf("distance: %lf(M)\t", distance);
+          printf("angle: %lf\n", angle);
+
         }
       }
 
