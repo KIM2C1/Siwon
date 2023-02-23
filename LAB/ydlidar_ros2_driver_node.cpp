@@ -227,16 +227,13 @@ int main(int argc, char *argv[]) {
           file tset
           */
           fp = fopen("ydlidar-data.txt","w");
-          fprintf(fp, "%s", "              ");
-          fprintf(fp, "%s", str(angle));  
-          fprintf(fp, "%s", "              ");
-          fprintf(fp, "%s", str(distance));
-          fprintf("\n");
+          fprintf(fp, "%lf\t%lf\n", angle, distance);
           //printf("[%d]\t", point_size);
           //printf("distance: %lf(M)\t", distance);
           //printf("angle: %lf\n", angle);
-          fclose(fp);
+          
         }
+        fclose(fp);
       }
 
       laser_pub->publish(*scan_msg);
