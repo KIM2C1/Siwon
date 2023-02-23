@@ -227,15 +227,15 @@ int main(int argc, char *argv[]) {
           file tset
           */
           fp = fopen("ydlidar-data.txt","w");
-          fprintf("\t");
+          fprintf(fp, "%s", "              ");
           fprintf(fp, "%s", str(angle));  
-          fprintf("\t");
+          fprintf(fp, "%s", "              ");
           fprintf(fp, "%s", str(distance));
           fprintf("\n");
           //printf("[%d]\t", point_size);
           //printf("distance: %lf(M)\t", distance);
           //printf("angle: %lf\n", angle);
-
+          fclose(fp);
         }
       }
 
@@ -252,7 +252,6 @@ int main(int argc, char *argv[]) {
     loop_rate.sleep();
   }
 
-  fclose(fp);
   RCLCPP_INFO(node->get_logger(), "[YDLIDAR INFO] Now YDLIDAR is stopping .......");
   laser.turnOff();
   laser.disconnecting();
