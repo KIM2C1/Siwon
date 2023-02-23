@@ -186,8 +186,8 @@ int main(int argc, char *argv[]) {
   //siwon var start
 
   FILE *fp;
-  int avg_angle[360] = {0.0};
-  int avg_distance[360] = {0.0};
+  double avg_angle[360] = {0.0};
+  double avg_distance[360] = {0.0};
 
   while (ret && rclcpp::ok()) {
     
@@ -235,7 +235,7 @@ int main(int argc, char *argv[]) {
           }
 
           for (int y = 0; y < 360; y++) {
-            printf("angle: %lf\tdistance: %lf\n", avg_angle[y], avg_distance[y]);
+            printf("angle: %f\tdistance: %f\n", avg_angle[y], avg_distance[y]);
           }
           //printf("[%d]\t", point_size);
           //printf("distance: %lf(M)\t", distance);
