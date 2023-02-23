@@ -186,6 +186,8 @@ int main(int argc, char *argv[]) {
   //siwon var start
 
   FILE *fp;
+  int avg_angle[360] = {0.0};
+  int avg_distance[360] = {0.0};
 
   while (ret && rclcpp::ok()) {
     
@@ -219,18 +221,21 @@ int main(int argc, char *argv[]) {
           int point_size = scan.points.size();    //data size = 1,000
 
           double distance = scan.points[i].range; //distance per angle
-          double angle = point_size * 0.36;       //angle per data_size
-          //double angle = scan.points[i].angle * 0.612;
+          //double angle = point_size * 0.36;       //angle per data_size
+          double angle = scan.points[i].angle * 0.612;
 
           //divide per 0.5
           /*
           file tset
           */
-          fp = fopen("ydlidar-data.txt","a");
-          fprintf(fp, "%lf\t%lf\n", angle, distance);
-          if (i == 1000) {
-            printf("Data is 1,000!!!!!");
-            break;
+          for (int x = 0; x < scan.points.size(); x++) {
+            int index = i * 360 / 1000;
+            avg_angle[index] += angle / 1000.0;
+            avg_distance[index] += distance / 1000.0;
+          }
+
+          for (int y = 0; y < 360; y++) {
+            printf("angle: %lf\tdistance: %lf\n", avg_angle[y], avg_distance[y]);
           }
           //printf("[%d]\t", point_size);
           //printf("distance: %lf(M)\t", distance);
