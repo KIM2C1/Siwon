@@ -211,8 +211,9 @@ int main(int argc, char *argv[]) {
           
           //code start
           int point_size = scan.points.size();
-          double distance = scan.points[i].ragne;
-          double angle = scan.points[i].angle * 0.00612;
+          double distance = scan.points[i].range;
+          //double angle = scan.points[i].angle * 0.612;
+          double angle = point_size * 0.36;
 
           printf("[%d]\t", point_size);
           printf("distance: %lf(M)\t", distance);
