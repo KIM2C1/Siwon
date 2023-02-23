@@ -31,6 +31,8 @@
 
 #define ROS2Verision "1.0.1"
 
+//siwon include
+#include <stdio.h>
 
 int main(int argc, char *argv[]) {
   rclcpp::init(argc, argv);
@@ -181,6 +183,10 @@ int main(int argc, char *argv[]) {
 
   rclcpp::WallRate loop_rate(20);
 
+  //siwon var start
+
+  FILE *fp;
+
   while (ret && rclcpp::ok()) {
     
     LaserScan scan;//
@@ -210,14 +216,25 @@ int main(int argc, char *argv[]) {
           scan_msg->intensities[index] = scan.points[i].intensity;
           
           //code start
-          int point_size = scan.points.size();
-          double distance = scan.points[i].range;
-          //double angle = scan.points[i].angle * 0.612;
-          double angle = point_size * 0.36;
+          int point_size = scan.points.size();    //data size = 1,000
 
-          printf("[%d]\t", point_size);
-          printf("distance: %lf(M)\t", distance);
-          printf("angle: %lf\n", angle);
+          double distance = scan.points[i].range; //distance per angle
+          double angle = point_size * 0.36;       //angle per data_size
+          //double angle = scan.points[i].angle * 0.612;
+
+          //divide per 0.5
+          /*
+          file tset
+          */
+          fp = fopen("ydlidar-data.txt","w");
+          fpprintf("\t");
+          fprintf(fp, "%s", str(angle));
+          fpprintf("\t");
+          fprintf(fp, "%s", str(distance));
+          fpprintf("\n");
+          //printf("[%d]\t", point_size);
+          //printf("distance: %lf(M)\t", distance);
+          //printf("angle: %lf\n", angle);
 
         }
       }
