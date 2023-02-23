@@ -185,7 +185,6 @@ int main(int argc, char *argv[]) {
 
   //siwon var start
 
-  FILE *fp;
   double avg_angle[360] = {0.0};
   double avg_distance[360] = {0.0};
 
@@ -224,7 +223,7 @@ int main(int argc, char *argv[]) {
           //double angle = point_size * 0.36;       //angle per data_size
           double angle = scan.points[i].angle * 0.612;
 
-          printf("%d", angle);
+          printf("%lf", angle);
           /*
           for (int x = 0; x < scan.points.size(); x++) {
             int index = x * 360 / scan.points.size();
@@ -241,7 +240,6 @@ int main(int argc, char *argv[]) {
           //printf("angle: %lf\n", angle);
           
         }
-        fclose(fp);
       }
 
       laser_pub->publish(*scan_msg);
