@@ -226,8 +226,12 @@ int main(int argc, char *argv[]) {
           /*
           file tset
           */
-          fp = fopen("ydlidar-data.txt","w");
+          fp = fopen("ydlidar-data.txt","a");
           fprintf(fp, "%lf\t%lf\n", angle, distance);
+          if (i == 1000) {
+            printf("Data is 1,000!!!!!");
+            break;
+          }
           //printf("[%d]\t", point_size);
           //printf("distance: %lf(M)\t", distance);
           //printf("angle: %lf\n", angle);
