@@ -229,9 +229,9 @@ int main(int argc, char *argv[]) {
           file tset
           */
           for (int x = 0; x < scan.points.size(); x++) {
-            int index = i * 360 / 1000;
-            avg_angle[index] += angle / 1000.0;
-            avg_distance[index] += distance / 1000.0;
+            int index = x * 360 / scan.points.size();
+            avg_angle[index] += angle / scan.points.size().0;
+            avg_distance[index] += distance / scan.points.size().0;
           }
 
           for (int y = 0; y < 360; y++) {
