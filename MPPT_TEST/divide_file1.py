@@ -1,5 +1,61 @@
 class MyStruct:
+     
+     #QPIRI_Format
     QPIRI = {
+         'Grid rating voltage': '{:.1f}',
+         'Grid rating current': '{:.1f}',
+         'AC output rating voltage': '{:.1f}',
+         'AC output rating frequency': '{:.1f}',
+         'AC output rating current': '{:.1f}',
+         'AC output rating apparent power': '{:.0f}',
+         'AC output rating active power': '{:.0f}',
+         'Battery rating voltage': '{:.1f}',
+         'Battery re-charge voltage': '{:.1f}',
+         'Battery under voltage': '{:.1f}',
+         'Battery bulk voltage': '{:.1f}',
+         'Battery float voltage': '{:.1f}',
+         'Battery type': '{:.0f}',
+         'Current max AC charging current': '{:.0f}',
+         'Current max charging current': '{:.0f}',
+         'Input voltage range': '{:.0f}',
+         'Output source priority': '{:.0f}',
+         'Charger source priority': '{:.0f}',
+         'Parallel max number': '{:.0f}',
+         'Machine type': '{:.0f}',
+         'Topology': '{:.0f}',
+         'Output mode': '{:.0f}',
+         'Battery re-discharge voltage': '{:.1f}',
+         'PV OK condition for parallel': '{:.0f}',
+         'PV power balance': '{:.0f}',
+         'Max. charging time at C.V stage': '{:.0f}',
+         'Operation Logic': '{:.0f}'
+    }
+
+    #QFLAG_Format
+    QFLAG = {
+         '': '{:.0f}',
+         '': '{:.0f}',
+         '': '{:.0f}',
+         '': '{:.0f}',
+         '': '{:.0f}',
+         '': '{:.0f}',
+         '': '{:.0f}',
+         '': '{:.0f}',
+         '': '{:.0f}',
+         '': '{:.0f}',
+         '': '{:.0f}',
+         '': '{:.0f}',
+         '': '{:.0f}',
+         '': '{:.0f}',
+         '': '{:.0f}',
+         '': '{:.0f}',
+         '': '{:.0f}',
+         '': '{:.0f}',
+         '': '{:.0f}',
+         '': '{:.0f}',
+         '': '{:.0f}',
+    }
+"""
          'Grid rating voltage': 000.0,
          'Grid rating current': 00.0,
          'AC output rating voltage': 000.0,
@@ -27,4 +83,4 @@ class MyStruct:
          'PV power balance': 0,
          'Max. charging time at C.V stage': 000,
          'Operation Logic': 0
-    }  
+"""
