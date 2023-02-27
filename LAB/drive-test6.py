@@ -68,6 +68,8 @@ OUT_BR_2 = 0
 
 buff = 1
 
+speed = int(input("Set Speed: "))
+
 old_settings = termios.tcgetattr(sys.stdin)
 tty.setcbreak(sys.stdin.fileno())
 
@@ -76,7 +78,7 @@ pwm_BL.ChangeDutyCycle(0)
 pwm_FR.ChangeDutyCycle(0)
 pwm_BR.ChangeDutyCycle(0)
 
-speed = int(input("Set Speed: "))
+
 
 while True:
     if select.select([sys.stdin], [], [], 0.1)[0]:
