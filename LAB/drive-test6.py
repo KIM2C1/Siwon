@@ -79,9 +79,10 @@ pwm_BR.ChangeDutyCycle(0)
 speed = int(input("Set Speed: "))
 
 while True:
-    if select.select([sys.stdin], [], [], 0.1)[0];
+    if select.select([sys.stdin], [], [], 0.1)[0]:
         ch = sys.stdin.read(1)
         if ch == 'w':
+            print("W")
             OUT_FL_1 = 0
             OUT_FL_2 = 1
             
@@ -99,6 +100,7 @@ while True:
             pwm_FL.ChangeDutyCycle(speed)
             pwm_BR.ChangeDutyCycle(speed)
         elif ch == 'a':
+            print("A")
             OUT_FL_1 = 1
             OUT_FL_2 = 0
         
@@ -116,6 +118,7 @@ while True:
             pwm_FL.ChangeDutyCycle(speed)
             pwm_BR.ChangeDutyCycle(speed)
         elif ch == 's':
+            print("S")
             OUT_FL_1 = 1
             OUT_FL_2 = 0
             
@@ -133,6 +136,7 @@ while True:
             pwm_FL.ChangeDutyCycle(speed)
             pwm_BR.ChangeDutyCycle(speed)
         elif ch == 'd':
+            print("D")
             OUT_FL_1 = 0
             OUT_FL_2 = 1
             
