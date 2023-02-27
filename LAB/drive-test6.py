@@ -66,8 +66,6 @@ pwm_BR.start(0)
 OUT_BR_1 = 0
 OUT_BR_2 = 0
 
-buff = 1
-
 speed = int(input("Set Speed: "))
 
 old_settings = termios.tcgetattr(sys.stdin)
@@ -131,10 +129,10 @@ while True:
             OUT_BL_1 = 1
             OUT_BL_2 = 0
     
-            pwm_FR.ChangeDutyCycle(100)
-            pwm_BL.ChangeDutyCycle(100)
-            pwm_FL.ChangeDutyCycle(100)
-            pwm_BR.ChangeDutyCycle(100)
+            pwm_FR.ChangeDutyCycle(speed)
+            pwm_BL.ChangeDutyCycle(speed)
+            pwm_FL.ChangeDutyCycle(speed)
+            pwm_BR.ChangeDutyCycle(speed)
         elif ch == 'd':
             #print("D")
             OUT_FL_1 = 0
