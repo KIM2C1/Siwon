@@ -75,17 +75,17 @@ while i < len(QFLAG):
         QFLAG_D.append(QFLAG[i])
     i += 1
 
-def dic(data):
-    for key, value in MyStruct.data.items():
+def dic(test, test1):
+    for key, value in test[test1].items():
             print(f"{key}: {value}")
 
 
 ex_data = 'QPIRI', 'QPIGS', 'QPGSn', 'QDI'
 
 while True:
-    find_command = input("Select(Out is ESC): ")
+    find_command = str(input("Select(Out is ESC): "))
     if find_command == 'QPIRI' and 'QPIGS' and 'QPGSn' and 'QDI':
-        dic(find_command)
+        dic(MyStruct, find_command)
     elif find_command == 'QFLAG':
         print(QFLAG_E)
         print(QFLAG_D) 
