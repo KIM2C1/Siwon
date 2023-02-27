@@ -158,6 +158,14 @@ while True:
             print("unknown key is pressed")
 
     else:
+        print(OUT_BL_1)
+        print(OUT_BL_2)
+        print(OUT_FL_1)
+        print(OUT_FL_2)
+        print(OUT_BR_1)
+        print(OUT_BR_2)
+        print(OUT_FR_1)
+        print(OUT_FR_2)
         pwm_FL.ChangeDutyCycle(0)
         pwm_BL.ChangeDutyCycle(0)
         pwm_FR.ChangeDutyCycle(0)
