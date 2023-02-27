@@ -78,15 +78,10 @@ pwm_BL.ChangeDutyCycle(0)
 pwm_FR.ChangeDutyCycle(0)
 pwm_BR.ChangeDutyCycle(0)
 
-w = 0
-a = 0
-s = 0
-d = 0
-
 while True:
     if select.select([sys.stdin], [], [], 0.1)[0]:
         ch = sys.stdin.read(1)
-        if ch == 'w' and w == 0:
+        if ch == 'w':
             #print("W")
             OUT_FL_1 = 0
             OUT_FL_2 = 1
