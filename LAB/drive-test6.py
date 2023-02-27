@@ -76,6 +76,8 @@ pwm_BL.ChangeDutyCycle(0)
 pwm_FR.ChangeDutyCycle(0)
 pwm_BR.ChangeDutyCycle(0)
 
+    
+
 while True:
     if select.select([sys.stdin], [], [], 0.1)[0]:
         ch = sys.stdin.read(1)
@@ -92,6 +94,15 @@ while True:
             
             OUT_BL_1 = 0
             OUT_BL_2 = 1
+
+            GPIO.output(IN_FL_1,OUT_FL_1)
+            GPIO.output(IN_FL_2,OUT_FL_2)    
+            GPIO.output(IN_BL_1,OUT_BL_1)
+            GPIO.output(IN_BL_2,OUT_BL_2)    
+            GPIO.output(IN_FR_1,OUT_FR_1)
+            GPIO.output(IN_FR_2,OUT_FR_2)    
+            GPIO.output(IN_BR_1,OUT_BR_1)
+            GPIO.output(IN_BR_2,OUT_BR_2)
     
             pwm_FR.ChangeDutyCycle(speed)
             pwm_BL.ChangeDutyCycle(speed)
@@ -110,6 +121,15 @@ while True:
             
             OUT_BL_1 = 1
             OUT_BL_2 = 0
+
+            GPIO.output(IN_FL_1,OUT_FL_1)
+            GPIO.output(IN_FL_2,OUT_FL_2)    
+            GPIO.output(IN_BL_1,OUT_BL_1)
+            GPIO.output(IN_BL_2,OUT_BL_2)    
+            GPIO.output(IN_FR_1,OUT_FR_1)
+            GPIO.output(IN_FR_2,OUT_FR_2)    
+            GPIO.output(IN_BR_1,OUT_BR_1)
+            GPIO.output(IN_BR_2,OUT_BR_2)
     
             pwm_FR.ChangeDutyCycle(speed)
             pwm_BL.ChangeDutyCycle(speed)
@@ -128,6 +148,15 @@ while True:
             
             OUT_BL_1 = 1
             OUT_BL_2 = 0
+
+            GPIO.output(IN_FL_1,OUT_FL_1)
+            GPIO.output(IN_FL_2,OUT_FL_2)    
+            GPIO.output(IN_BL_1,OUT_BL_1)
+            GPIO.output(IN_BL_2,OUT_BL_2)    
+            GPIO.output(IN_FR_1,OUT_FR_1)
+            GPIO.output(IN_FR_2,OUT_FR_2)    
+            GPIO.output(IN_BR_1,OUT_BR_1)
+            GPIO.output(IN_BR_2,OUT_BR_2)
     
             pwm_FR.ChangeDutyCycle(speed)
             pwm_BL.ChangeDutyCycle(speed)
@@ -146,6 +175,15 @@ while True:
             
             OUT_BL_1 = 0
             OUT_BL_2 = 1
+
+            GPIO.output(IN_FL_1,OUT_FL_1)
+            GPIO.output(IN_FL_2,OUT_FL_2)    
+            GPIO.output(IN_BL_1,OUT_BL_1)
+            GPIO.output(IN_BL_2,OUT_BL_2)    
+            GPIO.output(IN_FR_1,OUT_FR_1)
+            GPIO.output(IN_FR_2,OUT_FR_2)    
+            GPIO.output(IN_BR_1,OUT_BR_1)
+            GPIO.output(IN_BR_2,OUT_BR_2)
     
             pwm_FR.ChangeDutyCycle(speed)
             pwm_BL.ChangeDutyCycle(speed)
