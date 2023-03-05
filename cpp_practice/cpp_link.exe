@@ -1,0 +1,12 @@
+# 0 "C:\\Users\\Siwon\\Desktop\\GitHub\\Siwon\\cpp_practice\\cpp_link.cpp"
+# 1 "C:\\Users\\Siwon\\Desktop\\GitHub\\Siwon\\cpp_practice//"
+# 0 "<built-in>"
+# 0 "<command-line>"
+# 1 "C:\\Users\\Siwon\\Desktop\\GitHub\\Siwon\\cpp_practice\\cpp_link.cpp"
+void linktest();
+
+int main() {
+    linktest();
+
+    return 0;
+}
