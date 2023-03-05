@@ -87,3 +87,34 @@ class MyStruct:
         'PV input current for battery': 00,
         'Battery discharge current': 000
     }
+
+    #QDI_Format
+    QDI = {
+        'AC output voltage': 000.0,
+        'AC output frequency': 00.0,
+        'Max AC charging current': 0000,
+        'Battery Under voltage': 00.0,
+        'Charging float voltage': 00.0,
+        'Charging bulk voltage': 00.0,
+        'Battery default re-charge voltage': 00.0,
+        'Max charging current': 00,
+        'AC input voltage range': 0,
+        'Output source priority': 0,
+        'Charger source priority': 0,
+        'Battery type': 0,
+        'Enable/disable silence buzzer or open buzzer': 0,
+        'Enable/Disable power saving': 0,
+        'Enable/Disable overload restart': 0,
+        'Enable/Disable over temperature restart': 0,
+        'Enable/Disable LCD backlight on': 0,
+        'Enable/Disable alarm on when primary source interrupt': 0,
+        'Enable/Disable fault code record': 0,
+        'Overload bypass': 0,
+        'Enable/Disable LCD display escape to default page after 1min timeout': 0,
+        'Output mode': 0,
+        'Battery re-discharge voltage': 00.0,
+        'PV OK condition for parallel': 0,
+        'PV power balance': 0,
+        'Max. charging time at C.V stage': 000,
+        'Operation logic': 0
+    }
