@@ -5,6 +5,8 @@
 using namespace std;
 
 int main() {
+    cout << "Enter a character: ";
+
     struct termios old_tio, new_tio;
 
     // 터미널 설정 변경
@@ -14,8 +16,7 @@ int main() {
     tcsetattr(STDIN_FILENO, TCSANOW, &new_tio);
 
     char input;
-    cout << "Enter a character: ";
-
+    
     while (1) {
         if (read(STDIN_FILENO, &input, 1) == 1) {
             if (input == 'a') {
@@ -26,8 +27,8 @@ int main() {
             }
             else {
                 cout << "Invalid input" << endl;
+                break;
             }
-            break;
         }
     }
 
