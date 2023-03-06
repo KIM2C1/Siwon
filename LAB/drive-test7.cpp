@@ -1,11 +1,16 @@
 #include <iostream>
 #include <termios.h>
 #include <unistd.h>
+#include <wiringPi.h>
 
 using namespace std;
 
 int main() {
-    
+    wiringPiSetupGpio();
+
+    pinMode(13, PWM_OUTPUT);
+    pinMode(6, OUTPUT);
+    pinMode(5, OUTPUT);
 
     struct termios old_tio, new_tio;
 
