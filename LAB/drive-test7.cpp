@@ -5,7 +5,7 @@
 using namespace std;
 
 int main() {
-    cout << "Enter a character: ";
+    
 
     struct termios old_tio, new_tio;
 
@@ -18,6 +18,7 @@ int main() {
     char input;
     
     while (1) {
+        cout << "Enter a character: ";
         if (read(STDIN_FILENO, &input, 1) == 1) {
             if (input == 'a') {
                 cout << "1" << endl;
