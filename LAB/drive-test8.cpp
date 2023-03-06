@@ -90,5 +90,5 @@ int main(void)
   digitalWrite(IN_BR_2, OUT_BR_2);
   softPwmWrite(EN_BR, 50);
 
-  return 0
+  return 0;
 }
