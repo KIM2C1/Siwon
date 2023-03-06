@@ -2,24 +2,38 @@
 #include <termios.h>
 #include <unistd.h>
 
+using namespace std;
+
 int main() {
-    struct termios oldt, newt;
-    tcgetattr(STDIN_FILENO, &oldt);
-    newt = oldt;
-    newt.c_lflag &= ~(ICANON | ECHO);
-    tcsetattr(STDIN_FILENO, TCSANOW, &newt);
+    struct termios old_tio, new_tio;
 
-    std::cout << "Please enter a b c:" << std::endl;
+    // 터미널 설정 변경
+    tcgetattr(STDIN_FILENO, &old_tio);
+    new_tio = old_tio;
+    new_tio.c_lflag &= ~(ICANON | ECHO);
+    tcsetattr(STDIN_FILENO, TCSANOW, &new_tio);
 
-    char c;
-    std::cin >> c;
-    std::cout << c;
-    std::cin >> c;
-    std::cout << c;
-    std::cin >> c;
-    std::cout << c;
+    char input;
+    cout << "Enter a character: ";
 
-    tcsetattr(STDIN_FILENO, TCSANOW, &oldt);
+    while (1) {
+        if (read(STDIN_FILENO, &input, 1) == 1) {
+            if (input == 'a') {
+                cout << "1" << endl;
+            }
+            else if (input == 'b') {
+                cout << "2" << endl;
+            }
+            else {
+                cout << "Invalid input" << endl;
+            }
+            break;
+        }
+    }
+
+    // 터미널 설정 복원
+    tcsetattr(STDIN_FILENO, TCSANOW, &old_tio);
+
     return 0;
 }
 
