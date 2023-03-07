@@ -118,7 +118,7 @@ int main() {
         digitalWrite(IN_BR_2, OUT_BR_2);
         softPwmWrite(EN_BR, 100);
       }
-      if else (input == '\x1b') {
+      else if (input == '\x1b') {
         cout << "OFF" << endl;
 
         digitalWrite(IN_FL_1, LOW);
