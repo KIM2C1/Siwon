@@ -169,8 +169,7 @@ int main() {
         cout << "Invalid input" << endl;
       }
     }
-  }
-  else {
+    else {
     digitalWrite(IN_FL_1, LOW);
     digitalWrite(IN_BL_1, LOW);
     digitalWrite(IN_FL_2, LOW);
@@ -183,7 +182,9 @@ int main() {
     softPwmWrite(EN_BL, 0);
     softPwmWrite(EN_FR, 0);
     softPwmWrite(EN_BR, 0);
+    }
   }
+  
   tcsetattr(STDIN_FILENO, TCSANOW, &old_tio);
 
   return 0;
