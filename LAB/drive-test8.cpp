@@ -107,6 +107,10 @@ int main(void) {
     i += 1;
     if (i == 1000) {
       std::cout << "break" << std::endl;
+      softPwmWrite(EN_FL, 0);
+      softPwmWrite(EN_BL, 0);
+      softPwmWrite(EN_FR, 0);
+      softPwmWrite(EN_BR, 0);
       break;
     }
 
