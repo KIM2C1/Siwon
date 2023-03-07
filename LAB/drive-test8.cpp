@@ -120,6 +120,15 @@ int main() {
       if (input == 'a') {
           cout << "a" << endl;
 
+          digitalWrite(IN_FL_1, LOW);
+          digitalWrite(IN_FL_2, LOW);
+          digitalWrite(IN_BL_1, LOW);
+          digitalWrite(IN_BL_2, LOW);
+          digitalWrite(IN_FR_1, LOW);
+          digitalWrite(IN_FR_2, LOW);
+          digitalWrite(IN_BR_1, LOW);
+          digitalWrite(IN_BR_2, LOW);
+
           softPwmWrite(EN_FL, 0);
           softPwmWrite(EN_BL, 0);
           softPwmWrite(EN_FR, 0);
