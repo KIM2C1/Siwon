@@ -41,8 +41,7 @@ int OUT_BR_1 = LOW;
 int OUT_BR_2 = LOW;
 
 
-int main(void)
-{
+int main(void) {
   std::time_t start_time = std::time(nullptr);
 
   // wiringPi 초기화
@@ -76,7 +75,7 @@ int main(void)
   softPwmCreate(EN_BR, 0, 100);
   softPwmWrite(EN_BR, 0);
 
-  while (True) {
+  while (true) {
     // FL-MOTER 전진
     OUT_FL_1 = HIGH;
     OUT_FL_2 = LOW;
@@ -111,4 +110,5 @@ int main(void)
     }
 
   return 0;
+  }
 }
