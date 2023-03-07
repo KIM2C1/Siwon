@@ -10,7 +10,6 @@ FL-----FR
 #include <wiringPi.h>
 #include <softPwm.h>
 #include <iostream>
-#include <ctime>
 
 // FL-MOTER
 #define EN_FL 23
@@ -42,7 +41,6 @@ int OUT_BR_2 = LOW;
 
 
 int main(void) {
-  std::time_t start_time = std::time(nullptr);
 
   // wiringPi 초기화
   wiringPiSetup();
@@ -75,6 +73,8 @@ int main(void) {
   softPwmCreate(EN_BR, 0, 100);
   softPwmWrite(EN_BR, 0);
 
+  int i = 0;
+
   while (true) {
     // FL-MOTER 전진
     OUT_FL_1 = HIGH;
@@ -104,8 +104,9 @@ int main(void) {
     digitalWrite(IN_BR_2, OUT_BR_2);
     softPwmWrite(EN_BR, 100);
 
-    std::time_t current_time = std::time(nullptr);
-    if (current_time - start_time >= 10) {
+    i += 1;
+    if (i == 1000) {
+      std::cout << "break" << std::endl;
       break;
     }
 
