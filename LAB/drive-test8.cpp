@@ -16,9 +16,9 @@ FL-----FR
 using namespace std;
 
 // FL-MOTER
-#define EN_FL 23
-#define IN_FL_1 22
-#define IN_FL_2 21
+#define EN_FL 13
+#define IN_FL_1 6
+#define IN_FL_2 5
 int OUT_FL_1 = LOW;
 int OUT_FL_2 = LOW;
 
