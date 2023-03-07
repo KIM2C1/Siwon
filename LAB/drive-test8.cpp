@@ -12,7 +12,6 @@ FL-----FR
 #include <iostream>
 #include <termios.h>
 #include <unistd.h>
-#include <wiringPi.h>
 
 using namespace std;
 
@@ -45,7 +44,7 @@ int OUT_BR_1 = LOW;
 int OUT_BR_2 = LOW;
 
 
-int main(void) {
+int main() {
 
   // wiringPi 초기화
   wiringPiSetup();
@@ -88,7 +87,7 @@ int main(void) {
 
   char input;
 
-  while (true) {
+  while (1) {
     // FL-MOTER 전진
     OUT_FL_1 = HIGH;
     OUT_FL_2 = LOW;
@@ -119,7 +118,7 @@ int main(void) {
 
     if (read(STDIN_FILENO, &input, 1) == 1) {
       if (input == 'a') {
-          std::cout << "a" << std::endl;
+          cout << "a" << endl;
 
           softPwmWrite(EN_FL, 0);
           softPwmWrite(EN_BL, 0);
@@ -128,8 +127,12 @@ int main(void) {
 
           break;
       }
+      else {
+        cout << "Invalid input" << endl;
+      }
     }
-
   }
+  tcsetattr(STDIN_FILENO, TCSANOW, &old_tio);
+
   return 0;
 }
