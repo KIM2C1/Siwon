@@ -119,7 +119,13 @@ int main(void) {
 
     if (read(STDIN_FILENO, &input, 1) == 1) {
       if (input == 'a') {
-        std::cout << "a" << std::endl;
+          std::cout << "a" << std::endl;
+
+          softPwmWrite(EN_FL, 0);
+          softPwmWrite(EN_BL, 0);
+          softPwmWrite(EN_FR, 0);
+          softPwmWrite(EN_BR, 0);
+
           break;
       }
     }
