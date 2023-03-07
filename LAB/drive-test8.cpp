@@ -62,33 +62,35 @@ int main(void)
   softPwmCreate(EN_BR, 0, 100);
   softPwmWrite(EN_BR, 0);
 
-  // FL-MOTER 전진
-  OUT_FL_1 = HIGH;
-  OUT_FL_2 = LOW;
-  digitalWrite(IN_FL_1, OUT_FL_1);
-  digitalWrite(IN_FL_2, OUT_FL_2);
-  softPwmWrite(EN_FL, 50);
-
-  // BL-MOTER 전진
-  OUT_BL_1 = HIGH;
-  OUT_BL_2 = LOW;
-  digitalWrite(IN_BL_1, OUT_BL_1);
-  digitalWrite(IN_BL_2, OUT_BL_2);
-  softPwmWrite(EN_BL, 50);
-
-  // FR-MOTER 전진
-  OUT_FR_1 = HIGH;
-  OUT_FR_2 = LOW;
-  digitalWrite(IN_FR_1, OUT_FR_1);
-  digitalWrite(IN_FR_2, OUT_FR_2);
-  softPwmWrite(EN_FR, 50);
-
-  // BR-MOTER 전진
-  OUT_BR_1 = HIGH;
-  OUT_BR_2 = LOW;
-  digitalWrite(IN_BR_1, OUT_BR_1);
-  digitalWrite(IN_BR_2, OUT_BR_2);
-  softPwmWrite(EN_BR, 50);
+  while(True) {
+    // FL-MOTER 전진
+    OUT_FL_1 = HIGH;
+    OUT_FL_2 = LOW;
+    digitalWrite(IN_FL_1, OUT_FL_1);
+    digitalWrite(IN_FL_2, OUT_FL_2);
+    softPwmWrite(EN_FL, 100);
+  
+    // BL-MOTER 전진
+    OUT_BL_1 = HIGH;
+    OUT_BL_2 = LOW;
+    digitalWrite(IN_BL_1, OUT_BL_1);
+    digitalWrite(IN_BL_2, OUT_BL_2);
+    softPwmWrite(EN_BL, 100);
+  
+    // FR-MOTER 전진
+    OUT_FR_1 = HIGH;
+    OUT_FR_2 = LOW;
+    digitalWrite(IN_FR_1, OUT_FR_1);
+    digitalWrite(IN_FR_2, OUT_FR_2);
+    softPwmWrite(EN_FR, 100);
+  
+    // BR-MOTER 전진
+    OUT_BR_1 = HIGH;
+    OUT_BR_2 = LOW;
+    digitalWrite(IN_BR_1, OUT_BR_1);
+    digitalWrite(IN_BR_2, OUT_BR_2);
+    softPwmWrite(EN_BR, 100);
+  }
 
   return 0;
 }
