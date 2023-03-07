@@ -96,8 +96,8 @@ int main() {
     softPwmWrite(EN_FL, 100);
   
     // BL-MOTER 전진
-    OUT_BL_1 = HIGH;
-    OUT_BL_2 = LOW;
+    OUT_BL_1 = LOW;
+    OUT_BL_2 = HIGH;
     digitalWrite(IN_BL_1, OUT_BL_1);
     digitalWrite(IN_BL_2, OUT_BL_2);
     softPwmWrite(EN_BL, 100);
