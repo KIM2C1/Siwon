@@ -1,31 +1,40 @@
+/*
+<MOTER POSITION>            <MOTER DRIVE POSITION>
+RL-----RR                   ENB IN4 IN3 IN2 IN1 ENA | ENB IN4 IN3 IN2 IN1 ENA
+|       |                    22  27  17  25  24  23 |  21  20  16   5   6  13
+|       |                       <BR>    |   <FR>    |     <BL>        <FL>      
+|       |
+FL-----FR
+*/
+
 #include <wiringPi.h>
 #include <softPwm.h>
 
 // FL-MOTER
 #define EN_FL 23
-#define IN_FL_1 27
-#define IN_FL_2 22
+#define IN_FL_1 22
+#define IN_FL_2 21
 int OUT_FL_1 = LOW;
 int OUT_FL_2 = LOW;
 
 // BL-MOTER
-#define EN_BL 4
-#define IN_BL_1 5
-#define IN_BL_2 6
+#define EN_BL 29
+#define IN_BL_1 28
+#define IN_BL_2 27
 int OUT_BL_1 = LOW;
 int OUT_BL_2 = LOW;
 
 // FR-MOTER
-#define EN_FR 1
-#define IN_FR_1 24
-#define IN_FR_2 25
+#define EN_FR 4
+#define IN_FR_1 5
+#define IN_FR_2 6
 int OUT_FR_1 = LOW;
 int OUT_FR_2 = LOW;
 
 // BR-MOTER
-#define EN_BR 16
-#define IN_BR_1 26
-#define IN_BR_2 27
+#define EN_BR 3
+#define IN_BR_1 2
+#define IN_BR_2 0
 int OUT_BR_1 = LOW;
 int OUT_BR_2 = LOW;
 
@@ -62,7 +71,7 @@ int main(void)
   softPwmCreate(EN_BR, 0, 100);
   softPwmWrite(EN_BR, 0);
 
-  while(True) {
+  while (True) {
     // FL-MOTER 전진
     OUT_FL_1 = HIGH;
     OUT_FL_2 = LOW;
