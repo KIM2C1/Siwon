@@ -10,6 +10,11 @@ FL-----FR
 #include <wiringPi.h>
 #include <softPwm.h>
 #include <iostream>
+#include <termios.h>
+#include <unistd.h>
+#include <wiringPi.h>
+
+using namespace std;
 
 // FL-MOTER
 #define EN_FL 23
@@ -73,7 +78,15 @@ int main(void) {
   softPwmCreate(EN_BR, 0, 100);
   softPwmWrite(EN_BR, 0);
 
-  int i = 0;
+  struct termios old_tio, new_tio;
+
+  // 터미널 설정 변경
+  tcgetattr(STDIN_FILENO, &old_tio);
+  new_tio = old_tio;
+  new_tio.c_lflag &= ~(ICANON | ECHO);
+  tcsetattr(STDIN_FILENO, TCSANOW, &new_tio);
+
+  char input;
 
   while (true) {
     // FL-MOTER 전진
@@ -104,14 +117,11 @@ int main(void) {
     digitalWrite(IN_BR_2, OUT_BR_2);
     softPwmWrite(EN_BR, 100);
 
-    i += 1;
-    if (i == 1000) {
-      std::cout << "break" << std::endl;
-      softPwmWrite(EN_FL, 0);
-      softPwmWrite(EN_BL, 0);
-      softPwmWrite(EN_FR, 0);
-      softPwmWrite(EN_BR, 0);
-      break;
+    if (read(STDIN_FILENO, &input, 1) == 1) {
+      if (input == 'a') {
+        std::cout << "a" << std::endl;
+          break;
+      }
     }
 
   }
