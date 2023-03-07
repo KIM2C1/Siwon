@@ -9,6 +9,8 @@ FL-----FR
 
 #include <wiringPi.h>
 #include <softPwm.h>
+#include <iostream>
+#include <ctime>
 
 // FL-MOTER
 #define EN_FL 23
@@ -38,8 +40,11 @@ int OUT_FR_2 = LOW;
 int OUT_BR_1 = LOW;
 int OUT_BR_2 = LOW;
 
+
 int main(void)
 {
+  std::time_t start_time = std::time(nullptr);
+
   // wiringPi 초기화
   wiringPiSetup();
   
@@ -99,7 +104,11 @@ int main(void)
     digitalWrite(IN_BR_1, OUT_BR_1);
     digitalWrite(IN_BR_2, OUT_BR_2);
     softPwmWrite(EN_BR, 100);
-  }
+
+    std::time_t current_time = std::time(nullptr);
+    if (current_time - start_time >= 10) {
+      break;
+    }
 
   return 0;
 }
