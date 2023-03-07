@@ -89,8 +89,8 @@ int main() {
 
   while (1) {
     // FL-MOTER 전진
-    OUT_FL_1 = HIGH;
-    OUT_FL_2 = LOW;
+    OUT_FL_1 = LOW;
+    OUT_FL_2 = HIGH;
     digitalWrite(IN_FL_1, OUT_FL_1);
     digitalWrite(IN_FL_2, OUT_FL_2);
     softPwmWrite(EN_FL, 100);
