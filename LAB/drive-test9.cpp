@@ -88,7 +88,7 @@ int main() {
   char input;
 
   while (1) {
-    if (read(STDIN_FILENO, &input, 1) == 1) {
+    if (read(STDIN_FILENO, &input, 1) > 0) {
       if (input == 'w') {
         // FL-MOTER 전진
         OUT_FL_1 = LOW;
