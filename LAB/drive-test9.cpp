@@ -168,7 +168,7 @@ int main() {
       else {
         cout << "Invalid input" << endl;
       }
-      char = input;
+      char input;
     }
     else {
     digitalWrite(IN_FL_1, LOW);
