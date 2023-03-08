@@ -33,7 +33,6 @@
 
 //siwon include
 #include <stdio.h>
-using namespace std;
 
 int main(int argc, char *argv[]) {
   rclcpp::init(argc, argv);
@@ -207,8 +206,6 @@ int main(int argc, char *argv[]) {
       scan_msg->time_increment = scan.config.time_increment;
       scan_msg->range_min = scan.config.min_range;
       scan_msg->range_max = scan.config.max_range;
-
-    float range_data[1050] = {0};
       
       int size = (scan.config.max_angle - scan.config.min_angle)/ scan.config.angle_increment + 1;
       scan_msg->ranges.resize(size);
@@ -220,45 +217,34 @@ int main(int argc, char *argv[]) {
           scan_msg->intensities[index] = scan.points[i].intensity;
           
           //code start
-          range_data[i] = scan.points.range;
+          int point_size = scan.points.size();    //data size = 1,000
+
+          double distance = scan.points[i].range; //distance per angle
+          //double angle = point_size * 0.36;       //angle per data_size
+          double angle = scan.points[i].angle * 0.612;
+
+          printf("%lf", angle);
+          /*
+          for (int x = 0; x < scan.points.size(); x++) {
+            int index = x * 360 / scan.points.size();
+            avg_angle[index] += angle / scan.points.size();
+            avg_distance[index] += distance / scan.points.size();
+          }
+
+          for (int y = 0; y < 360; y++) {
+            printf("angle: %f\tdistance: %f\n", avg_angle[y], avg_distance[y]);
+          }
+          */
+          //printf("[%d]\t", point_size);
+          //printf("distance: %lf(M)\t", distance);
+          //printf("angle: %lf\n", angle);
+          
         }
       }
-
-      const int num_arrays = 360;
-      int points = scan.points.size();
-
-      int arr_size = sizeof(range_data) / sizeof(range_data[0]);
-      vector<float> data(range_data, range_data + arr_size);
-
-      int index = 0;
-      
-      for (int j = 0; j < num_arrays; j++) {
-        int num_elements = points / num_arrays;
-        if (j < points % num_arrays) {
-          num_elements++
-        }
-        for (int k = 0; k < num_elements; k++) {
-          arrays[j].push_back(data[index]);
-          index++;
-        }
-      }
-
-      float arr_sum = 0;
-      float col_sum = 0;
-
-      for (int a = 0; a < 5; a++) {
-        for (long unsigned int b = 0; b < arrays[a].size(); b++) {
-          col_sum += arrays[a][b];
-          arr_sum = col_sum / arrays[a].size();
-        }
-      }
-
-      float avg = arr_sum / 5;
-      sleep(1);
-      if (avg < 0.7) {cout << "CLOSE" << endl;}
-      else {cout << "ok" << endl;}
 
       laser_pub->publish(*scan_msg);
+
+
     } else {
       RCLCPP_ERROR(node->get_logger(), "Failed to get scan");
     }
