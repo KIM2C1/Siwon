@@ -29,80 +29,13 @@
 #include <string>
 #include <signal.h>
 
-#include <wiringPi.h>
-#include <softPwm.h>
-
 #define ROS2Verision "1.0.1"
 
 //siwon include
 #include <stdio.h>
 using namespace std;
 
-// FL-MOTER
-#define EN_FL 23
-#define IN_FL_1 22
-#define IN_FL_2 21
-int OUT_FL_1 = LOW;
-int OUT_FL_2 = LOW;
-
-// BL-MOTER
-#define EN_BL 29
-#define IN_BL_1 28
-#define IN_BL_2 27
-int OUT_BL_1 = LOW;
-int OUT_BL_2 = LOW;
-
-// FR-MOTER
-#define EN_FR 4
-#define IN_FR_1 5
-#define IN_FR_2 6
-int OUT_FR_1 = LOW;
-int OUT_FR_2 = LOW;
-
-// BR-MOTER
-#define EN_BR 3
-#define IN_BR_1 2
-#define IN_BR_2 0
-int OUT_BR_1 = LOW;
-int OUT_BR_2 = LOW;
-
-
 int main(int argc, char *argv[]) {
-
-  // wiringPi 초기화
-  wiringPiSetup();
-  
-  // FL-MOTER
-  pinMode(EN_FL, OUTPUT);
-  pinMode(IN_FL_1, OUTPUT);
-  pinMode(IN_FL_2, OUTPUT);
-  softPwmCreate(EN_FL, 0, 100);
-  softPwmWrite(EN_FL, 0);
-
-  // BL-MOTER
-  pinMode(EN_BL, OUTPUT);
-  pinMode(IN_BL_1, OUTPUT);
-  pinMode(IN_BL_2, OUTPUT);
-  softPwmCreate(EN_BL, 0, 100);
-  softPwmWrite(EN_BL, 0);
-
-  // FR-MOTER
-  pinMode(EN_FR, OUTPUT);
-  pinMode(IN_FR_1, OUTPUT);
-  pinMode(IN_FR_2, OUTPUT);
-  softPwmCreate(EN_FR, 0, 100);
-  softPwmWrite(EN_FR, 0);
-
-  // BR-MOTER
-  pinMode(EN_BR, OUTPUT);
-  pinMode(IN_BR_1, OUTPUT);
-  pinMode(IN_BR_2, OUTPUT);
-  softPwmCreate(EN_BR, 0, 100);
-  softPwmWrite(EN_BR, 0);
-
-  char input;
-
-
   rclcpp::init(argc, argv);
 
   auto node = rclcpp::Node::make_shared("ydlidar_ros2_driver_node");
@@ -319,51 +252,8 @@ int main(int argc, char *argv[]) {
 
       float avg = arr_sum / 5;
       sleep(1);
-      if (avg < 0.7) {
-        cout << "CLOSE" << endl;
-        digitalWrite(IN_FL_1, LOW);
-        digitalWrite(IN_FL_2, LOW);
-        digitalWrite(IN_BL_1, LOW);
-        digitalWrite(IN_BL_2, LOW);
-        digitalWrite(IN_FR_1, LOW);
-        digitalWrite(IN_FR_2, LOW);
-        digitalWrite(IN_BR_1, LOW);
-        digitalWrite(IN_BR_2, LOW);
-        softPwmWrite(EN_FL, 0);
-        softPwmWrite(EN_BL, 0);
-        softPwmWrite(EN_FR, 0);
-        softPwmWrite(EN_BR, 0);
-        }
-      else {
-        cout << "ok" << endl;
-        // FL-MOTER 전진
-        OUT_FL_1 = LOW;
-        OUT_FL_2 = HIGH;
-        digitalWrite(IN_FL_1, OUT_FL_1);
-        digitalWrite(IN_FL_2, OUT_FL_2);
-        softPwmWrite(EN_FL, 50);
-      
-        // BL-MOTER 전진
-        OUT_BL_1 = LOW;
-        OUT_BL_2 = HIGH;
-        digitalWrite(IN_BL_1, OUT_BL_1);
-        digitalWrite(IN_BL_2, OUT_BL_2);
-        softPwmWrite(EN_BL, 50);
-      
-        // FR-MOTER 전진
-        OUT_FR_1 = HIGH;
-        OUT_FR_2 = LOW;
-        digitalWrite(IN_FR_1, OUT_FR_1);
-        digitalWrite(IN_FR_2, OUT_FR_2);
-        softPwmWrite(EN_FR, 50);
-      
-        // BR-MOTER 전진
-        OUT_BR_1 = HIGH;
-        OUT_BR_2 = LOW;
-        digitalWrite(IN_BR_1, OUT_BR_1);
-        digitalWrite(IN_BR_2, OUT_BR_2);
-        softPwmWrite(EN_BR, 50);
-        }
+      if (avg < 0.7) {cout << "CLOSE" << endl;}
+      else {cout << "ok" << endl;}
 
       laser_pub->publish(*scan_msg);
     } else {
