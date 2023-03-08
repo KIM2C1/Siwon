@@ -184,10 +184,6 @@ int main(int argc, char *argv[]) {
 
   rclcpp::WallRate loop_rate(20);
 
-  //siwon var start
-
-  double avg_angle[360] = {0.0};
-  double avg_distance[360] = {0.0};
 
   while (ret && rclcpp::ok()) {
     
@@ -208,7 +204,7 @@ int main(int argc, char *argv[]) {
       scan_msg->range_min = scan.config.min_range;
       scan_msg->range_max = scan.config.max_range;
 
-    float range_data[1050] = {0};
+      float range_data[1050] = {0};
       
       int size = (scan.config.max_angle - scan.config.min_angle)/ scan.config.angle_increment + 1;
       scan_msg->ranges.resize(size);
@@ -220,7 +216,7 @@ int main(int argc, char *argv[]) {
           scan_msg->intensities[index] = scan.points[i].intensity;
           
           //code start
-          range_data[i] = scan.points.range;
+          range_data[i] = scan.points[i].range;
         }
       }
 
@@ -229,6 +225,7 @@ int main(int argc, char *argv[]) {
 
       int arr_size = sizeof(range_data) / sizeof(range_data[0]);
       vector<float> data(range_data, range_data + arr_size);
+      vector<vector<float>> arrays(num_arrays);
 
       int index = 0;
       
