@@ -10,6 +10,7 @@ BL-----BR
 #include <wiringPi.h>
 #include <softPwm.h>
 #include <iostream>
+#include <Windows.h>
 
 using namespace std;
 
@@ -41,43 +42,7 @@ int OUT_FR_2 = LOW;
 int OUT_BR_1 = LOW;
 int OUT_BR_2 = LOW;
 
-
-int main() {
-
-  // wiringPi 초기화
-  wiringPiSetup();
-  
-  // FL-MOTER
-  pinMode(EN_FL, OUTPUT);
-  pinMode(IN_FL_1, OUTPUT);
-  pinMode(IN_FL_2, OUTPUT);
-  softPwmCreate(EN_FL, 0, 100);
-  softPwmWrite(EN_FL, 0);
-
-  // BL-MOTER
-  pinMode(EN_BL, OUTPUT);
-  pinMode(IN_BL_1, OUTPUT);
-  pinMode(IN_BL_2, OUTPUT);
-  softPwmCreate(EN_BL, 0, 100);
-  softPwmWrite(EN_BL, 0);
-
-  // FR-MOTER
-  pinMode(EN_FR, OUTPUT);
-  pinMode(IN_FR_1, OUTPUT);
-  pinMode(IN_FR_2, OUTPUT);
-  softPwmCreate(EN_FR, 0, 100);
-  softPwmWrite(EN_FR, 0);
-
-  // BR-MOTER
-  pinMode(EN_BR, OUTPUT);
-  pinMode(IN_BR_1, OUTPUT);
-  pinMode(IN_BR_2, OUTPUT);
-  softPwmCreate(EN_BR, 0, 100);
-  softPwmWrite(EN_BR, 0);
-
-  char input;
-
-  void state_value(state) {
+ void state_value(state) {
     if (state == 'ready') {
       OUT_FL_1 = OUT_FL_2 = OUT_FR_1 = OUT_FR_2 = OUT_BL_1 =  OUT_BL_2 = OUT_BR_1 = OUT_BR_2 = LOW;
       softPwmWrite(EN_FL, 0);
@@ -118,6 +83,41 @@ int main() {
       softPwmWrite(EN_BR, 100);
     }
   }
+
+int main() {
+
+  // wiringPi 초기화
+  wiringPiSetup();
+  
+  // FL-MOTER
+  pinMode(EN_FL, OUTPUT);
+  pinMode(IN_FL_1, OUTPUT);
+  pinMode(IN_FL_2, OUTPUT);
+  softPwmCreate(EN_FL, 0, 100);
+  softPwmWrite(EN_FL, 0);
+
+  // BL-MOTER
+  pinMode(EN_BL, OUTPUT);
+  pinMode(IN_BL_1, OUTPUT);
+  pinMode(IN_BL_2, OUTPUT);
+  softPwmCreate(EN_BL, 0, 100);
+  softPwmWrite(EN_BL, 0);
+
+  // FR-MOTER
+  pinMode(EN_FR, OUTPUT);
+  pinMode(IN_FR_1, OUTPUT);
+  pinMode(IN_FR_2, OUTPUT);
+  softPwmCreate(EN_FR, 0, 100);
+  softPwmWrite(EN_FR, 0);
+
+  // BR-MOTER
+  pinMode(EN_BR, OUTPUT);
+  pinMode(IN_BR_1, OUTPUT);
+  pinMode(IN_BR_2, OUTPUT);
+  softPwmCreate(EN_BR, 0, 100);
+  softPwmWrite(EN_BR, 0);
+
+  char input;
 
   while (1) {
     cout << "ready / go / back / right / left" << endl;
