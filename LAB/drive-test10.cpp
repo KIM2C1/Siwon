@@ -134,6 +134,7 @@ int main() {
     digitalWrite(IN_BR_1, OUT_BR_1);
     digitalWrite(IN_BR_2, OUT_BR_2);
     sleep(5);
+    state_value("ready")
   }
   return 0;
 }
