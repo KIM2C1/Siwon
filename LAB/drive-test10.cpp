@@ -117,7 +117,7 @@ int main() {
   softPwmCreate(EN_BR, 0, 100);
   softPwmWrite(EN_BR, 0);
 
-  char input;
+  string input;
 
   while (1) {
     cout << "ready / go / back / right / left" << endl;
