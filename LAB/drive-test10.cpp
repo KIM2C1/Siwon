@@ -42,7 +42,7 @@ int OUT_FR_2 = LOW;
 int OUT_BR_1 = LOW;
 int OUT_BR_2 = LOW;
 
- void state_value(str state) {
+ void state_value(string state) {
     if (state == 'ready') {
       OUT_FL_1 = OUT_FL_2 = OUT_FR_1 = OUT_FR_2 = OUT_BL_1 =  OUT_BL_2 = OUT_BR_1 = OUT_BR_2 = LOW;
       softPwmWrite(EN_FL, 0);
