@@ -1,0 +1,17 @@
+'timescale 1ns/1ns
+
+module tb_SimTest;
+
+   reg      a, b;
+   wire     out_and;
+
+   SimTest U0 (a, b, out_and);
+
+   initial begin
+      a = 0; b = 0; #100;
+      a = 0; b = 1; #100;
+      a = 1; b = 0; #100;
+      a = 1; b = 1; #100;
+   end
+
+endmodule
