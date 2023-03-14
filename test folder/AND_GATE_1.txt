@@ -1,0 +1,8 @@
+module SimTest (a, b, out_and);
+
+   input      a, b;
+   output     out_and;
+
+   assign out_and = a & b;
+
+endmodule
