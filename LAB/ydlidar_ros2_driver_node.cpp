@@ -319,7 +319,7 @@ int main(int argc, char *argv[]) {
 
       float avg = arr_sum / 5;
       sleep(1);
-      if (avg < 0.7) {
+      if (avg < 1) {
         cout << "CLOSE" << endl;
         digitalWrite(IN_FL_1, LOW);
         digitalWrite(IN_FL_2, LOW);
@@ -341,28 +341,28 @@ int main(int argc, char *argv[]) {
         OUT_FL_2 = HIGH;
         digitalWrite(IN_FL_1, OUT_FL_1);
         digitalWrite(IN_FL_2, OUT_FL_2);
-        softPwmWrite(EN_FL, 50);
+        softPwmWrite(EN_FL, 30);
       
         // BL-MOTER 전진
         OUT_BL_1 = LOW;
         OUT_BL_2 = HIGH;
         digitalWrite(IN_BL_1, OUT_BL_1);
         digitalWrite(IN_BL_2, OUT_BL_2);
-        softPwmWrite(EN_BL, 50);
+        softPwmWrite(EN_BL, 30);
       
         // FR-MOTER 전진
         OUT_FR_1 = HIGH;
         OUT_FR_2 = LOW;
         digitalWrite(IN_FR_1, OUT_FR_1);
         digitalWrite(IN_FR_2, OUT_FR_2);
-        softPwmWrite(EN_FR, 50);
+        softPwmWrite(EN_FR, 30);
       
         // BR-MOTER 전진
         OUT_BR_1 = HIGH;
         OUT_BR_2 = LOW;
         digitalWrite(IN_BR_1, OUT_BR_1);
         digitalWrite(IN_BR_2, OUT_BR_2);
-        softPwmWrite(EN_BR, 50);
+        softPwmWrite(EN_BR, 30);
         }
 
       laser_pub->publish(*scan_msg);
