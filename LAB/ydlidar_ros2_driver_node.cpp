@@ -318,7 +318,7 @@ int main(int argc, char *argv[]) {
       }
 
       float avg = arr_sum / 5;
-      sleep(1);
+      //sleep(1);
       if (avg < 1) {
         cout << "CLOSE" << endl;
         digitalWrite(IN_FL_1, LOW);
