@@ -63,21 +63,13 @@ pwm_FL.ChangeDutyCycle(0)
 #pwm_FR.ChangeDutyCycle(0)
 #pwm_BR.ChangeDutyCycle(0)
 
-    
+OUT_FL_1 = 0
+OUT_FL_2 = 1
+
+
 
 while True:
-    OUT_FL_1 = 0
-    OUT_FL_2 = 1
-    
-    OUT_FR_1 = 1
-    OUT_FR_2 = 0
-    
-    OUT_BR_1 = 1
-    OUT_BR_2 = 0
-    
-    OUT_BL_1 = 0
-    OUT_BL_2 = 1
     GPIO.output(IN_FL_1,OUT_FL_1)
-    GPIO.output(IN_FL_2,OUT_FL_2)    
+    GPIO.output(IN_FL_2,OUT_FL_2)  
     
     pwm_FL.ChangeDutyCycle(speed)
