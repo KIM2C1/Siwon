@@ -319,7 +319,9 @@ int main(int argc, char *argv[]) {
 
       //Show 0~360 Arrays
       for (int i = 0; i < 360; i++) {
-        cout << arrays[i] << endl;
+        for (int n = 0; n < arrays[i].size(); n++) {
+          cout << arrays[i] << endl;
+        }
       }
 
 
