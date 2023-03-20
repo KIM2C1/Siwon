@@ -317,15 +317,8 @@ int main(int argc, char *argv[]) {
         }
       }
 
-      //Show 0~360 Arrays
-      for (int i = 0; i < 360; i++) {
-        cout << arrays[i] << endl;
-      }
-
-
       float avg = arr_sum / 5;
-
-      /*
+      //sleep(1);
       if (avg < 1) {
         cout << "CLOSE" << endl;
         digitalWrite(IN_FL_1, LOW);
@@ -371,7 +364,6 @@ int main(int argc, char *argv[]) {
         digitalWrite(IN_BR_2, OUT_BR_2);
         softPwmWrite(EN_BR, 30);
         }
-        */
 
       laser_pub->publish(*scan_msg);
     } else {
