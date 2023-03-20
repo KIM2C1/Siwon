@@ -327,17 +327,20 @@ int main(int argc, char *argv[]) {
       cout << "--------------------------------------" << endl;
       */
       
+      #define SIZE 30
       //mapping
-      int map_inf[11][11] = { 0 };
+      int x, y;
+
+      int map_inf[SIZE][SIZE] = { 0 };
       auto print_map = [&](){
         system("clear");
-        for (int m = 0; m < 11; m++) {
-          for (int n = 0; n < 11; n++) {
+        for (int m = 0; m < SIZE; m++) {
+          for (int n = 0; n < SIZE; n++) {
             if(map_inf[m][n] == 1) {
               cout << "■";
             }
             else {
-              cout << " ";
+              cout << "0";
             }
           }
           cout << endl;
@@ -345,7 +348,7 @@ int main(int argc, char *argv[]) {
       };
 
       for (int angle = 0; angle < 360; angle++) {
-        for (int distance = 0; distance < arrays[i].size(); distance++) {
+        for (int distance = 0; distance < arrays[angle].size(); distance++) {
           // 각도와 거리값으로 x, y 계산
           double rad = angle * M_PI / 180.0;
           x = arrays[angle][distance] * cos(rad) + 5;
