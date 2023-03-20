@@ -36,6 +36,7 @@
 
 //siwon include
 #include <stdio.h>
+#include <cstdlib>
 using namespace std;
 
 // FL-MOTER
@@ -320,8 +321,9 @@ int main(int argc, char *argv[]) {
       //Show 0~360 Arrays
       for (int i = 0; i < 360; i++) {
         for (int n = 0; n < arrays[i].size(); n++) {
-          cout << arrays[i] << endl;
+          cout << i << ":" << arrays[i][n];
         }
+        system("clear");
       }
 
 
