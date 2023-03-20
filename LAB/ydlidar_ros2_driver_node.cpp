@@ -36,7 +36,6 @@
 
 //siwon include
 #include <stdio.h>
-#include <cstdlib>
 using namespace std;
 
 // FL-MOTER
@@ -317,15 +316,47 @@ int main(int argc, char *argv[]) {
           arr_sum = col_sum / arrays[a].size();
         }
       }
-
+      
+      /*
       //Show 0~360 Arrays
       for (int i = 0; i < 360; i++) {
         for (int n = 0; n < arrays[i].size(); n++) {
           cout << i << ":" << arrays[i][n];
         }
-        system("clear");
       }
+      cout << "--------------------------------------" << endl;
+      */
+      
+      //mapping
+      int map_inf[11][11] = { 0 };
+      auto print_map = [&](){
+        system("clear");
+        for (int m = 0; m < 11; m++) {
+          for (int n = 0; n < 11; n++) {
+            if(map_inf[m][n] == 1) {
+              cout << "■";
+            }
+            else {
+              cout << " ";
+            }
+          }
+          cout << endl;
+        }
+      };
 
+      for (int angle = 0; angle < 360; angle++) {
+        for (int distance = 0; distance < arrays[i].size(); distance++) {
+          // 각도와 거리값으로 x, y 계산
+          double rad = angle * M_PI / 180.0;
+          x = arrays[angle][distance] * cos(rad) + 5;
+          y = arrays[angle][distance] * sin(rad) + 5;
+          // x, y 값이 배열 범위 내에 있을 경우 해당 좌표에 1 대입
+          if(x >= 0 && x < SIZE && y >= 0 && y < SIZE) {
+              map_inf[x][y] = 1;
+          }
+        }
+      }
+      print_map();  // 배열 출력
 
       float avg = arr_sum / 5;
 
