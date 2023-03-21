@@ -327,15 +327,19 @@ int main(int argc, char *argv[]) {
       cout << "--------------------------------------" << endl;
       */
       
-      #define SIZE 30
-      //mapping
+      /****************mapping****************/
+      #define MAP_SIZE 30
+      #define MY_POINT 15
+      
       int x, y;
 
-      int map_inf[SIZE][SIZE] = { 0 };
+      int map_inf[MAP_SIZE][MAP_SIZE] = { 0 };
+      map_inf[MY_POINT][MY_POINT] = 2;
+
       auto print_map = [&](){
         system("clear");
-        for (int m = 0; m < SIZE; m++) {
-          for (int n = 0; n < SIZE; n++) {
+        for (int m = 0; m < MAP_SIZE; m++) {
+          for (int n = 0; n < MAP_SIZE; n++) {
             if(map_inf[m][n] == 1) {
               cout << "■";
             }
@@ -346,24 +350,31 @@ int main(int argc, char *argv[]) {
           cout << endl;
         }
       };
-
+      
+      //input resource in map_inf
       for (int angle = 0; angle < 360; angle++) {
         for (int distance = 0; distance < arrays[angle].size(); distance++) {
           // 각도와 거리값으로 x, y 계산
           double rad = angle * M_PI / 180.0;
-          x = arrays[angle][distance] * cos(rad) + 5;
-          y = arrays[angle][distance] * sin(rad) + 5;
+          x = arrays[angle][distance] * 100 * cos(rad) + MY_POINT;
+          y = arrays[angle][distance] * 100 * sin(rad) + MY_POINT;
+          cout << x;
+          cout << y << endl;
+          sleep(0.5);
           // x, y 값이 배열 범위 내에 있을 경우 해당 좌표에 1 대입
-          if(x >= 0 && x < SIZE && y >= 0 && y < SIZE) {
+          if(x >= 0 && x < MAP_SIZE && y >= 0 && y < MAP_SIZE) {
               map_inf[x][y] = 1;
           }
         }
       }
+
       print_map();  // 배열 출력
 
-      float avg = arr_sum / 5;
+      
 
       /*
+      float avg = arr_sum / 5;
+
       if (avg < 1) {
         cout << "CLOSE" << endl;
         digitalWrite(IN_FL_1, LOW);
