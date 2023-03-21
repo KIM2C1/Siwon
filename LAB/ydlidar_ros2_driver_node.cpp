@@ -328,18 +328,20 @@ int main(int argc, char *argv[]) {
       */
       
       /****************mapping****************/
-      #define MAP_SIZE 60
-      #define MY_POINT 30
+      #define MAP_SIZE_X 120
+      #define MAP_SIZE_Y 60
+      #define MY_POINT_X 60
+      #define MY_POINT_Y 30
       
       int x, y;
 
-      int map_inf[MAP_SIZE][MAP_SIZE] = { 0 };
-      map_inf[MY_POINT][MY_POINT] = 2; //My position
+      int map_inf[MAP_SIZE_X][MAP_SIZE_Y] = { 0 };
+      map_inf[MY_POINT_X][MY_POINT_Y] = 2; //My position
 
       auto print_map = [&](){
         system("clear");
-        for (int m = 0; m < MAP_SIZE; m++) {
-          for (int n = 0; n < MAP_SIZE; n++) {
+        for (int m = 0; m < MAP_SIZE_X; m++) {
+          for (int n = 0; n < MAP_SIZE_Y; n++) {
             if(map_inf[m][n] == 1) {
               cout << "■";
             }
@@ -359,13 +361,9 @@ int main(int argc, char *argv[]) {
         for (int distance = 0; distance < arrays[angle].size(); distance++) {
           // 각도와 거리값으로 x, y 계산
           double rad = angle * M_PI / 180.0;
-          x = arrays[angle][distance] * 100 * cos(rad) + MY_POINT;
-          y = arrays[angle][distance] * 100 * sin(rad) + MY_POINT;
-          //cout << x;
-          //cout << y << endl;
-          //sleep(0.5);
-          // x, y 값이 배열 범위 내에 있을 경우 해당 좌표에 1 대입
-          if(x >= 0 && x < MAP_SIZE && y >= 0 && y < MAP_SIZE) {
+          x = arrays[angle][distance] * 100 * cos(rad) + MY_POINT_X;
+          y = arrays[angle][distance] * 100 * sin(rad) + MY_POINT_Y;
+          if(x >= 0 && x < MAP_SIZE_X && y >= 0 && y < MAP_SIZE_Y) {
               map_inf[x][y] = 1;
           }
         }
