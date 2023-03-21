@@ -328,13 +328,14 @@ int main(int argc, char *argv[]) {
       */
       
       /****************mapping****************/
-      #define MAP_SIZE 30
-      #define MY_POINT 15
+      #define MAP_SIZE 100
+      #define MY_POINT 50
       
       int x, y;
 
       int map_inf[MAP_SIZE][MAP_SIZE] = { 0 };
       map_inf[MY_POINT][MY_POINT] = 2;
+      map_inf[50][50] = 3;
 
       auto print_map = [&](){
         system("clear");
@@ -343,8 +344,11 @@ int main(int argc, char *argv[]) {
             if(map_inf[m][n] == 1) {
               cout << "■";
             }
-            else {
+            else if (map_inf[m][n] == 2) {
               cout << "0";
+            }
+            else if (map_inf[m][n] == 3) {
+              cout << "★"
             }
           }
           cout << endl;
@@ -358,9 +362,9 @@ int main(int argc, char *argv[]) {
           double rad = angle * M_PI / 180.0;
           x = arrays[angle][distance] * 100 * cos(rad) + MY_POINT;
           y = arrays[angle][distance] * 100 * sin(rad) + MY_POINT;
-          cout << x;
-          cout << y << endl;
-          sleep(0.5);
+          //cout << x;
+          //cout << y << endl;
+          //sleep(0.5);
           // x, y 값이 배열 범위 내에 있을 경우 해당 좌표에 1 대입
           if(x >= 0 && x < MAP_SIZE && y >= 0 && y < MAP_SIZE) {
               map_inf[x][y] = 1;
