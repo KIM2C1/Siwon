@@ -348,7 +348,7 @@ int main(int argc, char *argv[]) {
               cout << "0";
             }
             else if (map_inf[m][n] == 3) {
-              cout << "★"
+              cout << "★";
             }
           }
           cout << endl;
