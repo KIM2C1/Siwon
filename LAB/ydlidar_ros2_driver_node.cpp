@@ -328,14 +328,13 @@ int main(int argc, char *argv[]) {
       */
       
       /****************mapping****************/
-      #define MAP_SIZE 100
-      #define MY_POINT 50
+      #define MAP_SIZE 60
+      #define MY_POINT 30
       
       int x, y;
 
       int map_inf[MAP_SIZE][MAP_SIZE] = { 0 };
-      map_inf[MY_POINT][MY_POINT] = 2;
-      map_inf[50][50] = 3;
+      map_inf[MY_POINT][MY_POINT] = 2; //My position
 
       auto print_map = [&](){
         system("clear");
@@ -345,10 +344,10 @@ int main(int argc, char *argv[]) {
               cout << "■";
             }
             else if (map_inf[m][n] == 2) {
-              cout << "0";
-            }
-            else if (map_inf[m][n] == 3) {
               cout << "★";
+            }
+            else {
+              cout << "0";
             }
           }
           cout << endl;
