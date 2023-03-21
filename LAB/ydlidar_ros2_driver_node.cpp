@@ -327,11 +327,11 @@ int main(int argc, char *argv[]) {
       cout << "--------------------------------------" << endl;
       */
       
-      /****************mapping****************/
-      #define MAP_SIZE_X 120
+      /******************mapping******************/
+      #define MAP_SIZE_X 60
       #define MAP_SIZE_Y 60
       #define MY_POINT_X 60
-      #define MY_POINT_Y 30
+      #define MY_POINT_Y 60
       
       int x, y;
 
@@ -346,7 +346,7 @@ int main(int argc, char *argv[]) {
               cout << "■";
             }
             else if (map_inf[m][n] == 2) {
-              cout << "★";
+              cout << "★"; //require repair
             }
             else {
               cout << "0";
@@ -370,7 +370,7 @@ int main(int argc, char *argv[]) {
       }
 
       print_map();  // 배열 출력
-
+      /****************mapping_end****************/
       
 
       /*
