@@ -403,7 +403,13 @@ int main(int argc, char *argv[]) {
   //print map
   for (int CVS_Y = 0; CVS_Y < map_data_save.size(); CVS_Y++) {
     for (int CVS_X = 0; CVS_X < map_data_save[CVS_Y].size(); CVS_X++) {
-      cout << map_data_save[CVS_Y][CVS_X] << " ";
+      //cout << map_data_save[CVS_Y][CVS_X] << " ";
+      if (map_data_save[CVS_Y][CVS_X] == 0) {
+        cout << " ";
+      }
+      else if (map_data_save[CVS_Y][CVS_X] == 1) {
+        cout << "■";
+      }
     }
     cout << endl;
   }
