@@ -42,12 +42,7 @@ using namespace std;
 
 int main(int argc, char *argv[]) {
 
-  #define MAP_SIZE_X 60
-  #define MAP_SIZE_Y 60
-
-  #define MY_POINT_X 30
-  #define MY_POINT_Y 30
-  
+  //save directory for map file
   int map_inf[MAP_SIZE_X][MAP_SIZE_Y] = { 0 };
 
   rclcpp::init(argc, argv);
@@ -276,19 +271,25 @@ int main(int argc, char *argv[]) {
       
       /******************mapping******************/
 
-      
+      #define MAP_SIZE_X 60
+      #define MAP_SIZE_Y 60
+
+      #define MY_POINT_X 30
+      #define MY_POINT_Y 30
+    
+      int map_inf_buff[MAP_SIZE_X][MAP_SIZE_Y] = { 0 };
       int convert_x, convert_y;
 
-      map_inf[MY_POINT_X][MY_POINT_Y] = 2; //My position
+      map_inf_buff[MY_POINT_X][MY_POINT_Y] = 2; //My position
 
       auto print_map = [&](){
         system("clear");
         for (int m = 0; m < MAP_SIZE_X; m++) {
           for (int n = 0; n < MAP_SIZE_Y; n++) {
-            if(map_inf[m][n] == 1) {
+            if(map_inf_buff[m][n] == 1) {
               cout << "■";
             }
-            else if (map_inf[m][n] == 2) {
+            else if (map_inf_buff[m][n] == 2) {
               cout << "★"; //require repair
             }
             else {
@@ -299,7 +300,7 @@ int main(int argc, char *argv[]) {
         }
       };
       
-      //input resource in map_inf
+      //input resource in map_inf_buff
       for (int angle = 0; angle < 360; angle++) {
         for (int distance = 0; distance < arrays[angle].size(); distance++) {
           //Calculate x, y from angle and distance values
@@ -307,7 +308,7 @@ int main(int argc, char *argv[]) {
           convert_x = arrays[angle][distance] * 100 * cos(rad) + MY_POINT_X;
           convert_y = arrays[angle][distance] * 100 * sin(rad) + MY_POINT_Y;
           if(convert_x >= 0 && convert_x < MAP_SIZE_X && convert_y >= 0 && convert_y < MAP_SIZE_Y) {
-              map_inf[convert_x][convert_y] = 1;
+              map_inf_buff[convert_x][convert_y] = 1;
           }
         }
       }
@@ -325,6 +326,13 @@ int main(int argc, char *argv[]) {
     }
     rclcpp::spin_some(node);
     loop_rate.sleep();
+  }
+
+  //move from map_inf_buff to map_inf
+  for (int buff_Y; buff_Y < MAP_SIZE_Y; buff_Y++ ) {
+    for (int buff_X; buff_X < MAP_SIZE_X; buff_X++ ) {
+      map_inf[buff_Y][buff_X] = map_inf_buff[buff_Y][buff_X];
+    }
   }
 
   RCLCPP_INFO(node->get_logger(), "[YDLIDAR INFO] Now YDLIDAR is stopping .......");
