@@ -303,7 +303,7 @@ int main(int argc, char *argv[]) {
           double rad = angle * M_PI / 180.0;
           convert_x = arrays[angle][distance] * 100 * cos(rad) + MY_POINT_X;
           convert_y = arrays[angle][distance] * 100 * sin(rad) + MY_POINT_Y;
-          if(x >= 0 && convert_x < MAP_SIZE_X && convert_y >= 0 && convert_y < MAP_SIZE_Y) {
+          if(convert_x >= 0 && convert_x < MAP_SIZE_X && convert_y >= 0 && convert_y < MAP_SIZE_Y) {
               map_inf[convert_x][convert_y] = 1;
           }
         }
@@ -332,7 +332,7 @@ int main(int argc, char *argv[]) {
   /*****************save_map******************/
   cout << "Saving........" << endl;
 
-  vector<vector<int>> map_data_CVS
+  vector<vector<int>> map_data_CVS;
 
   for (int CVS_Y = 0; CVS_Y < MAP_SIZE_X; CVS_Y++) {
     vector<int> row;
@@ -340,17 +340,17 @@ int main(int argc, char *argv[]) {
     for (int CVS_X = 0; CVS_X < MAP_SIZE_Y; CVS_X++) {
         row.push_back(arr[CVS_Y][CVS_X]);
     }
-    map_data.push_back(row);
+    map_data_CVS.push_back(row);
   }
   
   //create map file
   ofstream map_file("map_data.csv");
 
   //saving map data
-  for (int CVS_Y = 0; CVS_Y < map_data.size(); CVS_Y++) {
-    for (int CVS_X = 0; CVS_X < map_data[CVS_Y].size(); CVS_X++) {
-      map_file << map_data[CVS_Y][CVS_X]
-      if (CVS_X != map_data[CVS_Y].size() - 1) {
+  for (int CVS_Y = 0; CVS_Y < map_data_CVS.size(); CVS_Y++) {
+    for (int CVS_X = 0; CVS_X < map_data_CVS[CVS_Y].size(); CVS_X++) {
+      map_file << map_data_CVS[CVS_Y][CVS_X]
+      if (CVS_X != map_data_CVS[CVS_Y].size() - 1) {
           map_file << ",";
       }
     }
