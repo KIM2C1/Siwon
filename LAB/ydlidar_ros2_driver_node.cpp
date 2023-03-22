@@ -287,12 +287,15 @@ int main(int argc, char *argv[]) {
         for (int m = 0; m < MAP_SIZE_X; m++) {
           for (int n = 0; n < MAP_SIZE_Y; n++) {
             if(map_inf_buff[m][n] == 1) {
+              map_inf[m][n] = 1;
               cout << "■";
             }
             else if (map_inf_buff[m][n] == 2) {
+              map_inf[m][n] = 2;
               cout << "★"; //require repair
             }
             else {
+              map_inf[m][n] = 0;
               cout << "0";
             }
           }
@@ -328,12 +331,16 @@ int main(int argc, char *argv[]) {
     loop_rate.sleep();
   }
 
+  /*
   //move from map_inf_buff to map_inf
   for (int buff_Y; buff_Y < MAP_SIZE_Y; buff_Y++ ) {
     for (int buff_X; buff_X < MAP_SIZE_X; buff_X++ ) {
+      cout << map_inf_buff[buff_Y][buff_X];
       map_inf[buff_Y][buff_X] = map_inf_buff[buff_Y][buff_X];
     }
+    cout << endl;
   }
+  */
 
   RCLCPP_INFO(node->get_logger(), "[YDLIDAR INFO] Now YDLIDAR is stopping .......");
   laser.turnOff();
