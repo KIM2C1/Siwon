@@ -330,8 +330,8 @@ int main(int argc, char *argv[]) {
       /******************mapping******************/
       #define MAP_SIZE_X 60
       #define MAP_SIZE_Y 60
-      #define MY_POINT_X 60
-      #define MY_POINT_Y 60
+      #define MY_POINT_X 30
+      #define MY_POINT_Y 30
       
       int x, y;
 

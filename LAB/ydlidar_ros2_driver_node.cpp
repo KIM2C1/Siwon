@@ -344,9 +344,7 @@ int main(int argc, char *argv[]) {
       scan_msg->range_min = scan.config.min_range;
       scan_msg->range_max = scan.config.max_range;
       
-
-
-    float range_data[1050] = {0};
+      float range_data[1050] = {0};
 
       int size = (scan.config.max_angle - scan.config.min_angle)/ scan.config.angle_increment + 1;
       scan_msg->ranges.resize(size);
@@ -358,150 +356,99 @@ int main(int argc, char *argv[]) {
           scan_msg->ranges[index] = scan.points[i].range;
           scan_msg->intensities[index] = scan.points[i].intensity;
 
-	    range_data[i] = scan.points[i].range;
-	}
+	        range_data[i] = scan.points[i].range;
+	      }
       }
 
-//my code start
-	//data input code start
-	    const int num_arrays = 360;
-	    float arr_avg(num_arrays) = {0};
-	    int points = scan.points.size();
+    //my code start
+	  //data input code start
+	  const int num_arrays = 360;
+	  int points = scan.points.size();
 
-	    int arr_size = sizeof(range_data) / sizeof(range_data[0]);
-	    std::vector<float> data(range_data, range_data + arr_size);
-	    vector<vector<float>> arrays(num_arrays);
+	  int arr_size = sizeof(range_data) / sizeof(range_data[0]);
+	  std::vector<float> data(range_data, range_data + arr_size);
+	  vector<vector<float>> arrays(num_arrays);
 
-	    //int elements_per_array = points / num_arrays;
+	  //int elements_per_array = points / num_arrays;
 
 		int index = 0;
 
 		for (int j = 0; j < num_arrays; j++) {
-		    int num_elements = points / num_arrays;
-		    if(j < points % num_arrays) {
-			num_elements++;
-		    }
-		    for(int k = 0; k < num_elements; k++) {
-			arrays[j].push_back(data[index]);
-			index++;
-                        if((arrays[j][k] != 0) && (arrays[j][k] < 0.4)) {
-                            angle_cnt[j] = 1;
-                            cnt_a[j] = j;
+		  int num_elements = points / num_arrays;
+		  if(j < points % num_arrays) {
+			  num_elements++;
+		  }
+
+		  for(int k = 0; k < num_elements; k++) {
+			  arrays[j].push_back(data[index]);
+			  index++;
 			}
-		    }
-	        } //data input code end
+		}
+	
+    float arr_sum = 0;
+    float col_sum = 0;
 
-        int wig;
-        int cnt_cnt;
+    for (int a = 0; a < 5; a++) {
+      for (long unsigned int b = 0; b < arrays[a].size(); b++) {
+        col_sum += arrays[a][b];
+        arr_sum = col_sum / arrays[a].size();
+      }
+    }
+       
+    #define MAP_SIZE_X 60
+    #define MAP_SIZE_Y 60
+    #define MY_POINT_X 30
+    #define MY_POINT_Y 30
 
-        // FL-MOTER 전진
-        OUT_FL_1 = LOW;
-        OUT_FL_2 = HIGH;
-        digitalWrite(IN_FL_1, OUT_FL_1);
-        digitalWrite(IN_FL_2, OUT_FL_2);
-        softPwmWrite(EN_FL, 50);
+      int x, y;
 
-        // BL-MOTER 전진
-        OUT_BL_1 = LOW;
-        OUT_BL_2 = HIGH;
-        digitalWrite(IN_BL_1, OUT_BL_1);
-        digitalWrite(IN_BL_2, OUT_BL_2);
-        softPwmWrite(EN_BL, 50);
+      int map_inf[MAP_SIZE_X][MAP_SIZE_Y] = { 0 };
+      map_inf[MY_POINT_X][MY_POINT_Y] = 2; //My position
 
-        // FR-MOTER 전진
-        OUT_FR_1 = HIGH;
-        OUT_FR_2 = LOW;
-        digitalWrite(IN_FR_1, OUT_FR_1);
-        digitalWrite(IN_FR_2, OUT_FR_2);
-        softPwmWrite(EN_FR, 50);
-
-        // BR-MOTER 전진
-        OUT_BR_1 = HIGH;
-        OUT_BR_2 = LOW;
-        digitalWrite(IN_BR_1, OUT_BR_1);
-        digitalWrite(IN_BR_2, OUT_BR_2);
-        softPwmWrite(EN_BR, 50);
-	    
-	    
-	//close warning code start
-        for(int a = 0; a < num_arrays; a++) {
-             if ((angle_cnt[a] == 1) && (cnt_a[a] != 0)) {
-                  cnt_cnt = a;
-                   if(cnt_cnt < 90) {
-                       wig = 0;
-                       cout << "\n\n\nFRONT WARNING!\n\n\n" << endl;
-                       digitalWrite(IN_FL_1, LOW);
-                       digitalWrite(IN_FL_2, LOW);
-                       digitalWrite(IN_BL_1, LOW);
-                       digitalWrite(IN_BL_2, LOW);
-                       digitalWrite(IN_FR_1, LOW);
-                       digitalWrite(IN_FR_2, LOW);
-                       digitalWrite(IN_BR_1, LOW);
-                       digitalWrite(IN_BR_2, LOW);
-                       softPwmWrite(EN_FL, 0);
-                       softPwmWrite(EN_BL, 0);
-                       softPwmWrite(EN_FR, 0);
-                       softPwmWrite(EN_BR, 0);
-                    }
-                    else if((90 <= cnt_cnt) && (cnt_cnt < 180)) {
-                        wig = 1;
-                        cout << "\n\n\nRIGNT WARNING!\n\n\n" << endl;
-                    }
-                    else if((180 <= cnt_cnt) && (cnt_cnt < 270)) {
-                        wig = 2;
-                        cout << "\n\n\nBACK WARNING!\n\n\n" << endl;
-                        // FL-MOTER 전진
-                        OUT_FL_1 = LOW;
-                        OUT_FL_2 = HIGH;
-                        digitalWrite(IN_FL_1, OUT_FL_1);
-                        digitalWrite(IN_FL_2, OUT_FL_2);
-                        softPwmWrite(EN_FL, 50);
-
-			// BL-MOTER 전진
-                        OUT_BL_1 = LOW;
-                        OUT_BL_2 = HIGH;
-                        digitalWrite(IN_BL_1, OUT_BL_1);
-                        digitalWrite(IN_BL_2, OUT_BL_2);
-                        softPwmWrite(EN_BL, 50);
-
-			// FR-MOTER 전진
-                        OUT_FR_1 = HIGH;
-                        OUT_FR_2 = LOW;
-                        digitalWrite(IN_FR_1, OUT_FR_1);
-                        digitalWrite(IN_FR_2, OUT_FR_2);
-                        softPwmWrite(EN_FR, 50);
-
-			// BR-MOTER 전진
-                        OUT_BR_1 = HIGH;
-                        OUT_BR_2 = LOW;
-                        digitalWrite(IN_BR_1, OUT_BR_1);
-                        digitalWrite(IN_BR_2, OUT_BR_2);
-                        softPwmWrite(EN_BR, 50);
-                    }
-                    else if((270 <= cnt_cnt) && (cnt_cnt < 360)) {
-                        wig = 3;
-                        cout << "\n\n\nLEFT WARNGING!\n\n\n" << endl;
-                    }
-	     }
+      auto print_map = [&](){
+        system("clear");
+        for (int m = 0; m < MAP_SIZE_X; m++) {
+          for (int n = 0; n < MAP_SIZE_Y; n++) {
+            if(map_inf[m][n] == 1) {
+              cout << "■";
+            }
+            else if (map_inf[m][n] == 2) {
+              cout << "★"; //require repair
+            }
+            else {
+              cout << "0";
+            }
+          }
+          cout << endl;
         }
+      };
+      
+      //input resource in map_inf
+      for (int angle = 0; angle < 360; angle++) {
+        for (int distance = 0; distance < arrays[angle].size(); distance++) {
+          // 각도와 거리값으로 x, y 계산
+          double rad = angle * M_PI / 180.0;
+          x = arrays[angle][distance] * 100 * cos(rad) + MY_POINT_X;
+          y = arrays[angle][distance] * 100 * sin(rad) + MY_POINT_Y;
+          if(x >= 0 && x < MAP_SIZE_X && y >= 0 && y < MAP_SIZE_Y) {
+              map_inf[x][y] = 1;
+          }
+        }
+      }
+
+      print_map();  // 배열 출력
+      
+	    //array output code start
+	    /*for(int a = 0; a < num_arrays; a++) {
+	        cout << "Array " << a << ": ";
+	        for(long unsigned int b = 0; b < arrays[a].size(); b++) {
+		        cout << arrays[a][b] << " ";
+	        }
+	        cout << endl;
+	     }*/ //array output code end
 
 
-	//close warning code end
-
-
-
-	//array output code start
-	/*for(int a = 0; a < num_arrays; a++) {
-	    cout << "Array " << a << ": ";
-	    for(long unsigned int b = 0; b < arrays[a].size(); b++) {
-		cout << arrays[a][b] << " ";
-	    }
-	    cout << endl;
-	}*/ //array output code end
-//my code end
-
-      laser_pub->publish(*scan_msg);
-
+    laser_pub->publish(*scan_msg);
     } else {
       RCLCPP_ERROR(node->get_logger(), "Failed to get scan");
     }
@@ -512,12 +459,10 @@ int main(int argc, char *argv[]) {
     loop_rate.sleep();
   }
 
-
   RCLCPP_INFO(node->get_logger(), "[YDLIDAR INFO] Now YDLIDAR is stopping .......");
   laser.turnOff();
   laser.disconnecting();
   rclcpp::shutdown();
-  //Py_Finalize();
 
   return 0;
 }
