@@ -35,6 +35,12 @@
 #include <fstream>
 #include <sstream>
 
+#define MAP_SIZE_X 60
+#define MAP_SIZE_Y 60
+
+#define MY_POINT_X 30
+#define MY_POINT_Y 30
+
 #define ROS2Verision "1.0.1"
 
 
@@ -44,6 +50,7 @@ int main(int argc, char *argv[]) {
 
   //save directory for map file
   int map_inf[MAP_SIZE_X][MAP_SIZE_Y] = { 0 };
+  int map_inf_buff[MAP_SIZE_X][MAP_SIZE_Y] = { 0 };
 
   rclcpp::init(argc, argv);
 
@@ -270,13 +277,6 @@ int main(int argc, char *argv[]) {
       */
       
       /******************mapping******************/
-
-      #define MAP_SIZE_X 60
-      #define MAP_SIZE_Y 60
-
-      #define MY_POINT_X 30
-      #define MY_POINT_Y 30
-    
       int map_inf_buff[MAP_SIZE_X][MAP_SIZE_Y] = { 0 };
       int convert_x, convert_y;
 
