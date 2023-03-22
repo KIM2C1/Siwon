@@ -338,7 +338,7 @@ int main(int argc, char *argv[]) {
     vector<int> row;
 
     for (int CVS_X = 0; CVS_X < MAP_SIZE_Y; CVS_X++) {
-        row.push_back(arr[CVS_Y][CVS_X]);
+        row.push_back(map_inf[CVS_Y][CVS_X]);
     }
     map_data_CVS.push_back(row);
   }
@@ -349,7 +349,7 @@ int main(int argc, char *argv[]) {
   //saving map data
   for (int CVS_Y = 0; CVS_Y < map_data_CVS.size(); CVS_Y++) {
     for (int CVS_X = 0; CVS_X < map_data_CVS[CVS_Y].size(); CVS_X++) {
-      map_file << map_data_CVS[CVS_Y][CVS_X]
+      map_file << map_data_CVS[CVS_Y][CVS_X];
       if (CVS_X != map_data_CVS[CVS_Y].size() - 1) {
           map_file << ",";
       }
