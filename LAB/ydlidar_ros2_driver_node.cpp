@@ -29,11 +29,15 @@
 #include <string>
 #include <signal.h>
 
-#define ROS2Verision "1.0.1"
-
 //siwon include
 #include <stdio.h>
 #include <unistd.h>
+#include <fstream>
+#include <sstream>
+
+#define ROS2Verision "1.0.1"
+
+
 using namespace std;
 
 int main(int argc, char *argv[]) {
@@ -265,10 +269,11 @@ int main(int argc, char *argv[]) {
       /******************mapping******************/
       #define MAP_SIZE_X 60
       #define MAP_SIZE_Y 60
+
       #define MY_POINT_X 30
       #define MY_POINT_Y 30
       
-      int x, y;
+      int convert_x, convert_y;
 
       int map_inf[MAP_SIZE_X][MAP_SIZE_Y] = { 0 };
       map_inf[MY_POINT_X][MY_POINT_Y] = 2; //My position
@@ -294,19 +299,20 @@ int main(int argc, char *argv[]) {
       //input resource in map_inf
       for (int angle = 0; angle < 360; angle++) {
         for (int distance = 0; distance < arrays[angle].size(); distance++) {
-          // 각도와 거리값으로 x, y 계산
+          //Calculate x, y from angle and distance values
           double rad = angle * M_PI / 180.0;
-          x = arrays[angle][distance] * 100 * cos(rad) + MY_POINT_X;
-          y = arrays[angle][distance] * 100 * sin(rad) + MY_POINT_Y;
-          if(x >= 0 && x < MAP_SIZE_X && y >= 0 && y < MAP_SIZE_Y) {
-              map_inf[x][y] = 1;
+          convert_x = arrays[angle][distance] * 100 * cos(rad) + MY_POINT_X;
+          convert_y = arrays[angle][distance] * 100 * sin(rad) + MY_POINT_Y;
+          if(x >= 0 && convert_x < MAP_SIZE_X && convert_y >= 0 && convert_y < MAP_SIZE_Y) {
+              map_inf[convert_x][convert_y] = 1;
           }
         }
       }
 
-      print_map();  // 배열 출력
+      //print print_map  
+      print_map();  
       /****************mapping_end****************/
-    
+
       laser_pub->publish(*scan_msg);
     } else {
       RCLCPP_ERROR(node->get_logger(), "Failed to get scan");
@@ -322,6 +328,68 @@ int main(int argc, char *argv[]) {
   laser.turnOff();
   laser.disconnecting();
   rclcpp::shutdown();
+
+  /*****************save_map******************/
+  cout << "Saving........" << endl;
+
+  vector<vector<int>> map_data_CVS
+
+  for (int CVS_Y = 0; CVS_Y < MAP_SIZE_X; CVS_Y++) {
+    vector<int> row;
+
+    for (int CVS_X = 0; CVS_X < MAP_SIZE_Y; CVS_X++) {
+        row.push_back(arr[CVS_Y][CVS_X]);
+    }
+    map_data.push_back(row);
+  }
+  
+  //create map file
+  ofstream map_file("map_data.csv");
+
+  //saving map data
+  for (int CVS_Y = 0; CVS_Y < map_data.size(); CVS_Y++) {
+    for (int CVS_X = 0; CVS_X < map_data[CVS_Y].size(); CVS_X++) {
+      map_file << map_data[CVS_Y][CVS_X]
+      if (CVS_X != map_data[CVS_Y].size() - 1) {
+          map_file << ",";
+      }
+    }
+    map_file << endl;
+  }
+
+  //close file
+  map_file.close();
+  cout << "Complete Save!" << endl;
+
+  //open file
+  ifstream file("map_data.csv");
+
+  vector<vector<int>> map_data_save;
+
+  //read file
+  string line;
+  while (getline(file, line)) {
+      stringstream ss(line);
+      vector<int> row;
+      string cell;
+
+      while (getline(ss, cell, ',')) {
+          row.push_back(stoi(cell));
+      }
+      map_data_save.push_back(row);
+  }
+
+  //close file
+  file.close();
+
+  //print map
+  for (int CVS_Y = 0; CVS_Y < map_data_save.size(); CVS_Y++) {
+    for (int CVS_X = 0; CVS_X < map_data_save[CVS_Y].size(); CVS_X++) {
+      cout << map_data_save[CVS_Y][CVS_X] << " ";
+    }
+    cout << endl;
+  }
+  /***************save_map_end****************/
 
   return 0;
 }
