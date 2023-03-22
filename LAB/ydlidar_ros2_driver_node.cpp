@@ -42,6 +42,14 @@ using namespace std;
 
 int main(int argc, char *argv[]) {
 
+  #define MAP_SIZE_X 60
+  #define MAP_SIZE_Y 60
+
+  #define MY_POINT_X 30
+  #define MY_POINT_Y 30
+  
+  int map_inf[MAP_SIZE_X][MAP_SIZE_Y] = { 0 };
+
   rclcpp::init(argc, argv);
 
   auto node = rclcpp::Node::make_shared("ydlidar_ros2_driver_node");
@@ -267,15 +275,10 @@ int main(int argc, char *argv[]) {
       */
       
       /******************mapping******************/
-      #define MAP_SIZE_X 60
-      #define MAP_SIZE_Y 60
 
-      #define MY_POINT_X 30
-      #define MY_POINT_Y 30
       
       int convert_x, convert_y;
 
-      int map_inf[MAP_SIZE_X][MAP_SIZE_Y] = { 0 };
       map_inf[MY_POINT_X][MY_POINT_Y] = 2; //My position
 
       auto print_map = [&](){
