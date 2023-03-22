@@ -18,25 +18,6 @@
 #include <chrono>
 #include <iostream>
 #include <memory>
-#include <unistd.h>
-
-/*
-#define HAVE_ROUND
-#ifdef _DEBUG
-#define RESTORE_DEBUG
-#undef _DEBUG
-#endif
-#include <Python.h>
-#ifdef RESTORE_DEBUG
-#define _DEBUG
-#undef RESTORE_DEBUG
-#endif
-*/
-
-//motor include start
-#include "wiringPi.h"
-#include <softPwm.h>
-//motor include end
 
 #include "rclcpp/clock.hpp"
 #include "rclcpp/rclcpp.hpp"
@@ -48,135 +29,16 @@
 #include <string>
 #include <signal.h>
 
-#include <time.h>
-#include <fstream>
-#include <csignal>
-#include <stdlib.h>
-
 #define ROS2Verision "1.0.1"
 
-//#define RAD2DEG(x) ((x)*180./M_PI)
-
-
+//siwon include
+#include <stdio.h>
+#incldue <unistd.h>
 using namespace std;
 
-//motor value start
-// FL-MOTER
-#define EN_FL 23
-#define IN_FL_1 22
-#define IN_FL_2 21
-int OUT_FL_1 = LOW;
-int OUT_FL_2 = LOW;
-
-// BL-MOTER
-#define EN_BL 29
-#define IN_BL_1 28
-#define IN_BL_2 27
-int OUT_BL_1 = LOW;
-int OUT_BL_2 = LOW;
-
-// FR-MOTER
-#define EN_FR 4
-#define IN_FR_1 5
-#define IN_FR_2 6
-int OUT_FR_1 = LOW;
-int OUT_FR_2 = LOW;
-
-// BR-MOTER
-#define EN_BR 3
-#define IN_BR_1 2
-#define IN_BR_2 0
-int OUT_BR_1 = LOW;
-int OUT_BR_2 = LOW;
-
-//string st_ready = "ready";
-//string st_go = "go";
-//string st_back = "back";
-//string st_right = "right";
-//string st_left = "left";
-
- /*void state_value(string state) {
-    if (state == "ready") {
-      OUT_FL_1 = OUT_FL_2 = OUT_FR_1 = OUT_FR_2 = OUT_BL_1 =  OUT_BL_2 = OUT_BR_1 = OUT_BR_2 = LOW;
-      softPwmWrite(EN_FL, 0);
-      softPwmWrite(EN_BL, 0);
-      softPwmWrite(EN_FR, 0);
-      softPwmWrite(EN_BR, 0);
-    }
-    else if (state == "go") {
-      OUT_FL_1 = OUT_FR_2 = OUT_BL_1 = OUT_BR_2 = LOW;
-      OUT_FL_2 = OUT_FR_1 = OUT_BL_2 = OUT_BR_1 = HIGH;
-      softPwmWrite(EN_FL, 100);
-      softPwmWrite(EN_BL, 100);
-      softPwmWrite(EN_FR, 100);
-      softPwmWrite(EN_BR, 100);
-    }
-    else if (state == "back") {
-      OUT_FL_1 = OUT_FR_2 = OUT_BL_1 = OUT_BR_2 = HIGH;
-      OUT_FL_2 = OUT_FR_1 = OUT_BL_2 = OUT_BR_1 = LOW;
-      softPwmWrite(EN_FL, 100);
-      softPwmWrite(EN_BL, 100);
-      softPwmWrite(EN_FR, 100);
-      softPwmWrite(EN_BR, 100);
-    }
-    else if (state == "right") {
-      OUT_FL_1 = OUT_FR_1 = OUT_BL_1 = OUT_BR_1 = HIGH;
-      OUT_FL_2 = OUT_FR_2 = OUT_BL_2 = OUT_BR_2 = LOW;
-      softPwmWrite(EN_FL, 100);
-      softPwmWrite(EN_BL, 100);
-      softPwmWrite(EN_FR, 100);
-      softPwmWrite(EN_BR, 100);
-    }
-    else if (state == "left") {
-      OUT_FL_2 = OUT_FR_2 = OUT_BL_2 = OUT_BR_2 = HIGH;
-      OUT_FL_1 = OUT_FR_1 = OUT_BL_1 = OUT_BR_1 = LOW;
-      softPwmWrite(EN_FL, 100);
-      softPwmWrite(EN_BL, 100);
-      softPwmWrite(EN_FR, 100);
-      softPwmWrite(EN_BR, 100);
-    }
-  }*/
-//motor value end
-
-
-
 int main(int argc, char *argv[]) {
+
   rclcpp::init(argc, argv);
-
-  wiringPiSetup();
-	
-   //motor code start
-  // FL-MOTER
-  pinMode(EN_FL, OUTPUT);
-  pinMode(IN_FL_1, OUTPUT);
-  pinMode(IN_FL_2, OUTPUT);
-  softPwmCreate(EN_FL, 0, 100);
-  softPwmWrite(EN_FL, 0);
-
-  // BL-MOTER
-  pinMode(EN_BL, OUTPUT);
-  pinMode(IN_BL_1, OUTPUT);
-  pinMode(IN_BL_2, OUTPUT);
-  softPwmCreate(EN_BL, 0, 100);
-  softPwmWrite(EN_BL, 0);
-
-  // FR-MOTER
-  pinMode(EN_FR, OUTPUT);
-  pinMode(IN_FR_1, OUTPUT);
-  pinMode(IN_FR_2, OUTPUT);
-  softPwmCreate(EN_FR, 0, 100);
-  softPwmWrite(EN_FR, 0);
-
-  // BR-MOTER
-  pinMode(EN_BR, OUTPUT);
-  pinMode(IN_BR_1, OUTPUT);
-  pinMode(IN_BR_2, OUTPUT);
-  softPwmCreate(EN_BR, 0, 100);
-  softPwmWrite(EN_BR, 0);
-
-  string input;
-  //motor code end
-
 
   auto node = rclcpp::Node::make_shared("ydlidar_ros2_driver_node");
 
@@ -274,7 +136,7 @@ int main(int argc, char *argv[]) {
   node->get_parameter("angle_min", f_optvalue);
   laser.setlidaropt(LidarPropMinAngle, &f_optvalue, sizeof(float));
   /// unit: m
-  f_optvalue = 16.f;
+  f_optvalue = 64.f;
   node->declare_parameter("range_max");
   node->get_parameter("range_max", f_optvalue);
   laser.setlidaropt(LidarPropMaxRange, &f_optvalue, sizeof(float));
@@ -326,7 +188,7 @@ int main(int argc, char *argv[]) {
 
 
   while (ret && rclcpp::ok()) {
-
+    
     LaserScan scan;//
 
     if (laser.doProcessSimple(scan)) {
@@ -343,63 +205,69 @@ int main(int argc, char *argv[]) {
       scan_msg->time_increment = scan.config.time_increment;
       scan_msg->range_min = scan.config.min_range;
       scan_msg->range_max = scan.config.max_range;
-      
-      float range_data[1050] = {0};
 
+      float range_data[1050] = {0};
+      
       int size = (scan.config.max_angle - scan.config.min_angle)/ scan.config.angle_increment + 1;
       scan_msg->ranges.resize(size);
       scan_msg->intensities.resize(size);
-
       for(size_t i=0; i < scan.points.size(); i++) {
         int index = std::ceil((scan.points[i].angle - scan.config.min_angle)/scan.config.angle_increment);
         if(index >=0 && index < size) {
           scan_msg->ranges[index] = scan.points[i].range;
           scan_msg->intensities[index] = scan.points[i].intensity;
-
-	        range_data[i] = scan.points[i].range;
-	      }
+          
+          //code start
+          range_data[i] = scan.points[i].range;
+        }
       }
 
-    //my code start
-	  //data input code start
-	  const int num_arrays = 360;
-	  int points = scan.points.size();
+      const int num_arrays = 360;
+      int points = scan.points.size();
 
-	  int arr_size = sizeof(range_data) / sizeof(range_data[0]);
-	  std::vector<float> data(range_data, range_data + arr_size);
-	  vector<vector<float>> arrays(num_arrays);
+      int arr_size = sizeof(range_data) / sizeof(range_data[0]);
+      vector<float> data(range_data, range_data + arr_size);
+      vector<vector<float>> arrays(num_arrays);
 
-	  //int elements_per_array = points / num_arrays;
-
-		int index = 0;
-
-		for (int j = 0; j < num_arrays; j++) {
-		  int num_elements = points / num_arrays;
-		  if(j < points % num_arrays) {
-			  num_elements++;
-		  }
-
-		  for(int k = 0; k < num_elements; k++) {
-			  arrays[j].push_back(data[index]);
-			  index++;
-			}
-		}
-	
-    float arr_sum = 0;
-    float col_sum = 0;
-
-    for (int a = 0; a < 5; a++) {
-      for (long unsigned int b = 0; b < arrays[a].size(); b++) {
-        col_sum += arrays[a][b];
-        arr_sum = col_sum / arrays[a].size();
+      int index = 0;
+      
+      for (int j = 0; j < num_arrays; j++) {
+        int num_elements = points / num_arrays;
+        if (j < points % num_arrays) {
+          num_elements++;
+        }
+        for (int k = 0; k < num_elements; k++) {
+          arrays[j].push_back(data[index]);
+          index++;
+        }
       }
-    }
-       
-    #define MAP_SIZE_X 60
-    #define MAP_SIZE_Y 60
-    #define MY_POINT_X 30
-    #define MY_POINT_Y 30
 
+      float arr_sum = 0;
+      float col_sum = 0;
+
+      for (int a = 0; a < 5; a++) {
+        for (long unsigned int b = 0; b < arrays[a].size(); b++) {
+          col_sum += arrays[a][b];
+          arr_sum = col_sum / arrays[a].size();
+        }
+      }
+      
+      /*
+      //Show 0~360 Arrays
+      for (int i = 0; i < 360; i++) {
+        for (int n = 0; n < arrays[i].size(); n++) {
+          cout << i << ":" << arrays[i][n];
+        }
+      }
+      cout << "--------------------------------------" << endl;
+      */
+      
+      /******************mapping******************/
+      #define MAP_SIZE_X 60
+      #define MAP_SIZE_Y 60
+      #define MY_POINT_X 30
+      #define MY_POINT_Y 30
+      
       int x, y;
 
       int map_inf[MAP_SIZE_X][MAP_SIZE_Y] = { 0 };
@@ -437,18 +305,9 @@ int main(int argc, char *argv[]) {
       }
 
       print_map();  // 배열 출력
-      
-	    //array output code start
-	    /*for(int a = 0; a < num_arrays; a++) {
-	        cout << "Array " << a << ": ";
-	        for(long unsigned int b = 0; b < arrays[a].size(); b++) {
-		        cout << arrays[a][b] << " ";
-	        }
-	        cout << endl;
-	     }*/ //array output code end
-
-
-    laser_pub->publish(*scan_msg);
+      /****************mapping_end****************/
+    
+      laser_pub->publish(*scan_msg);
     } else {
       RCLCPP_ERROR(node->get_logger(), "Failed to get scan");
     }
@@ -465,4 +324,5 @@ int main(int argc, char *argv[]) {
   rclcpp::shutdown();
 
   return 0;
+}
 }
