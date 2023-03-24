@@ -3,9 +3,8 @@
 #include <sstream>
 #include <vector>
 #include <conio.h>
-#include "map_file.h"
+#include "mapping.h"
 
-const int SIZE = 11; // 배열 크기 상수 선언
 using namespace std;
 
 void out_range(int& pre_posX, int& pre_posY) {
@@ -14,10 +13,10 @@ void out_range(int& pre_posX, int& pre_posY) {
 }
 
 int main() {
-    int index;
+    int index = 0;
 
-    int posX = SIZE / 2; // 시작 위치 x 좌표
-    int posY = SIZE / 2; // 시작 위치 y 좌표
+    int posX = MAP_SIZE / 2; // 시작 위치 x 좌표
+    int posY = MAP_SIZE / 2; // 시작 위치 y 좌표
 
     int pre_posX = 404;
     int pre_posY = 404;
@@ -45,6 +44,7 @@ int main() {
         input = _getch(); // getch() 함수를 사용하여 사용자 입력을 받음
 
 
+        //표기 데이터 지우는 커서 이동 필요!!!
         pre_posX = posX;
         pre_posY = posY;
 
@@ -54,7 +54,7 @@ int main() {
 
         case 'w': // 위쪽 이동
             if (posX >= 0) {
-                if (map_data(posX - 1, posY) == 3) {
+                if (map_data(index, posX - 1, posY) == 3) {
                     out_range(pre_posX, pre_posY);
                     break;
                 }
@@ -63,14 +63,14 @@ int main() {
 
             if (map_num == 1 && posX < 0) {
                 map_num = 0;
-                posX = SIZE - 1;
+                posX = MAP_SIZE - 1;
             }
             break;
 
 
         case 'a': // 왼쪽 이동
             if (posY >= 0) {
-                if (map_data(posX, posY - 1) == 3) {
+                if (map_data(index, posX, posY - 1) == 3) {
                     out_range(pre_posX, pre_posY);
                     break;
                 }
@@ -80,8 +80,8 @@ int main() {
 
 
         case 's': // 아래쪽 이동
-            if (posX <= SIZE - 1) {
-                if (map_data(posX + 1, posY) == 3) {
+            if (posX <= MAP_SIZE - 1) {
+                if (map_data(index, posX + 1, posY) == 3) {
                     out_range(pre_posX, pre_posY);
                     break;
                 }
@@ -89,7 +89,7 @@ int main() {
 
             }
 
-            if (posX == SIZE) {
+            if (posX == MAP_SIZE) {
                 map_num = 1;
                 posX = 0;
             }
@@ -97,8 +97,8 @@ int main() {
 
 
         case 'd': // 오른쪽 이동
-            if (posY < SIZE - 1) {
-                if (map_data(posX, posY + 1) == 3) {
+            if (posY < MAP_SIZE - 1) {
+                if (map_data(index, posX, posY + 1) == 3) {
                     out_range(pre_posX, pre_posY);
                     break;
                 }
@@ -109,7 +109,7 @@ int main() {
 
         case 'q':
             exit(0);
-            break;
+            break; 
         }
     }
 
