@@ -3,7 +3,8 @@
 #include <sstream>
 #include <vector>
 #include <conio.h>
-#include "mapping.h"
+
+#include "MapManager.h"
 
 using namespace std;
 
@@ -25,13 +26,16 @@ int main() {
 
     char input; // 사용자 입력을 받을 변수
 
+    Map_Editor mapManager(3);
 
-    while (true) {
+    while (true) { 
+
+        //mapManager.print_NumMap(index, map_num);
 
         //print map_file
         cout << "--------map:0--------" << endl; //boundary line
         cout << "map_num: " << map_num << endl;
-        read_map(map_num, posX, posY, pre_posX, pre_posY);  
+        read_map(mapManager, map_num, posX, posY, pre_posX, pre_posY);
         cout << "---------------------" << endl; //boundary line
 
         //posX, posY place
@@ -54,7 +58,7 @@ int main() {
 
         case 'w': // 위쪽 이동
             if (posX >= 0) {
-                if (map_data(index, posX - 1, posY) == 3) {
+                if (mapManager.NumMap_data(index, posX - 1, posY) == 3) {
                     out_range(pre_posX, pre_posY);
                     break;
                 }
@@ -70,7 +74,7 @@ int main() {
 
         case 'a': // 왼쪽 이동
             if (posY >= 0) {
-                if (map_data(index, posX, posY - 1) == 3) {
+                if (mapManager.NumMap_data(index, posX, posY - 1) == 3) {
                     out_range(pre_posX, pre_posY);
                     break;
                 }
@@ -81,7 +85,7 @@ int main() {
 
         case 's': // 아래쪽 이동
             if (posX <= MAP_SIZE - 1) {
-                if (map_data(index, posX + 1, posY) == 3) {
+                if (mapManager.NumMap_data(index, posX + 1, posY) == 3) {
                     out_range(pre_posX, pre_posY);
                     break;
                 }
@@ -98,7 +102,7 @@ int main() {
 
         case 'd': // 오른쪽 이동
             if (posY < MAP_SIZE - 1) {
-                if (map_data(index, posX, posY + 1) == 3) {
+                if (mapManager.NumMap_data(index, posX, posY + 1) == 3) {
                     out_range(pre_posX, pre_posY);
                     break;
                 }
@@ -113,6 +117,7 @@ int main() {
         }
     }
 
+    
 
     /*
     // 맵 데이터
