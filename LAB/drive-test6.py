@@ -67,7 +67,7 @@ OUT_BR_1 = 0
 OUT_BR_2 = 0
 
 speed = int(input("Set Speed: "))
-speed1 = int(input("Set Speed1: "))
+speed_1 = int(input("Set Speed1: "))
 
 old_settings = termios.tcgetattr(sys.stdin)
 tty.setcbreak(sys.stdin.fileno())
