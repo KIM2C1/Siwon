@@ -29,28 +29,79 @@
 #include <string>
 #include <signal.h>
 
-//siwon include
-#include <stdio.h>
-#include <unistd.h>
-#include <fstream>
-#include <sstream>
-
-#define MAP_SIZE_X 60
-#define MAP_SIZE_Y 60
-
-#define MY_POINT_X 30
-#define MY_POINT_Y 30
+#include "wiringPi.h"
+#include <softPwm.h>
 
 #define ROS2Verision "1.0.1"
 
-
+//siwon include
+#include <stdio.h>
 using namespace std;
+
+// FL-MOTER
+#define EN_FL 23
+#define IN_FL_1 22
+#define IN_FL_2 21
+int OUT_FL_1 = LOW;
+int OUT_FL_2 = LOW;
+
+// BL-MOTER
+#define EN_BL 29
+#define IN_BL_1 28
+#define IN_BL_2 27
+int OUT_BL_1 = LOW;
+int OUT_BL_2 = LOW;
+
+// FR-MOTER
+#define EN_FR 4
+#define IN_FR_1 5
+#define IN_FR_2 6
+int OUT_FR_1 = LOW;
+int OUT_FR_2 = LOW;
+
+// BR-MOTER
+#define EN_BR 3
+#define IN_BR_1 2
+#define IN_BR_2 0
+int OUT_BR_1 = LOW;
+int OUT_BR_2 = LOW;
+
 
 int main(int argc, char *argv[]) {
 
-  //save directory for map file
-  int map_inf[MAP_SIZE_X][MAP_SIZE_Y] = { 0 };
-  int map_inf_buff[MAP_SIZE_X][MAP_SIZE_Y] = { 0 };
+  // wiringPi 초기화
+  wiringPiSetup();
+  
+  // FL-MOTER
+  pinMode(EN_FL, OUTPUT);
+  pinMode(IN_FL_1, OUTPUT);
+  pinMode(IN_FL_2, OUTPUT);
+  softPwmCreate(EN_FL, 0, 100);
+  softPwmWrite(EN_FL, 0);
+
+  // BL-MOTER
+  pinMode(EN_BL, OUTPUT);
+  pinMode(IN_BL_1, OUTPUT);
+  pinMode(IN_BL_2, OUTPUT);
+  softPwmCreate(EN_BL, 0, 100);
+  softPwmWrite(EN_BL, 0);
+
+  // FR-MOTER
+  pinMode(EN_FR, OUTPUT);
+  pinMode(IN_FR_1, OUTPUT);
+  pinMode(IN_FR_2, OUTPUT);
+  softPwmCreate(EN_FR, 0, 100);
+  softPwmWrite(EN_FR, 0);
+
+  // BR-MOTER
+  pinMode(EN_BR, OUTPUT);
+  pinMode(IN_BR_1, OUTPUT);
+  pinMode(IN_BR_2, OUTPUT);
+  softPwmCreate(EN_BR, 0, 100);
+  softPwmWrite(EN_BR, 0);
+
+  char input;
+
 
   rclcpp::init(argc, argv);
 
@@ -265,60 +316,54 @@ int main(int argc, char *argv[]) {
           arr_sum = col_sum / arrays[a].size();
         }
       }
-      
-      /*
-      //Show 0~360 Arrays
-      for (int i = 0; i < 360; i++) {
-        for (int n = 0; n < arrays[i].size(); n++) {
-          cout << i << ":" << arrays[i][n];
-        }
-      }
-      cout << "--------------------------------------" << endl;
-      */
-      
-      /******************mapping******************/
-      int map_inf_buff[MAP_SIZE_X][MAP_SIZE_Y] = { 0 };
-      int convert_x, convert_y;
 
-      map_inf_buff[MY_POINT_X][MY_POINT_Y] = 2; //My position
-
-      auto print_map = [&](){
-        system("clear");
-        for (int m = 0; m < MAP_SIZE_X; m++) {
-          for (int n = 0; n < MAP_SIZE_Y; n++) {
-            if(map_inf_buff[m][n] == 1) {
-              map_inf[m][n] = 1;
-              cout << "■";
-            }
-            else if (map_inf_buff[m][n] == 2) {
-              map_inf[m][n] = 2;
-              cout << "★"; //require repair
-            }
-            else {
-              map_inf[m][n] = 0;
-              cout << "0";
-            }
-          }
-          cout << endl;
+      float avg = arr_sum / 5;
+      //sleep(1);
+      if (avg < 1) {
+        cout << "CLOSE" << endl;
+        digitalWrite(IN_FL_1, LOW);
+        digitalWrite(IN_FL_2, LOW);
+        digitalWrite(IN_BL_1, LOW);
+        digitalWrite(IN_BL_2, LOW);
+        digitalWrite(IN_FR_1, LOW);
+        digitalWrite(IN_FR_2, LOW);
+        digitalWrite(IN_BR_1, LOW);
+        digitalWrite(IN_BR_2, LOW);
+        softPwmWrite(EN_FL, 0);
+        softPwmWrite(EN_BL, 0);
+        softPwmWrite(EN_FR, 0);
+        softPwmWrite(EN_BR, 0);
         }
-      };
+      else {
+        cout << "ok" << endl;
+        // FL-MOTER 전진
+        OUT_FL_1 = LOW;
+        OUT_FL_2 = HIGH;
+        digitalWrite(IN_FL_1, OUT_FL_1);
+        digitalWrite(IN_FL_2, OUT_FL_2);
+        softPwmWrite(EN_FL, 30);
       
-      //input resource in map_inf_buff
-      for (int angle = 0; angle < 360; angle++) {
-        for (int distance = 0; distance < arrays[angle].size(); distance++) {
-          //Calculate x, y from angle and distance values
-          double rad = angle * M_PI / 180.0;
-          convert_x = arrays[angle][distance] * 100 * cos(rad) + MY_POINT_X;
-          convert_y = arrays[angle][distance] * 100 * sin(rad) + MY_POINT_Y;
-          if(convert_x >= 0 && convert_x < MAP_SIZE_X && convert_y >= 0 && convert_y < MAP_SIZE_Y) {
-              map_inf_buff[convert_x][convert_y] = 1;
-          }
+        // BL-MOTER 전진
+        OUT_BL_1 = LOW;
+        OUT_BL_2 = HIGH;
+        digitalWrite(IN_BL_1, OUT_BL_1);
+        digitalWrite(IN_BL_2, OUT_BL_2);
+        softPwmWrite(EN_BL, 30);
+      
+        // FR-MOTER 전진
+        OUT_FR_1 = HIGH;
+        OUT_FR_2 = LOW;
+        digitalWrite(IN_FR_1, OUT_FR_1);
+        digitalWrite(IN_FR_2, OUT_FR_2);
+        softPwmWrite(EN_FR, 30);
+      
+        // BR-MOTER 전진
+        OUT_BR_1 = HIGH;
+        OUT_BR_2 = LOW;
+        digitalWrite(IN_BR_1, OUT_BR_1);
+        digitalWrite(IN_BR_2, OUT_BR_2);
+        softPwmWrite(EN_BR, 30);
         }
-      }
-
-      //print print_map  
-      print_map();  
-      /****************mapping_end****************/
 
       laser_pub->publish(*scan_msg);
     } else {
@@ -331,90 +376,10 @@ int main(int argc, char *argv[]) {
     loop_rate.sleep();
   }
 
-  /*
-  //move from map_inf_buff to map_inf
-  for (int buff_Y; buff_Y < MAP_SIZE_Y; buff_Y++ ) {
-    for (int buff_X; buff_X < MAP_SIZE_X; buff_X++ ) {
-      cout << map_inf_buff[buff_Y][buff_X];
-      map_inf[buff_Y][buff_X] = map_inf_buff[buff_Y][buff_X];
-    }
-    cout << endl;
-  }
-  */
-
   RCLCPP_INFO(node->get_logger(), "[YDLIDAR INFO] Now YDLIDAR is stopping .......");
   laser.turnOff();
   laser.disconnecting();
   rclcpp::shutdown();
 
-  /*****************save_map******************/
-  cout << "Saving........" << endl;
-
-  vector<vector<int>> map_data_CVS;
-
-  for (int CVS_Y = 0; CVS_Y < MAP_SIZE_X; CVS_Y++) {
-    vector<int> row;
-
-    for (int CVS_X = 0; CVS_X < MAP_SIZE_Y; CVS_X++) {
-        row.push_back(map_inf[CVS_Y][CVS_X]);
-    }
-    map_data_CVS.push_back(row);
-  }
-  
-  //create map file
-  ofstream map_file("map_data.csv");
-
-  //saving map data
-  for (int CVS_Y = 0; CVS_Y < map_data_CVS.size(); CVS_Y++) {
-    for (int CVS_X = 0; CVS_X < map_data_CVS[CVS_Y].size(); CVS_X++) {
-      map_file << map_data_CVS[CVS_Y][CVS_X];
-      if (CVS_X != map_data_CVS[CVS_Y].size() - 1) {
-          map_file << ",";
-      }
-    }
-    map_file << endl;
-  }
-
-  //close file
-  map_file.close();
-  cout << "Complete Save!" << endl;
-
-  //open file
-  ifstream file("map_data.csv");
-
-  vector<vector<int>> map_data_save;
-
-  //read file
-  string line;
-  while (getline(file, line)) {
-      stringstream ss(line);
-      vector<int> row;
-      string cell;
-
-      while (getline(ss, cell, ',')) {
-          row.push_back(stoi(cell));
-      }
-      map_data_save.push_back(row);
-  }
-
-  //close file
-  file.close();
-
-  //print map
-  for (int CVS_Y = 0; CVS_Y < map_data_save.size(); CVS_Y++) {
-    for (int CVS_X = 0; CVS_X < map_data_save[CVS_Y].size(); CVS_X++) {
-      //cout << map_data_save[CVS_Y][CVS_X] << " ";
-      if (map_data_save[CVS_Y][CVS_X] == 0) {
-        cout << " ";
-      }
-      else if (map_data_save[CVS_Y][CVS_X] == 1) {
-        cout << "■";
-      }
-    }
-    cout << endl;
-  }
-  /***************save_map_end****************/
-
   return 0;
 }
-
