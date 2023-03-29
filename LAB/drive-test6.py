@@ -67,6 +67,7 @@ OUT_BR_1 = 0
 OUT_BR_2 = 0
 
 speed = int(input("Set Speed: "))
+speed1 = int(input("Set Speed1: "))
 
 old_settings = termios.tcgetattr(sys.stdin)
 tty.setcbreak(sys.stdin.fileno())
@@ -104,10 +105,10 @@ while True:
             GPIO.output(IN_BR_1,OUT_BR_1)
             GPIO.output(IN_BR_2,OUT_BR_2)
     
-            pwm_FR.ChangeDutyCycle(speed)
+            pwm_FR.ChangeDutyCycle(speed_1)
             pwm_BL.ChangeDutyCycle(speed)
             pwm_FL.ChangeDutyCycle(speed)
-            pwm_BR.ChangeDutyCycle(speed)
+            pwm_BR.ChangeDutyCycle(speed_1)
         elif ch == 'a':
             #print("A")
             OUT_FL_1 = 1
