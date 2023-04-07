@@ -29,7 +29,7 @@
 #include <string>
 #include <signal.h>
 
-#include <wiringPi.h>
+#include "wiringPi.h"
 #include <softPwm.h>
 
 #define ROS2Verision "1.0.1"
@@ -316,66 +316,9 @@ int main(int argc, char *argv[]) {
           arr_sum = col_sum / arrays[a].size();
         }
       }
-      
-      /*
-      //Show 0~360 Arrays
-      for (int i = 0; i < 360; i++) {
-        for (int n = 0; n < arrays[i].size(); n++) {
-          cout << i << ":" << arrays[i][n];
-        }
-      }
-      cout << "--------------------------------------" << endl;
-      */
-      
-      /******************mapping******************/
-      #define MAP_SIZE_X 60
-      #define MAP_SIZE_Y 60
-      #define MY_POINT_X 30
-      #define MY_POINT_Y 30
-      
-      int x, y;
 
-      int map_inf[MAP_SIZE_X][MAP_SIZE_Y] = { 0 };
-      map_inf[MY_POINT_X][MY_POINT_Y] = 2; //My position
-
-      auto print_map = [&](){
-        system("clear");
-        for (int m = 0; m < MAP_SIZE_X; m++) {
-          for (int n = 0; n < MAP_SIZE_Y; n++) {
-            if(map_inf[m][n] == 1) {
-              cout << "■";
-            }
-            else if (map_inf[m][n] == 2) {
-              cout << "★"; //require repair
-            }
-            else {
-              cout << "0";
-            }
-          }
-          cout << endl;
-        }
-      };
-      
-      //input resource in map_inf
-      for (int angle = 0; angle < 360; angle++) {
-        for (int distance = 0; distance < arrays[angle].size(); distance++) {
-          // 각도와 거리값으로 x, y 계산
-          double rad = angle * M_PI / 180.0;
-          x = arrays[angle][distance] * 100 * cos(rad) + MY_POINT_X;
-          y = arrays[angle][distance] * 100 * sin(rad) + MY_POINT_Y;
-          if(x >= 0 && x < MAP_SIZE_X && y >= 0 && y < MAP_SIZE_Y) {
-              map_inf[x][y] = 1;
-          }
-        }
-      }
-
-      print_map();  // 배열 출력
-      /****************mapping_end****************/
-      
-
-      /*
       float avg = arr_sum / 5;
-
+      //sleep(1);
       if (avg < 1) {
         cout << "CLOSE" << endl;
         digitalWrite(IN_FL_1, LOW);
@@ -421,7 +364,6 @@ int main(int argc, char *argv[]) {
         digitalWrite(IN_BR_2, OUT_BR_2);
         softPwmWrite(EN_BR, 30);
         }
-        */
 
       laser_pub->publish(*scan_msg);
     } else {
