@@ -295,7 +295,7 @@ int main(int argc, char *argv[]) {
               cout << "P"; //require repair
             }
             else {
-              map_inf[m][n] = 0;
+              //map_inf[m][n] = 0;
               cout << ". ";
             }
           }
