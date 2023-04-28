@@ -310,7 +310,7 @@ int main(int argc, char *argv[]) {
           double rad = angle * M_PI / 180.0;
           convert_x = arrays[angle][distance] * 100 * cos(rad) + MY_POINT_X;
           convert_y = arrays[angle][distance] * 100 * sin(rad) + MY_POINT_Y;
-          if(convert_x >= 0 && convert_x < MAP_SIZE_X && convert_y >= 0 && convert_y < MAP_SIZE_Y) {
+          if(convert_x >= 0 && convert_x < MAP_SIZE_X && convert_y >= 0 && convert_y < MAP_SIZE_Y && convert_x != MY_POINT_Y && convert_y != MY_POINT_Y) {
               map_inf_buff[convert_x][convert_y] = 1;
           }
         }
