@@ -296,7 +296,7 @@ int main(int argc, char *argv[]) {
             }
             else {
               map_inf[m][n] = 0;
-              cout << "0";
+              cout << ". ";
             }
           }
           cout << endl;
