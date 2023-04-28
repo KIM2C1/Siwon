@@ -295,7 +295,7 @@ int main(int argc, char *argv[]) {
               cout << "P"; //require repair
             }
             else {
-              //map_inf[m][n] = 0;
+              map_inf[m][n] = 0;
               cout << ". ";
             }
           }
@@ -310,7 +310,7 @@ int main(int argc, char *argv[]) {
           double rad = angle * M_PI / 180.0;
           convert_x = arrays[angle][distance] * 100 * cos(rad) + MY_POINT_X;
           convert_y = arrays[angle][distance] * 100 * sin(rad) + MY_POINT_Y;
-          if(convert_x >= 0 && convert_x < MAP_SIZE_X && convert_y >= 0 && convert_y < MAP_SIZE_Y) {
+          if(convert_x > 0 && convert_x < MAP_SIZE_X && convert_y > 0 && convert_y < MAP_SIZE_Y) {
               map_inf_buff[convert_x][convert_y] = 1;
           }
         }
