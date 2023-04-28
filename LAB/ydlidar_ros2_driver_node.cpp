@@ -35,11 +35,11 @@
 #include <fstream>
 #include <sstream>
 
-#define MAP_SIZE_X 60
-#define MAP_SIZE_Y 60
+#define MAP_SIZE_X 50
+#define MAP_SIZE_Y 50
 
-#define MY_POINT_X 30
-#define MY_POINT_Y 30
+#define MY_POINT_X 25
+#define MY_POINT_Y 25
 
 #define ROS2Verision "1.0.1"
 
@@ -292,7 +292,7 @@ int main(int argc, char *argv[]) {
             }
             else if (map_inf_buff[m][n] == 2) {
               map_inf[m][n] = 2;
-              cout << "★"; //require repair
+              cout << "P"; //require repair
             }
             else {
               map_inf[m][n] = 0;
