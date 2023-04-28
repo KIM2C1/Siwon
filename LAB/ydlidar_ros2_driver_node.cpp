@@ -416,6 +416,13 @@ int main(int argc, char *argv[]) {
     }
     cout << endl;
   }
+
+  for (int i = 0; i < map_data_save.size(); i++) {
+    for (int j = 0; j < map_data_save[i].size(); j++) {
+      cout << map_data_save[i][j];
+    }
+    cout << "\n";
+  }
   /***************save_map_end****************/
   /*test 01*/
 
