@@ -1,5 +1,6 @@
 import smbus
 import math
+from time import sleep
 
 # Power management registers
 power_mgmt_1 = 0x6b
@@ -70,3 +71,4 @@ while True:
     print ("accel_zout: ", accel_zout, " scaled: ", accel_zout_scaled)
     print ("x rotation: " , get_x_rotation(accel_xout_scaled, accel_yout_scaled, accel_zout_scaled))
     print ("y rotation: " , get_y_rotation(accel_xout_scaled, accel_yout_scaled, accel_zout_scaled))
+    sleep(1)
