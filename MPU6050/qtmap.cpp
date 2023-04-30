@@ -1,49 +1,49 @@
-#include <QApplication>
-#include <QLabel>
-#include <QPixmap>
-#include <QPainter>
-#include <QRect>
-#include <QVector>
-#include <random>
+#include <QtWidgets>
 
 int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
 
-    // create pixmap with white background
-    QPixmap pixmap(100, 100);
-    pixmap.fill(Qt::white);
+    // 1000*1000 맵 생성
+    const int mapSize = 1000;
+    QVector<QVector<int>> map(mapSize, QVector<int>(mapSize, 0));
 
-    // create painter to draw on pixmap
-    QPainter painter(&pixmap);
-
-    // set pen for drawing lines
-    QPen pen(Qt::black, 1, Qt::SolidLine, Qt::RoundCap);
-
-    // draw grid lines
-    for (int x = 0; x <= 100; x += 10) {
-        painter.setPen(pen);
-        painter.drawLine(x, 0, x, 100);
-        painter.drawLine(0, x, 100, x);
+    // 랜덤으로 사물 배치
+    qsrand(QTime::currentTime().msec());
+    for (int i = 0; i < mapSize; i++) {
+        for (int j = 0; j < mapSize; j++) {
+            int randomValue = qrand() % 5; // 0부터 4까지의 랜덤값 생성
+            if (randomValue == 4) {
+                map[i][j] = 3; // 4일 때만 벽으로 설정
+            }
+        }
     }
 
-    // create random number generator
-    std::random_device rd;
-    std::mt19937 gen(rd());
-    std::uniform_int_distribution<> distr(0, 99);
+    // 맵 출력
+    QWidget window;
+    window.resize(1000, 1000); // 윈도우 크기 설정
 
-    // randomly place objects on map
-    QVector<QPoint> objects;
-    for (int i = 0; i < 10; ++i) {
-        QPoint object(distr(gen), distr(gen));
-        objects.append(object);
-        painter.fillRect(QRect(object, QSize(10, 10)), Qt::black);
+    QLabel label(&window);
+    QImage image(mapSize, mapSize, QImage::Format_RGB32);
+
+    for (int i = 0; i < mapSize; i++) {
+        for (int j = 0; j < mapSize; j++) {
+            QRgb color = 0;
+            switch (map[i][j]) {
+            case 0: // 이동 가능한 공간
+                color = qRgb(255, 255, 255); // 흰색
+                break;
+            case 3: // 벽
+                color = qRgb(0, 0, 0); // 검은색
+                break;
+            default:
+                break;
+            }
+            image.setPixel(i, j, color);
+        }
     }
-
-    // create label to display pixmap
-    QLabel label;
-    label.setPixmap(pixmap);
-    label.show();
+    label.setPixmap(QPixmap::fromImage(image));
+    window.show();
 
     return app.exec();
 }
