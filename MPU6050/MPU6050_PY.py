@@ -18,6 +18,8 @@ GYRO_XOUT_H  = 0x43
 GYRO_YOUT_H  = 0x45
 GYRO_ZOUT_H  = 0x47
 
+last
+
 
 def MPU_Init():
 	#write to sample rate register
