@@ -22,4 +22,5 @@ OUT_FL_2 = 1
 GPIO.output(IN_FL_1,OUT_FL_1)
 GPIO.output(IN_FL_2,OUT_FL_2)
 
-pwm_FL.ChangeDutyCycle(100)
+while (True):
+    pwm_FL.ChangeDutyCycle(100)
