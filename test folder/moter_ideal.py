@@ -82,30 +82,39 @@ setPinConfig(ENB, IN3, IN4)
 
 #제어 시작
 
-# 앞으로 150속도로
+# # 앞으로 150속도로
+# setMotor(CH1, 150, FORWARD)
+# setMotor(CH2, 150, FORWARD)
+# #5초 대기
+# wiringpi.delay(5000)
+# B_data = wiringpi.digitalRead(B_Vout)
+# A_data = wiringpi.digitalRead(A_Vout)
+# print(B_data)
+# print("---")
+# print(A_data)
+
+# # 뒤로 100 속도로
+# setMotor(CH1, 100, BACKWORD)
+# setMotor(CH2, 100, BACKWORD)
+# wiringpi.delay(5000)
+
+# # 뒤로 250 속도로
+# setMotor(CH1, 250, BACKWORD)
+# setMotor(CH2, 250, BACKWORD)
+# wiringpi.delay(5000)
+
+# #정지
+# setMotor(CH1, 150, STOP)
+# setMotor(CH2, 150, STOP)
 setMotor(CH1, 150, FORWARD)
-setMotor(CH2, 150, FORWARD)
-#5초 대기
-wiringpi.delay(5000)
-B_data = wiringpi.digitalRead(B_Vout)
-A_data = wiringpi.digitalRead(A_Vout)
-print(B_data)
-print("---")
-print(A_data)
+while(True) :
+    B_data = wiringpi.digitalRead(B_Vout)
+    A_data = wiringpi.digitalRead(A_Vout)
+    print(B_data)
+    print("---")
+    print(A_data)
+    wiringpi.delay(500)
 
-# 뒤로 100 속도로
-setMotor(CH1, 100, BACKWORD)
-setMotor(CH2, 100, BACKWORD)
-wiringpi.delay(5000)
-
-# 뒤로 250 속도로
-setMotor(CH1, 250, BACKWORD)
-setMotor(CH2, 250, BACKWORD)
-wiringpi.delay(5000)
-
-#정지
-setMotor(CH1, 150, STOP)
-setMotor(CH2, 150, STOP)
 
 
 
