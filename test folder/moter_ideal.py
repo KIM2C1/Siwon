@@ -32,11 +32,11 @@ ENB = 30
 #GPIO PIN
 IN1 = 24
 IN2 = 23
-IN3 = 22
-IN4 = 21
+IN3 = 3 #22
+IN4 = 2 #21
 
-B_Vout = 3
-A_Vout = 2
+B_Vout = 22
+A_Vout = 21
 
 # 핀 설정 함수
 def setPinConfig(EN, INA, INB):
@@ -112,9 +112,7 @@ setMotor(CH1, 150, FORWARD)
 while(True) :
     B_data = wiringpi.digitalRead(B_Vout)
     A_data = wiringpi.digitalRead(A_Vout)
-    print(B_data)
-    print("---")
-    print(A_data)
+    print(f"B_Vout: {B_data}, A_Vout: {A_data}")
     wiringpi.delay(500)
 
 
