@@ -43,8 +43,7 @@ def setPinConfig(EN, INA, INB):
     wiringpi.pinMode(EN, OUTPUT)
     wiringpi.pinMode(INA, OUTPUT)
     wiringpi.pinMode(INB, OUTPUT)
-    wiringpi.pinMode(B_Vout, INPUT)
-    wiringpi.pinMode(A_Vout, INPUT)
+    
     
     wiringpi.softPwmCreate(EN, 0, 255)
 
@@ -75,6 +74,9 @@ def setMotor(ch, speed, stat):
 
 #GPIO 라이브러리 설정
 wiringpi.wiringPiSetup()
+
+wiringpi.pinMode(B_Vout, INPUT)
+wiringpi.pinMode(A_Vout, INPUT)
 
 #모터 핀 설정
 setPinConfig(ENA, IN1, IN2)
