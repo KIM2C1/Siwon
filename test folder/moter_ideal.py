@@ -35,12 +35,17 @@ IN2 = 23
 IN3 = 22
 IN4 = 21
 
+B_Vout = 3
+A_Vout = 2
 
 # 핀 설정 함수
 def setPinConfig(EN, INA, INB):
     wiringpi.pinMode(EN, OUTPUT)
     wiringpi.pinMode(INA, OUTPUT)
     wiringpi.pinMode(INB, OUTPUT)
+    wiringpi.pinMode(B_Vout, INPUT)
+    wiringpi.pinMode(A_Vout, INPUT)
+    
     wiringpi.softPwmCreate(EN, 0, 255)
 
 # 모터 제어 함수
@@ -82,6 +87,11 @@ setMotor(CH1, 150, FORWARD)
 setMotor(CH2, 150, FORWARD)
 #5초 대기
 wiringpi.delay(5000)
+B_data = wiringpi.digitalRead(B_Vout)
+A_data = wiringpi.digitalRead(A_Vout)
+print(B_data)
+print("---")
+print(A_data)
 
 # 뒤로 100 속도로
 setMotor(CH1, 100, BACKWORD)
