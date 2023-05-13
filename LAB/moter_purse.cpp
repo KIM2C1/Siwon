@@ -1,4 +1,5 @@
 #include "wiringPi.h"
+#include <softPwm.h>
 #include <iostream>
 
 #define pwmPinA 25             // 모터드라이버 ENA - GPIO핀 번호: 12
