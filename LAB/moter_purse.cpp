@@ -23,7 +23,7 @@ int main() {
     pinMode(AIN1, OUTPUT);
     pinMode(AIN2, OUTPUT);
 
-    softPwmCreat(pwmPinA, 0, 100);
+    softPwmCreate(pwmPinA, 0, 100);
     softPwmWrite(pwmPinA, 50);
 
     digitalWrite(pwmPinA, LOW);
