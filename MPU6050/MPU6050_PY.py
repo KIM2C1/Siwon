@@ -3,7 +3,7 @@
 	http://www.electronicwings.com
 '''
 import smbus			#import SMBus module of I2C
-from time import sleep          #import
+import time         #import
 import math
 
 #some MPU6050 Registers and their Address
@@ -21,6 +21,7 @@ GYRO_XOUT_H  = 0x43
 GYRO_YOUT_H  = 0x45
 GYRO_ZOUT_H  = 0x47
 
+start_time = time.time()
 
 def MPU_Init():
 	#write to sample rate register
@@ -51,6 +52,12 @@ def read_raw_data(addr):
                 value = value - 65536
         return value
 
+def getDT():
+	end_time = time.time()
+	dt = end_time - start_time
+	start_time = end_time
+	return dt
+
 
 bus = smbus.SMBus(1) 	# or bus = smbus.SMBus(0) for older version boards
 Device_Address = 0x68   # MPU6050 device address
@@ -79,11 +86,19 @@ while (True) :
 		Gy = gyro_y/131.0
 		Gz = gyro_z/131.0
 
+		#Accelerometer -> delta degree
 		if acc_x != 0 and acc_y != 0 and acc_z != 0:
 			angleAcY = math.atan(-acc_x / math.sqrt(math.pow(acc_y, 2) + math.pow(acc_z, 2))) * (180 / 3.14159)
 			angleAcX = math.atan(-acc_y / math.sqrt(math.pow(acc_x, 2) + math.pow(acc_z, 2))) * (180 / 3.14159)
 			print ("angleAcY=%.5f" %angleAcY, u'\u00b0', "angleAcX=%.5f" %angleAcX, u'\u00b0')
-			sleep(0.2)
+			time.sleep(0.2)
+	
+		Gx_angle = getDT * gyro_x * (180 / 3.14158)
+		Gy_angle = getDT * gyro_y * (180 / 3.14158)
+		Gz_angle = getDT * gyro_z * (180 / 3.14158)
+		print ("Gy_x=%.5f" %Gx_angle, u'\u00b0', "Gy_y=%.5f" %Gy_angle, u'\u00b0', "Gy_z=%.5f" %Gz_angle, u'\u00b0')
+		time.sleep(0.2)
+		
 
 		
 	
