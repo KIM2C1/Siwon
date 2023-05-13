@@ -93,9 +93,9 @@ while (True) :
 			print ("angleAcY=%.5f" %angleAcY, u'\u00b0', "angleAcX=%.5f" %angleAcX, u'\u00b0')
 			time.sleep(0.2)
 	
-		Gx_angle = getDT * gyro_x * (180 / 3.14158)
-		Gy_angle = getDT * gyro_y * (180 / 3.14158)
-		Gz_angle = getDT * gyro_z * (180 / 3.14158)
+		Gx_angle = float(getDT()) * gyro_x * (180 / 3.14158)
+		Gy_angle = float(getDT()) * gyro_y * (180 / 3.14158)
+		Gz_angle = float(getDT()) * gyro_z * (180 / 3.14158)
 		print ("Gy_x=%.5f" %Gx_angle, u'\u00b0', "Gy_y=%.5f" %Gy_angle, u'\u00b0', "Gy_z=%.5f" %Gz_angle, u'\u00b0')
 		time.sleep(0.2)
 		
