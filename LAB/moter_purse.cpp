@@ -7,18 +7,17 @@
 #define encPinA 22           // 보라색 (A) - GPIO핀 번호 : 23
 #define encPinB 21           // 파랑색 (B) - GPIO핀 번호 : 24
 
-void main() {
+int main() {
     wiringPiSetup();
 
-    wiringpi.pinMode(encPinA, INPUT);
-    wiringpi.pullUpDnControl(encPinA, PUD_UP);
+    pinMode(encPinA, INPUT);
 
-    wiringpi.pinMode(pwmPinA, OUTPUT); 
-    wiringpi.pinMode(AIN1, OUTPUT);
-    wiringpi.pinMode(AIN2, OUTPUT);
+    pinMode(pwmPinA, OUTPUT); 
+    pinMode(AIN1, OUTPUT);
+    pinMode(AIN2, OUTPUT);
 
     wiringpi.softPwmWrite(pwmPinA, 0, 100);
-    wiringpi.softPwmWrite(pwmPinA, 100);
+    wiringpi.softPwmWrite(pwmPinA, 50);
 
     wiringpi.digitalWrite(pwmPinA, LOW);
     wiringpi.digitalWrite(AIN1, LOW);
@@ -29,4 +28,6 @@ void main() {
     while (1) {
         cout << "Pulse Count: " << pulse_count << endl;
     }
+
+    return 0;
 }
