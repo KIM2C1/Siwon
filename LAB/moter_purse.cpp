@@ -30,7 +30,7 @@ int main() {
     digitalWrite(AIN1, LOW);
     digitalWrite(AIN2, HIGH);
     
-    wiringPiISR(encPinA, INT_EDGE_BOTH, &pulse.callback);
+    wiringPiISR(encPinA, INT_EDGE_BOTH, &pulse_callback);
 
     while (1) {
         std::cout << "Pulse Count: " << pulse_count << std::endl;
