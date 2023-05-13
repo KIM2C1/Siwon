@@ -7,6 +7,12 @@
 #define encPinA 22           // 보라색 (A) - GPIO핀 번호 : 23
 #define encPinB 21           // 파랑색 (B) - GPIO핀 번호 : 24
 
+volatile int pulse_count = 0;
+
+void pulse_callback() {
+    pulse_count++;
+}
+
 int main() {
     wiringPiSetup();
 
@@ -16,14 +22,14 @@ int main() {
     pinMode(AIN1, OUTPUT);
     pinMode(AIN2, OUTPUT);
 
-    wiringpi.softPwmWrite(pwmPinA, 0, 100);
-    wiringpi.softPwmWrite(pwmPinA, 50);
+    softPwmWrite(pwmPinA, 0, 100);
+    softPwmWrite(pwmPinA, 50);
 
     wiringpi.digitalWrite(pwmPinA, LOW);
     wiringpi.digitalWrite(AIN1, LOW);
     wiringpi.digitalWrite(AIN2, HIGH);
     
-    wiringpi.wiringPiISR(encPinA, INT_EDGE_BOTH, pulse.callback);
+    wiringpi.wiringPiISR(encPinA, INT_EDGE_BOTH, &pulse.callback);
 
     while (1) {
         std::cout << "Pulse Count: " << pulse_count << std::endl;
