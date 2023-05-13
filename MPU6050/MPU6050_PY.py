@@ -81,7 +81,7 @@ while (True) :
 	
 		angleAcY = math.atan(-acc_x / math.sqrt(math.pow(acc_y, 2) + math.pow(acc_z, 2))) * (180 / 3.14159)
 		angleAcX = math.atan(-acc_y / math.sqrt(math.pow(acc_x, 2) + math.pow(acc_z, 2))) * (180 / 3.14159)
-		print ("angleAcY=%.5f" %angleAcY, u'\u00b0'+ "/s", "angleAcX=%.5f" %angleAcX, u'\u00b0'+ "/s")
+		print ("angleAcY=%.5f" %angleAcY, u'\u00b0', "angleAcX=%.5f" %angleAcX, u'\u00b0')
 	
 	#print ("Gx=%.2f" %Gx, u'\u00b0'+ "/s", "\tGy=%.2f" %Gy, u'\u00b0'+ "/s", "\tGz=%.2f" %Gz, u'\u00b0'+ "/s", "\tAx=%.2f g" %Ax, "\tAy=%.2f g" %Ay, "\tAz=%.2f g" %Az) 	
 	#sleep(1)
