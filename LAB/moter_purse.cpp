@@ -33,7 +33,7 @@ int main() {
     wiringPiISR(encPinA, INT_EDGE_BOTH, &pulse_callback);
 
     while (1) {
-        pulse.callback();
+        pulse_callback();
         std::cout << "Pulse Count: " << pulse_count << std::endl;
     }
 
