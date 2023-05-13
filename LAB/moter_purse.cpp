@@ -26,11 +26,11 @@ int main() {
     softPwmWrite(pwmPinA, 0, 100);
     softPwmWrite(pwmPinA, 50);
 
-    wiringpi.digitalWrite(pwmPinA, LOW);
-    wiringpi.digitalWrite(AIN1, LOW);
-    wiringpi.digitalWrite(AIN2, HIGH);
+    digitalWrite(pwmPinA, LOW);
+    digitalWrite(AIN1, LOW);
+    digitalWrite(AIN2, HIGH);
     
-    wiringpi.wiringPiISR(encPinA, INT_EDGE_BOTH, &pulse.callback);
+    wiringPiISR(encPinA, INT_EDGE_BOTH, &pulse.callback);
 
     while (1) {
         std::cout << "Pulse Count: " << pulse_count << std::endl;
