@@ -53,6 +53,7 @@ def read_raw_data(addr):
         return value
 
 def getDT():
+	global start_time
 	end_time = time.time()
 	dt = end_time - start_time
 	start_time = end_time
