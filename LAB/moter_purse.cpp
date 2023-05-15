@@ -11,7 +11,7 @@
 volatile int pulse_count = 0;
 
 void pulse_callback() {
-    std::cout<<"A"<<std::endl;
+    pulse_count += 1;
 }
 
 int main() {
@@ -45,7 +45,7 @@ int main() {
                 std::cout<<count<<std::endl;
             }
         }
-        if (count >= 26) {
+        if (pulse_count >= 26) {
             softPwmWrite(pwmPinA, 0);
         }
         if (wiringPiISR(6, INT_EDGE_BOTH, &pulse_callback) < 0) {
