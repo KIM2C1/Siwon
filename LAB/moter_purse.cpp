@@ -31,7 +31,7 @@ int main() {
     digitalWrite(AIN1, LOW);
     digitalWrite(AIN2, HIGH);
     
-    wiringPiISR(29, INT_EDGE_RISING, &pulse_callback);
+    wiringPiISR(29, INT_EDGE_BOTH, &pulse_callback);
 
     while (1) {
         
@@ -54,7 +54,7 @@ int main() {
         if (wiringPiISR(29, INT_EDGE_BOTH, &pulse_callback) < 0) {
             std::cout<<"2"<<std::endl;
         }
-        std::cout<<wiringPiISR(29, INT_EDGE_RISING, &pulse_callback)<<std::endl;
+        std::cout<<wiringPiISR(29, INT_EDGE_BOTH, &pulse_callback)<<std::endl;
     }
 
     return 0;
