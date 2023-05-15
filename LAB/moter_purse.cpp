@@ -54,7 +54,7 @@ int main() {
         if (wiringPiISR(22, INT_EDGE_BOTH, &pulse_callback) < 0) {
             std::cout<<"2"<<std::endl;
         }
-        std::cout<<wiringPiISR(22, INT_EDGE_BOTH, &pulse_callback)<<std::endl;
+        std::cout<<wiringPiISR(22, INT_EDGE_RISING, &pulse_callback)<<std::endl;
     }
 
     return 0;
