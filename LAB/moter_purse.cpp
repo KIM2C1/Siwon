@@ -31,7 +31,7 @@ int main() {
     digitalWrite(AIN1, LOW);
     digitalWrite(AIN2, HIGH);
     
-    wiringPiISR(22, INT_EDGE_RISING, &pulse_callback);
+    wiringPiISR(22, INT_EDGE_BOTH, &pulse_callback);
 
     while (1) {
         
