@@ -40,6 +40,9 @@ int main() {
         //delay(100);
 
         //if (pulse_count == 20)
+        if (igitalRead(encPinA) == HIGH) {
+            std::cout<<"B"<<std::endl;
+        }
     }
 
     return 0;
