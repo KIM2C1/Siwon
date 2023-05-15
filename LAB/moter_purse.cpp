@@ -48,6 +48,12 @@ int main() {
         if (count >= 26) {
             softPwmWrite(pwmPinA, 0);
         }
+        if (wiringPiISR(6, INT_EDGE_BOTH, &pulse_callback) < 0) {
+            std::cout<<"1"<<std::endl;
+        }
+        if (wiringPiISR(22, INT_EDGE_BOTH, &pulse_callback) < 0) {
+            std::cout<<"2"<<std::endl;
+        }
     }
 
     return 0;
