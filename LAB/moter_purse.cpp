@@ -11,9 +11,7 @@
 volatile int pulse_count = 0;
 
 void pulse_callback() {
-    if (digitalRead(encPinA) == HIGH) {
-        std::cout<<"A"<<std::endl;
-    }
+    std::cout<<"A"<<std::endl;
 }
 
 int main() {
