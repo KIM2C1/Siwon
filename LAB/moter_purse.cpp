@@ -42,7 +42,10 @@ int main() {
 
         //if (pulse_count == 20)
         if (digitalRead(encPinA) == HIGH) {
-            count += 1;
+            if (digitalRead(encPinA) == LOW) {
+                count += 1;
+                std::cout<<count<<std::endl;
+            }
         }
         if (count >= 26) {
             softPwmWrite(pwmPinA, 0);
