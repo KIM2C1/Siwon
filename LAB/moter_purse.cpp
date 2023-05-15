@@ -45,7 +45,7 @@ int main() {
                 std::cout<<count<<std::endl;
             }
         }
-        if (pulse_count >= 4500 ) {
+        if (pulse_count >= 13500 ) {
             std::cout<<pulse_count<<std::endl;
             softPwmWrite(pwmPinA, 0);
         }
