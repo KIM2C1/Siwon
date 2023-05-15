@@ -11,7 +11,9 @@
 volatile int pulse_count = 0;
 
 void pulse_callback() {
-    cout << "A";
+    if (digitalRead(encPinA) == HIGH) {
+        std::cout<<"A"<<endl;
+    }
 }
 
 int main() {
@@ -30,12 +32,12 @@ int main() {
     digitalWrite(AIN1, LOW);
     digitalWrite(AIN2, HIGH);
     
-    
+    wiringPiISR(encPinA, INT_EDGE_BOTH, &pulse_callback);
 
     while (1) {
-        wiringPiISR(encPinA, INT_EDGE_BOTH, &pulse_callback);
+        
         //std::cout << "Pulse Count: " << pulse_count << std::endl;
-        delay(100);
+        //delay(100);
 
         //if (pulse_count == 20)
     }
