@@ -45,7 +45,7 @@ int main() {
                 std::cout<<count<<std::endl;
             }
         }
-        if (pulse_count >= 26) {
+        if (pulse_count >= 1300) {
             softPwmWrite(pwmPinA, 0);
         }
         if (wiringPiISR(6, INT_EDGE_BOTH, &pulse_callback) < 0) {
