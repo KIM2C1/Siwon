@@ -12,6 +12,7 @@ volatile int pulse_count = 0;
 
 void pulse_callback() {
     pulse_count += 1;
+    std::cout<<pulse_count<<std::endl;
 }
 
 int main() {
