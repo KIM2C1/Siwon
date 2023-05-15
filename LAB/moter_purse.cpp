@@ -11,9 +11,10 @@
 volatile int pulse_count = 0;
 
 void pulse_callback() {
-    pulse_count += 1;
-    std::cout<<pulse_count<<std::endl;
-    delay(100);
+    //pulse_count += 1;
+    std::cout<<"pulse_working!"<<std::endl;
+    delay(1000);
+    std::cout<<"delay end!"<<std::endl;
 }
 
 int main() {
@@ -36,28 +37,6 @@ int main() {
     wiringPiISR(29, INT_EDGE_BOTH, &pulse_callback);
 
     while (1) {
-        
-        //std::cout << "Pulse Count: " << pulse_count << std::endl;
-        //delay(100);
-
-        //if (pulse_count == 20)
-        if (digitalRead(encPinA) == HIGH) {
-            if (digitalRead(encPinA) == LOW) {
-                count += 1;
-                std::cout<<count<<std::endl;
-            }
-        }
-        if (pulse_count >= 13500 ) {
-            std::cout<<pulse_count<<std::endl;
-            softPwmWrite(pwmPinA, 0);
-        }
-        if (wiringPiISR(6, INT_EDGE_BOTH, &pulse_callback) < 0) {
-            std::cout<<"1"<<std::endl;
-        }
-        if (wiringPiISR(29, INT_EDGE_BOTH, &pulse_callback) < 0) {
-            std::cout<<"2"<<std::endl;
-        }
-        std::cout<<wiringPiISR(29, INT_EDGE_BOTH, &pulse_callback)<<std::endl;
     }
 
     return 0;
