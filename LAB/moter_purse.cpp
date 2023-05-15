@@ -40,7 +40,7 @@ int main() {
         //delay(100);
 
         //if (pulse_count == 20)
-        if (igitalRead(encPinA) == HIGH) {
+        if (digitalRead(encPinA) == HIGH) {
             std::cout<<"B"<<std::endl;
         }
     }
