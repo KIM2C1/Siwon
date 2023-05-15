@@ -24,14 +24,14 @@ int main() {
     pinMode(AIN1, OUTPUT);
     pinMode(AIN2, OUTPUT);
 
-    softPwmCreate(pwmPinA, 0, 100);
+    softPwmCreate(pwmPinA, 0, 100);     
     softPwmWrite(pwmPinA, 50);
 
     digitalWrite(pwmPinA, LOW);
     digitalWrite(AIN1, LOW);
     digitalWrite(AIN2, HIGH);
     
-    wiringPiISR(encPinA, INT_EDGE_BOTH, &pulse_callback);
+    wiringPiISR(6, INT_EDGE_BOTH, &pulse_callback);
 
     while (1) {
         
