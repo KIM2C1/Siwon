@@ -10,7 +10,7 @@
 
 volatile int pulse_count = 0;
 
-void pulse_callback() {
+void pulse_callback_B() {
     //pulse_count += 1;
     std::cout<<"pulse_working!"<<std::endl;
     delay(1000);
@@ -34,8 +34,8 @@ int main() {
     digitalWrite(AIN1, LOW);
     digitalWrite(AIN2, HIGH);
     
-    wiringPiISR(29, INT_EDGE_BOTH, &pulse_callback);
-
+    //wiringPiISR(29, INT_EDGE_BOTH, &pulse_callback);
+    wiringPiISR(28, INT_EDGE_BOTH, &pulse_callback_B);
     while (1) {
     }
 
