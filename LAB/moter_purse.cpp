@@ -30,7 +30,10 @@ int main() {
 
     pinMode(encPinA, INPUT);
     pinMode(encPinB, INPUT);
-    pullUpDnControl(29, PUD_UP);
+
+    pullUpDnControl(encPinA, PUD_UP);
+    pullUpDnControl(encPinB, PUD_UP);
+
     pinMode(pwmPinA, OUTPUT); 
     pinMode(AIN1, OUTPUT);
     pinMode(AIN2, OUTPUT);
