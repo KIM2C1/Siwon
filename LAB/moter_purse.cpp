@@ -6,7 +6,7 @@
 #define AIN1 24            // IN1 - GPIO핀 번호: 16
 #define AIN2 23            // IN2 - GPIO핀 번호 : 25 
 #define encPinA 29           // 보라색 (A) - GPIO핀 번호 : 23
-#define encPinB 7           // 파랑색 (B) - GPIO핀 번호 : 24
+#define encPinB 28           // 파랑색 (B) - GPIO핀 번호 : 24
 
 volatile int pulse_count = 0;
 
