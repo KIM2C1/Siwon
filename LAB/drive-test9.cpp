@@ -89,6 +89,7 @@ int main() {
   while (1) {
     if (read(STDIN_FILENO, &input, 1) > 0) {
       if (input == 'w') {
+        cout<<input<<endl;
         // FL-MOTER 전진
         OUT_FL_1 = LOW;
         OUT_FL_2 = HIGH;
