@@ -118,6 +118,7 @@ int main() {
         digitalWrite(IN_BR_1, OUT_BR_1);
         digitalWrite(IN_BR_2, OUT_BR_2);
         softPwmWrite(EN_BR, 100);
+        flushInputBuffer();
       }
       else if (input == 's') {
         // FL-MOTER 후진
@@ -147,6 +148,7 @@ int main() {
         digitalWrite(IN_BR_1, OUT_BR_1);
         digitalWrite(IN_BR_2, OUT_BR_2);
         softPwmWrite(EN_BR, 100);
+        flushInputBuffer();
       }
       else if (input == '\x1b') {
         cout << "OFF" << endl;
@@ -163,7 +165,7 @@ int main() {
         softPwmWrite(EN_BL, 0);
         softPwmWrite(EN_FR, 0);
         softPwmWrite(EN_BR, 0);
-
+        flushInputBuffer();
         break;
       }
       else {
@@ -184,7 +186,9 @@ int main() {
       softPwmWrite(EN_BL, 0);
       softPwmWrite(EN_FR, 0);
       softPwmWrite(EN_BR, 0);
+      flushInputBuffer();
       break;
+      
     }
   }
   
