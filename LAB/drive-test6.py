@@ -196,9 +196,9 @@ while True:
             print("unknown key is pressed")
 
     else:
-        pwm_FL.stop()
-        pwm_BL.stop()
-        pwm_FR.stop()
-        pwm_BR.stop()
+        pwm_FL.ChangeDutyCycle(0)
+        pwm_BL.ChangeDutyCycle(0)
+        pwm_FR.ChangeDutyCycle(0)
+        pwm_BR.ChangeDutyCycle(0)
 
 termios.tcsetattr(sys.stdin, termios.TCSADRAIN, old_settings)
