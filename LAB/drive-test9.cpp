@@ -89,6 +89,7 @@ int main() {
 
   while (1) {
     if (read(STDIN_FILENO, &input, 1) > 0) {
+      cout<<"ad"<<endl;
       if (input == 'w') {
         // FL-MOTER 전진
         OUT_FL_1 = LOW;
@@ -119,28 +120,28 @@ int main() {
         softPwmWrite(EN_BR, 100);
       }
       else if (input == 's') {
-        // FL-MOTER 전진
+        // FL-MOTER 후진
         OUT_FL_1 = HIGH;
         OUT_FL_2 = LOW;
         digitalWrite(IN_FL_1, OUT_FL_1);
         digitalWrite(IN_FL_2, OUT_FL_2);
         softPwmWrite(EN_FL, 100);
       
-        // BL-MOTER 전진
+        // BL-MOTER 후진
         OUT_BL_1 = HIGH;
         OUT_BL_2 = LOW;
         digitalWrite(IN_BL_1, OUT_BL_1);
         digitalWrite(IN_BL_2, OUT_BL_2);
         softPwmWrite(EN_BL, 100);
       
-        // FR-MOTER 전진
+        // FR-MOTER 후진
         OUT_FR_1 = LOW;
         OUT_FR_2 = HIGH;
         digitalWrite(IN_FR_1, OUT_FR_1);
         digitalWrite(IN_FR_2, OUT_FR_2);
         softPwmWrite(EN_FR, 100);
       
-        // BR-MOTER 전진
+        // BR-MOTER 후진
         OUT_BR_1 = LOW;
         OUT_BR_2 = HIGH;
         digitalWrite(IN_BR_1, OUT_BR_1);
