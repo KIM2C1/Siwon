@@ -67,7 +67,6 @@ OUT_BR_1 = 0
 OUT_BR_2 = 0
 
 speed = int(input("Set Speed: "))
-speed_1 = int(input("Set Speed1: "))
 
 old_settings = termios.tcgetattr(sys.stdin)
 tty.setcbreak(sys.stdin.fileno())
@@ -105,10 +104,10 @@ while True:
             GPIO.output(IN_BR_1,OUT_BR_1)
             GPIO.output(IN_BR_2,OUT_BR_2)
     
-            pwm_FR.ChangeDutyCycle(speed_1)
+            pwm_FR.ChangeDutyCycle(speed)
             pwm_BL.ChangeDutyCycle(speed)
             pwm_FL.ChangeDutyCycle(speed)
-            pwm_BR.ChangeDutyCycle(speed_1)
+            pwm_BR.ChangeDutyCycle(speed)
         elif ch == 'a':
             #print("A")
             OUT_FL_1 = 1
@@ -197,9 +196,9 @@ while True:
             print("unknown key is pressed")
 
     else:
-        pwm_FL.ChangeDutyCycle(0)
-        pwm_BL.ChangeDutyCycle(0)
-        pwm_FR.ChangeDutyCycle(0)
-        pwm_BR.ChangeDutyCycle(0)
+        pwm_FL.stop()
+        pwm_BL.stop()
+        pwm_FR.stop()
+        pwm_BR.stop()
 
 termios.tcsetattr(sys.stdin, termios.TCSADRAIN, old_settings)
