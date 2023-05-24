@@ -168,7 +168,6 @@ int main() {
       else {
         cout << "Invalid input" << endl;
       }
-      char input;
     }
     else {
       cout << "No input" << endl;
@@ -184,6 +183,7 @@ int main() {
       softPwmWrite(EN_BL, 0);
       softPwmWrite(EN_FR, 0);
       softPwmWrite(EN_BR, 0);
+      break;
     }
   }
   
