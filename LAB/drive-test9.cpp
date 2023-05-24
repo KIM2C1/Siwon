@@ -43,6 +43,12 @@ int OUT_FR_2 = LOW;
 int OUT_BR_1 = LOW;
 int OUT_BR_2 = LOW;
 
+void flushInputBuffer() {
+  int c;
+  while ((c = getchar()) != '\n' && c != EOF) {
+    // 비워지지 않은 입력 버퍼의 모든 문자를 읽음
+  }
+}
 
 int main() {
 
