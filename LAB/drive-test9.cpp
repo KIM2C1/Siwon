@@ -43,10 +43,6 @@ int OUT_FR_2 = LOW;
 int OUT_BR_1 = LOW;
 int OUT_BR_2 = LOW;
 
-void flushInputBuffer() {
-  input = '\0';
-}
-
 int main() {
 
   // wiringPi 초기화
@@ -92,7 +88,6 @@ int main() {
 
   while (1) {
     if (read(STDIN_FILENO, &input, 1) > 0) {
-      cout<<"ad"<<endl;
       if (input == 'w') {
         // FL-MOTER 전진
         OUT_FL_1 = LOW;
@@ -121,7 +116,7 @@ int main() {
         digitalWrite(IN_BR_1, OUT_BR_1);
         digitalWrite(IN_BR_2, OUT_BR_2);
         softPwmWrite(EN_BR, 100);
-        flushInputBuffer();
+        input = '\0';
       }
       else if (input == 's') {
         // FL-MOTER 후진
@@ -151,7 +146,7 @@ int main() {
         digitalWrite(IN_BR_1, OUT_BR_1);
         digitalWrite(IN_BR_2, OUT_BR_2);
         softPwmWrite(EN_BR, 100);
-        flushInputBuffer();
+        input = '\0';
       }
       else if (input == '\x1b') {
         cout << "OFF" << endl;
@@ -168,7 +163,7 @@ int main() {
         softPwmWrite(EN_BL, 0);
         softPwmWrite(EN_FR, 0);
         softPwmWrite(EN_BR, 0);
-        flushInputBuffer();
+        input = '\0';
         break;
       }
       else {
@@ -189,7 +184,7 @@ int main() {
       softPwmWrite(EN_BL, 0);
       softPwmWrite(EN_FR, 0);
       softPwmWrite(EN_BR, 0);
-      flushInputBuffer();
+      input = '\0';
       break;
       
     }
