@@ -97,20 +97,16 @@ def send_command(command) :
             read = ser.read()
             #print(read)
             if read == b'\r' :
-                #print("*************************")
                 break
             
             buff_data.append(read)
 
         for x in range (len(buff_data)):
                buff_str += str(buff_data[x])
-            
-        #print("buff_str: " ,buff_str)    
+               
         output_data = ''.join(i for i in buff_str)
         pretty = output_data.replace("'b'", "").replace("'", "")  #데이터를 뽑으면 b' 가 포함되어있는데 b'를 지움
         return (pretty[1:])
-        #print("FINAL: ",output_data)
-        #print("FINAL-pro: ",output_data.replace("b", "").replace("'", "")) #output_data
 
 
 #select
