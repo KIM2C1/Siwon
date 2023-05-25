@@ -4,8 +4,6 @@ import matplotlib
 import numpy
 import copy
 import sys
-import xlsxwriter
-import datetime as date
 
 command_table = [
     "QID",
@@ -24,12 +22,13 @@ command_table = [
     "QOPM"
 ]
 
-ser = serial.Serial('COM11',2400) #set-com-port
+#set-com-port
+port = 'COM11'
+baudrate = 9600
 
-modetype = input("T: 테스트 모드 / Q: 수동 모드: ")
+ser = serial.Serial(port,baudrate) 
 
-
-#make crc16_xmodem
+#make send data using crc16_xmodem
 def crc16_xmodem(order: bytes) -> int:
     crc = 0
     for b in order:
@@ -42,7 +41,7 @@ def crc16_xmodem(order: bytes) -> int:
     return crc & 0xffff
 
 
-#data send part
+#data send and decode
 def send_command(command) :        
         ord_byte_en = []
         count = 0
@@ -85,6 +84,7 @@ def send_command(command) :
         for y in range(len(ord_byte_en)) :
             ser.write(ord_byte_en[y])
             #print(ord_byte_en[y])
+            print(ser.read())
         #print('*************************')
         ######### 출력값이 16진수가 아닌 문자(기호)로 나오는 경우가 있는데 데이터 값은 같음 ###########
 
@@ -105,98 +105,31 @@ def send_command(command) :
                buff_str += str(buff_data[x])
                
         output_data = ''.join(i for i in buff_str)
+        #print(output_data)
         pretty = output_data.replace("'b'", "").replace("'", "")  #데이터를 뽑으면 b' 가 포함되어있는데 b'를 지움
-        return (pretty[1:])
 
+        #print(pretty)
+        #print("--------------")
+        buff_data = [] 
 
-#select
-if modetype == 'T':
-     #set file
-     f = open("listup.txt", 'w')
-     f.write("---------------TEST START---------------\n")
-     f.close()
-     f = open("listup.txt", 'a')
-
-     trynumber = int(input("테스트 횟수: "))
-     print("Testing...")
-     start_time = time.time()
-
-     #set xlsx
-     workbook = xlsxwriter.Workbook('XPERT_KING_DATASHEET.xlsx')
-     worksheet = workbook.add_worksheet()
-
-     worksheet.write(0, 0, "COMMAND")
-     worksheet.write(0, 1, "RECEIVE")
-     xlsx_number = 1
-
-     for trynumber_buff in range(trynumber):
-          for command_table_buff in range(len(command_table)):
-               command = command_table[command_table_buff] #find command in command_table
-               data_out = send_command(command)            #send command   
-               
-               fault = 0
-               number = command_table_buff+1               #check number 1, 2, ...
-               numbering = '{:02d}'.format(number)         #translate number 01, 02, ...
-
-               
-
-               data_out_str = str(numbering) + ":   " + str(data_out) + "\n"
-               f.write(data_out_str)
-
-               end_time = time.time()
-
-               #xlsx write
-               worksheet.write(xlsx_number, 0, command_table[command_table_buff])
-               worksheet.write(xlsx_number, 1, data_out)
-
-               xlsx_number += 1
-
-          #txt write
-          log_time = date.datetime.now()    
-          result = "-------------"+"ok:"+str(14-fault)+"/faile:"+str(fault)+"-------------\n"
-          f.write(result)
-          f.write("Time:" + str((end_time - start_time)) + "\t" + "Date:" + str(log_time) + "\n")
-          f.write("\n")
+        #띄어쓰기를 기준으로 배열의 각 인덱스에 저장
+        current_word = ''
+        for char in pretty:
+            if char == ' ':
+                if current_word != '':
+                    buff_data.append(current_word)
+                    current_word = ''
+            else:
+                current_word += char
         
-          #xlsx write
-          worksheet.write(xlsx_number, 0, "time:")
-          worksheet.write(xlsx_number, 1, end_time - start_time)
-          xlsx_number += 1
+        if current_word != '':
+            buff_data.append(current_word)
 
-          worksheet.write(xlsx_number, 0,'')
-          worksheet.write(xlsx_number, 1,'')
-          xlsx_number += 1
-
-     f.close()
-     workbook.close()
-     print("Test Complete!")
+        return (buff_data)
 
 
-elif modetype == 'Q':
-     #set xlsx
-     workbook = xlsxwriter.Workbook('XPERT_KING_log.xlsx')
-     worksheet = workbook.add_worksheet()
-     worksheet.write(0, 0, "COMMAND")
-     worksheet.write(0, 1, "RECEIVE")
-     worksheet.write(0, 2, "TIME")
-
-     buff = 1
-     xlsx_number = 1
-     
-     while buff:
-           command = input("command: ")
-           if command == 'ESC':
-                workbook.close()
-                break
-           else:
-                data_out = send_command(command)
+#test = []
+#test = send_command("0.00 2 4")
+#print(test[:])
 
 
-                log_time = date.datetime.now()
-                print(log_time)
-                worksheet.write(xlsx_number, 0, command)
-                worksheet.write(xlsx_number, 1, data_out)
-                worksheet.write(xlsx_number, 2, str(log_time))
-                xlsx_number += 1
-
-           print(data_out)

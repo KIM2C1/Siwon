@@ -19,9 +19,26 @@ from PySide2.QtGui import (QBrush, QColor, QConicalGradient, QCursor, QFont,
     QRadialGradient)
 from PySide2 import QtCore, QtWidgets, QtGui
 
+from send_data import custom_function
+import xpert_king
+
+class SerialThread(QThread):
+    data_received = Signal(list)
+
+    def run(self):
+        while True:
+            countv3 = xpert_king.send_command("0 43")
+            print(countv3[:])
+            print("-------------")
+            self.sleep(200)  # 200ms마다 데이터를 받아오도록 설정
 
 class Ui_Dialog(object):
     def setupUi(self, Dialog):
+
+        self.serial_thread = SerialThread()
+        self.serial_thread.data_received.connect(self.update_data)
+        self.serial_thread.start()
+        
         if not Dialog.objectName():
             Dialog.setObjectName(u"Dialog")
         Dialog.resize(1039, 738)
@@ -43,11 +60,11 @@ class Ui_Dialog(object):
         self.PV_POWER.rpb_setLineWidth(3)
         self.PV_POWER.rpb_setPathWidth(15)
         self.PV_POWER.rpb_setPathColor((125, 255, 255))
-        self.count = 0
-        self.PV_POWER.rpb_setValue(self.count)
+        self.countv1 = 0
+        self.PV_POWER.rpb_setValue(self.countv1)
         self.timer = QtCore.QTimer()  # Corrected class name.
-        self.timer.timeout.connect(self.progress)  # Ensure 'progress' method exists.
-        self.timer.start(60)
+        self.timer.timeout.connect(self.custom_function)  # Ensure 'progress' method exists.
+        self.timer.start(2000)
         ###################################
         self.horizontalLayoutWidget = QWidget(self.tab)
         self.horizontalLayoutWidget.setObjectName(u"horizontalLayoutWidget")
@@ -81,11 +98,12 @@ class Ui_Dialog(object):
         self.PV_INPUT.rpb_setLineWidth(3)
         self.PV_INPUT.rpb_setPathWidth(15)
         self.PV_INPUT.rpb_setPathColor((125, 255, 255))
-        self.count = 0
-        self.PV_INPUT.rpb_setValue(self.count)
+        self.countv2 = 0
+        self.PV_INPUT.rpb_setValue(self.countv2)
         self.timer = QtCore.QTimer()  # Corrected class name.
-        self.timer.timeout.connect(self.progress)  # Ensure 'progress' method exists.
-        self.timer.start(60)
+        self.timer.timeout.connect(self.custom_function)  # Ensure 'progress' method exists.
+        self.timer.start(2000)
+
 #############################
         self.label_3 = QLabel(self.tab)
         self.label_3.setObjectName(u"label_3")
@@ -133,9 +151,22 @@ class Ui_Dialog(object):
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_2), QCoreApplication.translate("Dialog", u"Details", None))
     # retranslateUi
 
-    def progress(self):
-        self.count += 1
-        if self.count > 100:
-            self.count = 0
-        self.PV_POWER.rpb_setValue(self.count)
-        self.PV_INPUT.rpb_setValue(self.count)
+    def custom_function(self):
+
+        self.countv1 += 2
+        if self.countv1 > 100:
+            self.countv1 = 0
+        self.PV_POWER.rpb_setValue(self.countv1)
+
+        self.countv2 = custom_function()
+        self.PV_INPUT.rpb_setValue(self.countv2)
+        
+        #self.countv3 = []
+        #self.countv3 = xpert_king.send_command("0 43")
+        #self.PV_INPUT.rpb_setValue(self.countv3[1])
+        #print(self.countv3[:])
+    
+    def update_data(self, countv3):
+        print(countv3[:])
+
+    

@@ -2,7 +2,7 @@ import serial
 buff_data = []
 
 # 아두이노와의 시리얼 통신 설정
-arduino_port = 'COM7'  # 아두이노 포트 (Windows의 경우 'COMx' 형식으로 변경)
+arduino_port = 'COM11'  # 아두이노 포트 (Windows의 경우 'COMx' 형식으로 변경)
 baud_rate = 9600  # 시리얼 통신 속도
 
 # 시리얼 포트 열기

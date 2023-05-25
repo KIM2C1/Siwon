@@ -1,13 +1,13 @@
 import os
 import sys
-from frame import *
+from frame2 import *
 
 
 
 class MainWindow(QMainWindow) :
     def __init__(self):
         QMainWindow.__init__(self)
-        self.ui = Ui_Dialog()
+        self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
         self.show()
 
