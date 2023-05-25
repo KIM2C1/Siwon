@@ -5,23 +5,6 @@ import numpy
 import copy
 import sys
 
-command_table = [
-    "QID",
-    "QSID",
-    "QVFW",
-    "QVFW2",
-    "QPIRI",
-    "QFLAG",
-    "QPIGS",
-    "QPGSn",
-    "QMOD",
-    "QPIWS",
-    "QDI",
-    "QMCHGCR",
-    "QMUCHGCR",
-    "QOPM"
-]
-
 #set-com-port
 port = 'COM11'
 baudrate = 9600
@@ -29,23 +12,26 @@ baudrate = 9600
 ser = serial.Serial(port,baudrate) 
 
 #make send data using crc16_xmodem
-def crc16_xmodem(order: bytes) -> int:
-    crc = 0
-    for b in order:
-        crc ^= (b << 8)
-        for i in range(8):
-            if (crc & 0x8000):
-                crc = (crc << 1) ^ 0x1021
-            else:
-                crc <<= 1
-    return crc & 0xffff
+
+
+
 
 
 #data send and decode
-def send_command(command) :        
+def send_command(command) :
+        def crc16_xmodem(order: bytes) -> int:
+            crc = 0
+            for b in order:
+                crc ^= (b << 8)
+                for i in range(8):
+                    if (crc & 0x8000):
+                        crc = (crc << 1) ^ 0x1021
+                    else:
+                        crc <<= 1
+            return crc & 0xffff   
+
         ord_byte_en = []
         count = 0
-        
 
         order = command #input('명령어를 입력하세요 : ')
         order_crc = order.encode('utf-8') # xmodem으로 바꿀 변수
@@ -80,27 +66,32 @@ def send_command(command) :
         ord_byte_en.append(cr2_b)
         ord_byte_en.append(cr)
 
-
+        buff_data = []
         for y in range(len(ord_byte_en)) :
             ser.write(ord_byte_en[y])
-            #print(ord_byte_en[y])
+            print(ord_byte_en[y])
             #print(ser.read())
+            print(y)
+            read = ser.read()
+            print(read)
+            if (read != b'\r'):
+                buff_data.append(read)
+            else:
+                break   
         #print('*************************')
         ######### 출력값이 16진수가 아닌 문자(기호)로 나오는 경우가 있는데 데이터 값은 같음 ###########
-
+        print("send complite!")
 
         #data reading part
-        buff_data = []
+        #buff_data = []
         buff_str = []
 
-        while True :
-            read = ser.read()
-            #print(read)
-            if read == b'\r' :
-                break
-            
-            buff_data.append(read)
 
+        
+        #for i in range(300):
+                    
+
+        print("read complite!")
         for x in range (len(buff_data)):
                buff_str += str(buff_data[x])
                
@@ -129,7 +120,7 @@ def send_command(command) :
 
 
 test = []
-test = send_command("0.00 2 4")
+test = send_command('QIPGS')
 print(test[:])
 
 

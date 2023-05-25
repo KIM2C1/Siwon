@@ -20,24 +20,13 @@ from PySide2.QtGui import (QBrush, QColor, QConicalGradient, QCursor, QFont,
 from PySide2 import QtCore, QtWidgets, QtGui
 
 from send_data import custom_function
-import xpert_king
 
-class SerialThread(QThread):
-    data_received = Signal(list)
+import xpert_king2
 
-    def run(self):
-        while True:
-            countv3 = xpert_king.send_command("0 43")
-            print(countv3[:])
-            print("-------------")
-            self.sleep(200)  # 200ms마다 데이터를 받아오도록 설정
+#from send3 import gain
 
 class Ui_Dialog(object):
     def setupUi(self, Dialog):
-
-        self.serial_thread = SerialThread()
-        self.serial_thread.data_received.connect(self.update_data)
-        self.serial_thread.start()
         
         if not Dialog.objectName():
             Dialog.setObjectName(u"Dialog")
@@ -64,7 +53,7 @@ class Ui_Dialog(object):
         self.PV_POWER.rpb_setValue(self.countv1)
         self.timer = QtCore.QTimer()  # Corrected class name.
         self.timer.timeout.connect(self.custom_function)  # Ensure 'progress' method exists.
-        self.timer.start(2000)
+        self.timer.start(100)
         ###################################
         self.horizontalLayoutWidget = QWidget(self.tab)
         self.horizontalLayoutWidget.setObjectName(u"horizontalLayoutWidget")
@@ -102,8 +91,12 @@ class Ui_Dialog(object):
         self.PV_INPUT.rpb_setValue(self.countv2)
         self.timer = QtCore.QTimer()  # Corrected class name.
         self.timer.timeout.connect(self.custom_function)  # Ensure 'progress' method exists.
-        self.timer.start(2000)
+        self.timer.start(100)
 
+
+        #self.timer = QtCore.QTimer()  # Corrected class name.
+        #self.timer.timeout.connect(send3.gain)  # Ensure 'progress' method exists.
+        #self.timer.start(2000)
 #############################
         self.label_3 = QLabel(self.tab)
         self.label_3.setObjectName(u"label_3")
@@ -160,13 +153,10 @@ class Ui_Dialog(object):
 
         self.countv2 = custom_function()
         self.PV_INPUT.rpb_setValue(self.countv2)
+        #gain()
         
+        xpert_king2.send_command('QPIGS')
         #self.countv3 = []
         #self.countv3 = xpert_king.send_command("0 43")
         #self.PV_INPUT.rpb_setValue(self.countv3[1])
         #print(self.countv3[:])
-    
-    def update_data(self, countv3):
-        print(countv3[:])
-
-    
