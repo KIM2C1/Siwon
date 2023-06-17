@@ -19,11 +19,14 @@ from PySide2.QtGui import (QBrush, QColor, QConicalGradient, QCursor, QFont,
     QRadialGradient)
 from PySide2 import QtCore, QtWidgets, QtGui
 
+from PySide2.QtCore import QThread, Signal, Slot
+from PySide2.QtWidgets import QApplication, QProgressBar, QTabWidget, QVBoxLayout, QWidget
+
 from send_data import custom_function
 
-import xpert_king2
+import xpert_king
 
-#from send3 import gain
+test = []
 
 class Ui_Dialog(object):
     def setupUi(self, Dialog):
@@ -42,6 +45,7 @@ class Ui_Dialog(object):
         self.Battery_Capacity.setLayoutDirection(Qt.LeftToRight)
         self.Battery_Capacity.setValue(24)
         ##################################
+
         self.PV_POWER = roundProgressBar(self.tab)  # QWidget (or a subclass) instance is expected as parent
         self.PV_POWER.setObjectName(u"PV_POWER")
         self.PV_POWER.setGeometry(QRect(470, 130, 271, 241))
@@ -53,7 +57,7 @@ class Ui_Dialog(object):
         self.PV_POWER.rpb_setValue(self.countv1)
         self.timer = QtCore.QTimer()  # Corrected class name.
         self.timer.timeout.connect(self.custom_function)  # Ensure 'progress' method exists.
-        self.timer.start(100)
+        self.timer.start(1000)
         ###################################
         self.horizontalLayoutWidget = QWidget(self.tab)
         self.horizontalLayoutWidget.setObjectName(u"horizontalLayoutWidget")
@@ -91,7 +95,7 @@ class Ui_Dialog(object):
         self.PV_INPUT.rpb_setValue(self.countv2)
         self.timer = QtCore.QTimer()  # Corrected class name.
         self.timer.timeout.connect(self.custom_function)  # Ensure 'progress' method exists.
-        self.timer.start(100)
+        self.timer.start(1000)
 
 
         #self.timer = QtCore.QTimer()  # Corrected class name.
@@ -146,7 +150,7 @@ class Ui_Dialog(object):
 
     def custom_function(self):
 
-        self.countv1 += 2
+        self.countv1 += 1
         if self.countv1 > 100:
             self.countv1 = 0
         self.PV_POWER.rpb_setValue(self.countv1)
@@ -154,8 +158,9 @@ class Ui_Dialog(object):
         self.countv2 = custom_function()
         self.PV_INPUT.rpb_setValue(self.countv2)
         #gain()
-        
-        xpert_king2.send_command('QPIGS')
+
+        test = xpert_king.send_command("QPIGS")
+        print(test[:])
         #self.countv3 = []
         #self.countv3 = xpert_king.send_command("0 43")
         #self.PV_INPUT.rpb_setValue(self.countv3[1])

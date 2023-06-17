@@ -6,8 +6,8 @@ import copy
 import sys
 
 #set-com-port
-port = 'COM11'
-baudrate = 9600
+port = 'COM9'
+baudrate = 2400
 
 ser = serial.Serial(port,baudrate) 
 
@@ -71,13 +71,13 @@ def send_command(command) :
             ser.write(ord_byte_en[y])
             print(ord_byte_en[y])
             #print(ser.read())
-            print(y)
-            read = ser.read()
-            print(read)
-            if (read != b'\r'):
-                buff_data.append(read)
-            else:
-                break   
+            #print(y)
+            #read = ser.read()
+            #print(read)
+            #if (read != b'\r'):
+                #buff_data.append(read)
+            #else:
+                #break   
         #print('*************************')
         ######### 출력값이 16진수가 아닌 문자(기호)로 나오는 경우가 있는데 데이터 값은 같음 ###########
         print("send complite!")
@@ -88,8 +88,8 @@ def send_command(command) :
 
 
         
-        #for i in range(300):
-                    
+        for i in range(300):
+                
 
         print("read complite!")
         for x in range (len(buff_data)):
@@ -120,7 +120,7 @@ def send_command(command) :
 
 
 test = []
-test = send_command('QIPGS')
+test = send_command("QIPGS")
 print(test[:])
 
 

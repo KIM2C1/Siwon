@@ -23,8 +23,9 @@ command_table = [
 ]
 
 #set-com-port
-port = 'COM11'
-baudrate = 9600
+port = 'COM9'
+baudrate = 2400
+
 
 ser = serial.Serial(port,baudrate) 
 
@@ -92,14 +93,26 @@ def send_command(command) :
         #data reading part
         buff_data = []
         buff_str = []
+        
+       
 
         while True :
+            
             read = ser.read()
             #print(read)
-            if read == b'\r' :
+            if read == b'\r':
+                
                 break
-            
+            else:
+                count = count+1
+            start_time = time.time()
             buff_data.append(read)
+            end_time = time.time()
+            print(end_time - start_time)
+
+        print(count)
+        
+        
 
         for x in range (len(buff_data)):
                buff_str += str(buff_data[x])
@@ -128,8 +141,9 @@ def send_command(command) :
         return (buff_data)
 
 
+
 test = []
-test = send_command("0.00 2 4")
+test = send_command("QPIGS")
 print(test[:])
 
 
